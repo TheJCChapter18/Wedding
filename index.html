@@ -52,10 +52,18 @@
             scroll-behavior: smooth;
         }
 
-        /* Subtle Floral Background Accents */
-        .bg-floral-pattern {
-            background-color: var(--color-bg);
-            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M54.627 0l.83.83v58.34h-58.34l-.83-.83V0h58.34zM29.5 48.5c-4.97 0-9-4.03-9-9s4.03-9 9-9 9 4.03 9 9-4.03 9-9 9zm0-16c-3.86 0-7 3.14-7 7s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm16-16c-4.97 0-9-4.03-9-9s4.03-9 9-9 9 4.03 9 9-4.03 9-9 9zm0-16c-3.86 0-7 3.14-7 7s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7z' fill='%23b56576' fill-opacity='0.07' fill-rule='evenodd'/%3E%3C/svg%3E");
+        /* Double-Border Editorial Frame Section Styling */
+        .editorial-section {
+            background-color: #faf6f0;
+            position: relative;
+        }
+        .editorial-frame {
+            position: relative;
+            border: 1px solid rgba(197, 160, 125, 0.45);
+            outline: 1px solid rgba(181, 101, 118, 0.25);
+            outline-offset: -8px;
+            border-radius: 1.75rem;
+            background-color: rgba(252, 249, 245, 0.65);
         }
 
         /* Envelope Curtain Transition */
@@ -139,10 +147,8 @@
     </script>
 
     <!-- ENVELOPE / WAX SEAL INTRO COVER -->
-    <div id="envelope-overlay" class="fixed inset-0 z-[90] bg-floral-pattern flex flex-col items-center justify-center p-6 text-center select-none">
-        <div class="max-w-lg w-full bg-creamcard/95 backdrop-blur-md p-10 md:p-14 rounded-3xl shadow-2xl border-2 border-dustypink/40 relative">
-            <div class="absolute inset-3 border border-dustypink/25 rounded-2xl pointer-events-none"></div>
-            
+    <div id="envelope-overlay" class="fixed inset-0 z-[90] bg-[#faf6f0] flex flex-col items-center justify-center p-6 text-center select-none">
+        <div class="max-w-lg w-full bg-creamcard p-10 md:p-14 rounded-3xl shadow-2xl border border-[#c5a07d]/50 outline outline-1 outline-oldrose/25 -outline-offset-[10px] relative">
             <p class="font-body text-xs uppercase tracking-[0.3em] text-dustypink font-semibold mb-4">You Are Cordially Invited To The Wedding Of</p>
             <h1 class="font-names text-5xl md:text-7xl text-oldrose mb-3">Jason &amp; Camilla</h1>
             <p id="envelope-date-display" class="font-headings text-base md:text-lg text-textdark tracking-widest uppercase mb-8">December 18, 2026 &bull; Baguio City</p>
@@ -270,19 +276,20 @@
             </div>
         </section>
 
-        <!-- When & Where + Map & Waze Navigation Buttons -->
-        <section id="our-wedding" class="py-24 bg-floral-pattern">
-            <div class="max-w-5xl mx-auto px-4">
-                <div class="text-center mb-16 reveal">
+        <!-- When & Where + Map & Waze Navigation Buttons (Double-Border Editorial Frame) -->
+        <section id="our-wedding" class="py-20 md:py-24 editorial-section px-4">
+            <div class="max-w-5xl mx-auto editorial-frame p-6 sm:p-10 md:p-14 reveal">
+                <div class="text-center mb-14">
+                    <p class="font-body text-xs uppercase tracking-[0.25em] text-dustypink font-semibold mb-2">Ceremony &amp; Reception</p>
                     <h2 class="font-names text-5xl md:text-6xl text-oldrose mb-4">When &amp; Where</h2>
                     <p class="font-body text-textlight max-w-xl mx-auto">Please join us in celebrating our special day at these locations.</p>
                 </div>
 
-                <div class="grid md:grid-cols-2 gap-12 lg:gap-16">
+                <div class="grid md:grid-cols-2 gap-10 lg:gap-14">
                     <!-- Ceremony -->
-                    <div class="text-center reveal bg-creamcard p-8 rounded-3xl shadow-md border border-dustypink/30 flex flex-col justify-between">
+                    <div class="text-center bg-white/80 p-7 rounded-2xl shadow-sm border border-[#c5a07d]/35 flex flex-col justify-between">
                         <div>
-                            <div class="w-full h-64 mb-6 rounded-2xl overflow-hidden shadow-inner relative">
+                            <div class="w-full h-64 mb-6 rounded-xl overflow-hidden shadow-inner relative">
                                 <img id="ceremony-img-display" src="https://images.unsplash.com/photo-1548625361-b51fbce91fb5?auto=format&fit=crop&w=800&q=80" alt="Ceremony Venue" class="w-full h-full object-cover transition-transform duration-700 hover:scale-105">
                             </div>
                             <h3 class="font-headings text-2xl mb-2 text-oldrose font-semibold">The Ceremony</h3>
@@ -301,9 +308,9 @@
                     </div>
 
                     <!-- Reception -->
-                    <div class="text-center reveal bg-creamcard p-8 rounded-3xl shadow-md border border-dustypink/30 flex flex-col justify-between">
+                    <div class="text-center bg-white/80 p-7 rounded-2xl shadow-sm border border-[#c5a07d]/35 flex flex-col justify-between">
                         <div>
-                            <div class="w-full h-64 mb-6 rounded-2xl overflow-hidden shadow-inner relative">
+                            <div class="w-full h-64 mb-6 rounded-xl overflow-hidden shadow-inner relative">
                                 <img id="reception-img-display" src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=800&q=80" alt="Reception Venue" class="w-full h-full object-cover transition-transform duration-700 hover:scale-105">
                             </div>
                             <h3 class="font-headings text-2xl mb-2 text-oldrose font-semibold">The Reception</h3>
@@ -381,9 +388,9 @@ Bridesmaid 2</p>
             </div>
         </section>
 
-        <!-- ATTIRE & COLOR PALETTE GUIDE -->
-        <section id="attire" class="py-24 bg-floral-pattern">
-            <div class="max-w-4xl mx-auto px-4 reveal text-center">
+        <!-- ATTIRE & COLOR PALETTE GUIDE (Double-Border Editorial Frame) -->
+        <section id="attire" class="py-20 md:py-24 editorial-section px-4">
+            <div class="max-w-4xl mx-auto editorial-frame p-8 sm:p-12 md:p-16 reveal text-center">
                 <p class="font-body text-xs uppercase tracking-[0.25em] text-dustypink font-semibold mb-2">Dress Code</p>
                 <h2 class="font-names text-5xl md:text-6xl text-oldrose mb-4">Attire &amp; Color Palette</h2>
                 <p id="display-attire-subtitle" class="font-headings text-xl text-oldrose italic mb-6">Formal / Semi-Formal Attire</p>
@@ -392,7 +399,7 @@ Bridesmaid 2</p>
                 </p>
 
                 <!-- 5 Circular Color Swatches -->
-                <div class="bg-creamcard p-8 rounded-3xl shadow-md border border-dustypink/30 inline-block">
+                <div class="bg-white/80 p-8 rounded-2xl shadow-sm border border-[#c5a07d]/35 inline-block">
                     <div class="flex flex-wrap justify-center gap-6 md:gap-8">
                         <div class="flex flex-col items-center">
                             <div id="swatch-1" class="w-16 h-16 md:w-20 md:h-20 rounded-full shadow-md border-4 border-white" style="background-color: #b56576;"></div>
@@ -458,29 +465,27 @@ Bridesmaid 2</p>
             </div>
         </section>
 
-        <!-- GIFT GUIDE & REGISTRY / QR CODE -->
-        <section id="gifts" class="py-24 bg-floral-pattern">
-            <div class="max-w-4xl mx-auto px-4 reveal text-center">
+        <!-- GIFT GUIDE & REGISTRY / QR CODE (Double-Border Editorial Frame) -->
+        <section id="gifts" class="py-20 md:py-24 editorial-section px-4">
+            <div class="max-w-4xl mx-auto editorial-frame p-8 sm:p-12 md:p-16 reveal text-center">
                 <p class="font-body text-xs uppercase tracking-[0.25em] text-dustypink font-semibold mb-2">Note On Gifts</p>
                 <h2 class="font-names text-5xl md:text-6xl text-oldrose mb-6">Gift Guide</h2>
                 
-                <div class="bg-creamcard p-8 md:p-12 rounded-3xl shadow-md border border-dustypink/30">
-                    <p id="display-gift-note" class="font-headings text-lg md:text-xl text-oldrose italic leading-relaxed max-w-2xl mx-auto mb-8">
-                        Your presence at our wedding is the greatest gift of all. However, should you wish to bless us with a gift, a monetary contribution toward our future home would be warmly appreciated.
-                    </p>
+                <p id="display-gift-note" class="font-headings text-lg md:text-xl text-oldrose italic leading-relaxed max-w-2xl mx-auto mb-8">
+                    Your presence at our wedding is the greatest gift of all. However, should you wish to bless us with a gift, a monetary contribution toward our future home would be warmly appreciated.
+                </p>
 
-                    <div id="gift-details-wrapper" class="flex flex-col md:flex-row items-center justify-center gap-8 pt-4 border-t border-dustypink/20">
-                        <div id="gift-qr-container" class="hidden">
-                            <div class="p-3 bg-white rounded-2xl shadow border border-dustypink/30 inline-block">
-                                <img id="display-gift-qr" src="" alt="Gift QR Code" class="w-44 h-44 object-contain">
-                            </div>
-                            <p class="text-xs text-textlight mt-2">Scan via GCash / Maya / Bank App</p>
+                <div id="gift-details-wrapper" class="flex flex-col md:flex-row items-center justify-center gap-8 pt-6 border-t border-[#c5a07d]/35">
+                    <div id="gift-qr-container" class="hidden">
+                        <div class="p-3 bg-white rounded-2xl shadow-sm border border-[#c5a07d]/40 inline-block">
+                            <img id="display-gift-qr" src="" alt="Gift QR Code" class="w-44 h-44 object-contain">
                         </div>
-                        <div class="text-center md:text-left">
-                            <p class="text-xs uppercase tracking-widest text-dustypink font-semibold mb-2">Account Details</p>
-                            <p id="display-gift-account" class="font-body text-textdark leading-relaxed whitespace-pre-line">GCash: 09XX-XXX-XXXX (Jason / Camilla)
+                        <p class="text-xs text-textlight mt-2">Scan via GCash / Maya / Bank App</p>
+                    </div>
+                    <div class="text-center md:text-left">
+                        <p class="text-xs uppercase tracking-widest text-dustypink font-semibold mb-2">Account Details</p>
+                        <p id="display-gift-account" class="font-body text-textdark leading-relaxed whitespace-pre-line">GCash: 09XX-XXX-XXXX (Jason / Camilla)
 BPI / BDO: Account Details Here</p>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -510,16 +515,16 @@ BPI / BDO: Account Details Here</p>
             </div>
         </section>
 
-        <!-- FAQs ACCORDION SECTION -->
-        <section id="faqs" class="py-24 bg-floral-pattern">
-            <div class="max-w-3xl mx-auto px-4 reveal">
+        <!-- FAQs ACCORDION SECTION (Double-Border Editorial Frame) -->
+        <section id="faqs" class="py-20 md:py-24 editorial-section px-4">
+            <div class="max-w-3xl mx-auto editorial-frame p-6 sm:p-10 md:p-14 reveal">
                 <div class="text-center mb-12">
                     <p class="font-body text-xs uppercase tracking-[0.25em] text-dustypink font-semibold mb-2">Helpful Information</p>
                     <h2 class="font-names text-5xl md:text-6xl text-oldrose">Frequently Asked Questions</h2>
                 </div>
 
                 <div class="space-y-4">
-                    <details class="group bg-creamcard rounded-2xl border border-dustypink/30 shadow-sm p-6 cursor-pointer" open>
+                    <details class="group bg-white/85 rounded-2xl border border-[#c5a07d]/35 shadow-sm p-6 cursor-pointer" open>
                         <summary class="flex justify-between items-center font-headings text-lg text-oldrose font-semibold list-none">
                             <span id="display-faq-q1">What time should I arrive at the ceremony?</span>
                             <span class="text-dustypink transition-transform group-open:rotate-180">&#9662;</span>
@@ -529,7 +534,7 @@ BPI / BDO: Account Details Here</p>
                         </p>
                     </details>
 
-                    <details class="group bg-creamcard rounded-2xl border border-dustypink/30 shadow-sm p-6 cursor-pointer">
+                    <details class="group bg-white/85 rounded-2xl border border-[#c5a07d]/35 shadow-sm p-6 cursor-pointer">
                         <summary class="flex justify-between items-center font-headings text-lg text-oldrose font-semibold list-none">
                             <span id="display-faq-q2">Can I bring a plus one?</span>
                             <span class="text-dustypink transition-transform group-open:rotate-180">&#9662;</span>
@@ -539,7 +544,7 @@ BPI / BDO: Account Details Here</p>
                         </p>
                     </details>
 
-                    <details class="group bg-creamcard rounded-2xl border border-dustypink/30 shadow-sm p-6 cursor-pointer">
+                    <details class="group bg-white/85 rounded-2xl border border-[#c5a07d]/35 shadow-sm p-6 cursor-pointer">
                         <summary class="flex justify-between items-center font-headings text-lg text-oldrose font-semibold list-none">
                             <span id="display-faq-q3">Are children allowed at the wedding?</span>
                             <span class="text-dustypink transition-transform group-open:rotate-180">&#9662;</span>
@@ -549,7 +554,7 @@ BPI / BDO: Account Details Here</p>
                         </p>
                     </details>
 
-                    <details class="group bg-creamcard rounded-2xl border border-dustypink/30 shadow-sm p-6 cursor-pointer">
+                    <details class="group bg-white/85 rounded-2xl border border-[#c5a07d]/35 shadow-sm p-6 cursor-pointer">
                         <summary class="flex justify-between items-center font-headings text-lg text-oldrose font-semibold list-none">
                             <span id="display-faq-q4">Is parking available at the venues?</span>
                             <span class="text-dustypink transition-transform group-open:rotate-180">&#9662;</span>
@@ -1168,7 +1173,6 @@ BPI / BDO: Account Details Here</p>
                 const docSnap = await getDoc(docRef);
                 if (docSnap.exists()) {
                     siteData = { ...siteData, ...docSnap.data() };
-                    // Backward compatibility if old prenupImage1-3 exist without rouletteImages
                     if (!siteData.rouletteImages || siteData.rouletteImages.length === 0) {
                         siteData.rouletteImages = [
                             siteData.prenupImage1 || "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=1200&q=80",
