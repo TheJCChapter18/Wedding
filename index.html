@@ -141,11 +141,6 @@
 </head>
 <body class="font-body antialiased relative">
 
-    <!-- Global configuration for Apps Script RSVP -->
-    <script>
-        window.APPS_SCRIPT_URL = ""; 
-    </script>
-
     <!-- ENVELOPE / WAX SEAL INTRO COVER -->
     <div id="envelope-overlay" class="fixed inset-0 z-[90] bg-[#faf6f0] flex flex-col items-center justify-center p-6 text-center select-none">
         <div class="max-w-lg w-full bg-creamcard p-10 md:p-14 rounded-3xl shadow-2xl border border-[#c5a07d]/50 outline outline-1 outline-oldrose/25 -outline-offset-[10px] relative">
@@ -679,7 +674,7 @@ BPI / BDO: Account Details Here</p>
         <!-- Admin Header -->
         <div class="bg-white shadow-sm border-b border-gray-200 px-6 py-4 flex justify-between items-center shrink-0">
             <h1 class="font-headings text-xl md:text-2xl text-oldrose font-semibold flex items-center gap-2">
-                Website Editor
+                Website Editor &amp; RSVP Manager
             </h1>
             <div class="flex items-center gap-3">
                 <button onclick="closeAdmin()" class="px-3 py-2 border border-gray-300 rounded text-sm hover:bg-gray-100 transition">Preview</button>
@@ -692,14 +687,64 @@ BPI / BDO: Account Details Here</p>
 
         <!-- Admin Content Scrollable -->
         <div class="flex-1 overflow-y-auto p-4 md:p-10 font-body">
-            <div class="max-w-4xl mx-auto space-y-8">
+            <div class="max-w-5xl mx-auto space-y-8">
                 
-                <div class="bg-rose-50 border-l-4 border-oldrose p-4 text-sm text-gray-700 rounded-r">
-                    <p><strong>Tip:</strong> Photos, QR codes, and music files upload immediately when chosen, then click <strong>Save Changes</strong> at the top right to publish all updates permanently.</p>
+                <!-- 0. LIVE RSVP GUEST LIST & HEADCOUNT -->
+                <div class="bg-white p-6 rounded-xl shadow-sm border-2 border-oldrose/40">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5 border-b pb-3">
+                        <div>
+                            <h2 class="text-lg font-headings font-semibold text-oldrose">Guest RSVP Responses</h2>
+                            <p class="text-xs text-gray-500">Live guest submissions stored in your Firebase database.</p>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <button type="button" onclick="loadRsvpList()" class="px-3 py-2 border border-gray-300 rounded-lg text-xs hover:bg-gray-100 transition font-medium">
+                                Refresh
+                            </button>
+                            <button type="button" onclick="exportRsvpsCsv()" class="px-4 py-2 bg-oldrose text-white rounded-lg hover:bg-dustypink transition text-xs font-medium shadow-sm">
+                                Download CSV (Excel)
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Summary Metrics -->
+                    <div class="grid grid-cols-3 gap-4 mb-5 text-center">
+                        <div class="bg-rose-50/70 p-3 rounded-lg border border-rose-200/60">
+                            <p class="text-[11px] uppercase tracking-wider text-gray-500">Total Submissions</p>
+                            <p id="rsvp-stat-total" class="text-2xl font-headings font-bold text-oldrose mt-1">0</p>
+                        </div>
+                        <div class="bg-emerald-50/70 p-3 rounded-lg border border-emerald-200/60">
+                            <p class="text-[11px] uppercase tracking-wider text-gray-500">Confirmed Guests (Pax)</p>
+                            <p id="rsvp-stat-attending" class="text-2xl font-headings font-bold text-emerald-700 mt-1">0</p>
+                        </div>
+                        <div class="bg-gray-100 p-3 rounded-lg border border-gray-200">
+                            <p class="text-[11px] uppercase tracking-wider text-gray-500">Declined</p>
+                            <p id="rsvp-stat-declined" class="text-2xl font-headings font-bold text-gray-600 mt-1">0</p>
+                        </div>
+                    </div>
+
+                    <!-- Guest Table -->
+                    <div class="overflow-x-auto border rounded-lg">
+                        <table class="w-full text-left border-collapse text-xs">
+                            <thead>
+                                <tr class="bg-gray-100 text-gray-600 uppercase tracking-wider border-b">
+                                    <th class="p-3">Guest Name</th>
+                                    <th class="p-3">Status</th>
+                                    <th class="p-3">Pax</th>
+                                    <th class="p-3">Additional Guests</th>
+                                    <th class="p-3">Message</th>
+                                    <th class="p-3">Date</th>
+                                    <th class="p-3 text-right">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="rsvp-table-body" class="divide-y divide-gray-100">
+                                <tr><td colspan="7" class="p-4 text-center text-gray-400 italic">Loading RSVP responses...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
 
                 <!-- 1. Save the Date Roulette Photos (UNLIMITED MULTI-UPLOAD) -->
-                <div class="bg-white p-6 rounded-xl shadow-sm border-2 border-oldrose/40">
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
                     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4 border-b pb-3">
                         <div>
                             <h2 class="text-lg font-headings font-semibold text-oldrose">1. Save the Date Photo Roulette (Unlimited Photos)</h2>
@@ -1054,7 +1099,7 @@ BPI / BDO: Account Details Here</p>
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInWithEmailAndPassword, signInAnonymously, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getFirestore, doc, getDoc, setDoc, collection, addDoc, getDocs, deleteDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
         import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-storage.js";
 
         // Your Connected Firebase Project
@@ -1140,6 +1185,7 @@ BPI / BDO: Account Details Here</p>
         let isMusicPlaying = false;
         let currentSlide = 0;
         let rouletteTimer = null;
+        let cachedRsvps = [];
 
         async function init() {
             window.addEventListener('scroll', revealElements);
@@ -1151,6 +1197,7 @@ BPI / BDO: Account Details Here</p>
                 if (user && !user.isAnonymous) {
                     isAdminLoggedIn = true;
                     populateAdminDashboard();
+                    window.loadRsvpList();
                 } else {
                     isAdminLoggedIn = false;
                 }
@@ -1453,16 +1500,16 @@ BPI / BDO: Account Details Here</p>
             }, 3500);
         }
 
-        // RSVP Submission
+        // RSVP Submission Directly to Firebase Firestore
         document.getElementById('rsvp-form').addEventListener('submit', async (e) => {
             e.preventDefault();
             const btn = document.getElementById('rsvp-submit-btn');
             const formData = {
-                name: document.getElementById('rsvp-name').value,
-                count: document.getElementById('rsvp-count').value,
+                name: document.getElementById('rsvp-name').value.trim(),
+                count: parseInt(document.getElementById('rsvp-count').value, 10) || 1,
                 attendance: document.getElementById('rsvp-attendance').value,
-                additionalNames: document.getElementById('rsvp-additional').value,
-                message: document.getElementById('rsvp-message').value,
+                additionalNames: document.getElementById('rsvp-additional').value.trim(),
+                message: document.getElementById('rsvp-message').value.trim(),
                 timestamp: new Date().toISOString()
             };
 
@@ -1470,29 +1517,134 @@ BPI / BDO: Account Details Here</p>
             btn.disabled = true;
 
             try {
-                if (window.APPS_SCRIPT_URL && window.APPS_SCRIPT_URL.trim() !== "") {
-                    await fetch(window.APPS_SCRIPT_URL, {
-                        method: 'POST',
-                        mode: 'no-cors',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(formData)
-                    });
-                } else {
-                    await new Promise(resolve => setTimeout(resolve, 1000));
+                if (!auth.currentUser) {
+                    await signInAnonymously(auth);
                 }
+                const rsvpCol = collection(db, 'artifacts', appId, 'public', 'data', 'rsvps');
+                await addDoc(rsvpCol, formData);
+
                 document.getElementById('rsvp-form-container').classList.add('hidden');
                 document.getElementById('rsvp-success').classList.remove('hidden');
             } catch (error) {
-                showToast("An error occurred. Please try again.");
+                console.error("RSVP Save Error:", error);
+                showToast("Could not send RSVP. Please check your connection.");
                 btn.innerHTML = 'Send RSVP';
                 btn.disabled = false;
             }
         });
 
+        // Admin RSVP List Loader & CSV Exporter
+        window.loadRsvpList = async () => {
+            const tbody = document.getElementById('rsvp-table-body');
+            if (!auth.currentUser || auth.currentUser.isAnonymous) return;
+
+            tbody.innerHTML = `<tr><td colspan="7" class="p-4 text-center text-gray-400 italic">Loading guest list...</td></tr>`;
+            try {
+                const rsvpCol = collection(db, 'artifacts', appId, 'public', 'data', 'rsvps');
+                const snap = await getDocs(rsvpCol);
+                cachedRsvps = [];
+                snap.forEach((docSnap) => {
+                    cachedRsvps.push({ id: docSnap.id, ...docSnap.data() });
+                });
+
+                // Sort newest first
+                cachedRsvps.sort((a, b) => (b.timestamp || '').localeCompare(a.timestamp || ''));
+
+                let totalSubmissions = cachedRsvps.length;
+                let confirmedPax = 0;
+                let declinedCount = 0;
+
+                cachedRsvps.forEach((item) => {
+                    if (item.attendance === 'Joyfully Accepts') {
+                        confirmedPax += Number(item.count) || 1;
+                    } else {
+                        declinedCount += 1;
+                    }
+                });
+
+                document.getElementById('rsvp-stat-total').textContent = totalSubmissions;
+                document.getElementById('rsvp-stat-attending').textContent = confirmedPax;
+                document.getElementById('rsvp-stat-declined').textContent = declinedCount;
+
+                if (cachedRsvps.length === 0) {
+                    tbody.innerHTML = `<tr><td colspan="7" class="p-6 text-center text-gray-400 italic">No RSVPs submitted yet.</td></tr>`;
+                    return;
+                }
+
+                tbody.innerHTML = cachedRsvps.map((r) => {
+                    const isAccepted = r.attendance === 'Joyfully Accepts';
+                    const badge = isAccepted
+                        ? `<span class="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 font-medium">Attending</span>`
+                        : `<span class="px-2 py-0.5 rounded-full bg-gray-200 text-gray-700 font-medium">Declined</span>`;
+                    const formattedDate = r.timestamp ? new Date(r.timestamp).toLocaleDateString() : '-';
+                    return `
+                        <tr class="hover:bg-gray-50">
+                            <td class="p-3 font-medium text-gray-800">${escapeHtml(r.name)}</td>
+                            <td class="p-3">${badge}</td>
+                            <td class="p-3 font-semibold">${isAccepted ? r.count : 0}</td>
+                            <td class="p-3 text-gray-600">${escapeHtml(r.additionalNames || '-')}</td>
+                            <td class="p-3 text-gray-600 max-w-xs truncate" title="${escapeHtml(r.message || '')}">${escapeHtml(r.message || '-')}</td>
+                            <td class="p-3 text-gray-400">${formattedDate}</td>
+                            <td class="p-3 text-right">
+                                <button type="button" onclick="deleteRsvpEntry('${r.id}')" class="text-red-500 hover:underline">Delete</button>
+                            </td>
+                        </tr>
+                    `;
+                }).join('');
+            } catch (err) {
+                console.error("Load RSVP Error:", err);
+                tbody.innerHTML = `<tr><td colspan="7" class="p-4 text-center text-red-500">Failed to load RSVPs. Check Firestore rules.</td></tr>`;
+            }
+        };
+
+        window.deleteRsvpEntry = async (docId) => {
+            if (!confirm("Remove this RSVP entry?")) return;
+            try {
+                await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'rsvps', docId));
+                showToast("RSVP entry deleted.");
+                window.loadRsvpList();
+            } catch (err) {
+                showToast("Failed to delete entry.");
+            }
+        };
+
+        window.exportRsvpsCsv = () => {
+            if (cachedRsvps.length === 0) {
+                showToast("No RSVPs to export yet.");
+                return;
+            }
+            const headers = ["Guest Name", "Attendance", "Number of Guests", "Additional Guests", "Message", "Submitted At"];
+            const rows = cachedRsvps.map(r => [
+                `"${(r.name || '').replace(/"/g, '""')}"`,
+                `"${(r.attendance || '').replace(/"/g, '""')}"`,
+                r.attendance === 'Joyfully Accepts' ? (r.count || 1) : 0,
+                `"${(r.additionalNames || '').replace(/"/g, '""')}"`,
+                `"${(r.message || '').replace(/"/g, '""')}"`,
+                `"${r.timestamp || ''}"`
+            ]);
+            const csvContent = "data:text/csv;charset=utf-8," + [headers.join(","), ...rows.map(e => e.join(","))].join("\n");
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", "Jason_Camilla_Wedding_RSVPs.csv");
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        };
+
+        function escapeHtml(str) {
+            return String(str)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;");
+        }
+
         // Admin Controls
         window.toggleAdminLogin = () => {
             if (isAdminLoggedIn) {
                 populateAdminDashboard();
+                window.loadRsvpList();
                 openAdmin();
             } else {
                 document.getElementById('admin-login-modal').classList.remove('hidden');
@@ -1519,6 +1671,7 @@ BPI / BDO: Account Details Here</p>
                 await signInWithEmailAndPassword(auth, email, password);
                 isAdminLoggedIn = true;
                 populateAdminDashboard();
+                window.loadRsvpList();
                 closeAdminLogin();
                 openAdmin();
             } catch (error) {
