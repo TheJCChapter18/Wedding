@@ -480,47 +480,6 @@
     }
     .form-control:focus { outline: none; border-color: var(--primary-rose); background: var(--white); }
 
-    /* Floating Google Drive Music Widget */
-    #music-widget {
-      position: fixed;
-      bottom: 18px;
-      left: 18px;
-      z-index: 900;
-      background: var(--bg-cream);
-      border: 1px solid var(--champagne-gold);
-      border-radius: 14px;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.16);
-      overflow: hidden;
-      width: 280px;
-      transition: all 0.3s ease;
-    }
-    #music-widget-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0.5rem 0.85rem;
-      background: var(--primary-rose);
-      color: #fff;
-      font-size: 0.78rem;
-      font-weight: 600;
-      cursor: pointer;
-    }
-    #music-embed-body {
-      height: 68px;
-      background: #fff;
-      transition: height 0.25s ease;
-    }
-    #music-widget.minimized #music-embed-body {
-      height: 0;
-      overflow: hidden;
-    }
-    #music-iframe {
-      width: 100%;
-      height: 68px;
-      border: none;
-      display: block;
-    }
-
     footer {
       background: #2f2123;
       color: #e8dcd9;
@@ -658,11 +617,16 @@
       .nav-toggle { display: block; }
       .carousel-slide { height: 300px; }
       .editorial-frame { padding: 2rem 1.2rem; }
-      #music-widget { width: 230px; bottom: 12px; left: 12px; }
     }
   </style>
 </head>
 <body>
+
+  <!-- Hidden Looping Background Music (Triggered on Wax Seal Click) -->
+  <audio id="bg-music" loop preload="auto" style="display:none;">
+    <source src="https://docs.google.com/uc?export=download&id=1BPs67J3M1KPgXVtitGAXPl_PwSDTyRc4" type="audio/mpeg" />
+    <source src="https://drive.google.com/uc?export=open&id=1BPs67J3M1KPgXVtitGAXPl_PwSDTyRc4" type="audio/mpeg" />
+  </audio>
 
   <!-- Envelope Seal Intro Cover -->
   <div id="envelope-cover">
@@ -920,17 +884,6 @@
     </div>
   </section>
 
-  <!-- Floating Embedded Google Drive Music Player -->
-  <div id="music-widget" style="display: none;">
-    <div id="music-widget-header" title="Click to Minimize/Expand Player">
-      <span>♪ Wedding Song</span>
-      <span id="music-toggle-icon">−</span>
-    </div>
-    <div id="music-embed-body">
-      <iframe id="music-iframe" allow="autoplay"></iframe>
-    </div>
-  </div>
-
   <!-- Footer -->
   <footer>
     <p class="script" style="font-size: 2.2rem; color: #f3d5dc;" id="footer-names">Jason & Camilla</p>
@@ -966,9 +919,9 @@
         <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 1rem;">
           <div class="admin-tabs" style="margin-bottom: 0; border-bottom: none; padding-bottom: 0;">
             <button class="tab-btn active" data-tab="tab-rsvps">Guest RSVPs</button>
-            <button class="tab-btn" data-tab="tab-photos">Google Drive Photos & Gallery</button>
+            <button class="tab-btn" data-tab="tab-photos">Save The Date & Photos</button>
             <button class="tab-btn" data-tab="tab-content">Text, Venues & Verse</button>
-            <button class="tab-btn" data-tab="tab-theme">Colors & Music</button>
+            <button class="tab-btn" data-tab="tab-theme">Colors & Cover</button>
           </div>
           <div style="display: flex; gap: 0.5rem;">
             <button id="save-all-btn" class="btn btn-primary" style="padding: 0.6rem 1.3rem;">Save Changes</button>
@@ -1008,25 +961,25 @@
         <!-- TAB 2: Google Drive Photos & Gallery -->
         <div class="tab-pane" id="tab-photos">
           <div style="background: var(--bg-cream); border: 1px solid var(--border-soft); padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem;">
-            <strong>How to Use Your Google Drive Folder:</strong>
+            <strong>Save The Date Auto-Slideshow Folder:</strong>
             <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.3rem;">
-              Open your <a href="https://drive.google.com/drive/folders/10Hb5jiAtJyi0m5tQCAWlFvED7_geUzd0?usp=sharing" target="_blank" rel="noopener" style="color: var(--primary-rose); font-weight: 600;">Shared Google Drive Folder ↗</a> (make sure folder sharing is set to <em>"Anyone with the link can view"</em>). Right-click any image → <strong>Share → Copy link</strong> and paste it below. Links are automatically converted for fast display.
+              The client can drop any new Save-the-Date photos directly into the <a href="https://drive.google.com/drive/folders/1LwSa8BOPsoxPmEth-YOGvU9qq9HcaVWm?usp=drive_link" target="_blank" rel="noopener" style="color: var(--primary-rose); font-weight: 600;">Save The Date Google Drive Folder ↗</a> (ensure sharing is set to <em>"Anyone with the link can view"</em>). Connect your Google Apps Script URL below once so the slideshow loads new folder photos automatically without manual uploads.
             </p>
           </div>
 
           <h4 class="serif" style="margin-bottom: 0.8rem;">1. Save The Date Photo Gallery Carousel (Auto-Slideshow)</h4>
           <div style="background: var(--bg-cream); padding: 1rem; border-radius: 8px; border: 1px solid var(--border-soft); margin-bottom: 1.5rem;">
             <div class="form-group">
-              <label>Option A: 1-Click Sync All Photos from Your Shared Folder (Optional Apps Script URL)</label>
+              <label>Google Apps Script Feed URL (Auto-loads all photos from the Save The Date Folder)</label>
               <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
                 <input type="url" id="ed-drive-script-url" class="form-control" style="flex: 1; min-width: 220px;" placeholder="https://script.google.com/macros/s/.../exec" />
-                <button type="button" id="sync-drive-folder-btn" class="btn btn-primary" style="padding: 0.65rem 1.2rem;">🔄 Sync Folder Now</button>
+                <button type="button" id="sync-drive-folder-btn" class="btn btn-primary" style="padding: 0.65rem 1.2rem;">🔄 Refresh Folder Now</button>
               </div>
-              <small style="color: var(--text-muted); font-size: 0.78rem;">Pre-targeted to your Shared Drive Folder</small>
+              <small style="color: var(--text-muted); font-size: 0.78rem;">Once saved, visitors automatically see all photos stored in the Save The Date folder.</small>
             </div>
 
             <div class="form-group" style="margin-bottom: 0;">
-              <label>Option B: Paste Individual Google Drive Photo Link(s) to Add to Gallery</label>
+              <label>Or Paste Individual Google Drive Photo Link(s) Manually</label>
               <div style="display: flex; gap: 0.5rem;">
                 <input type="text" id="new-gallery-drive-url" class="form-control" placeholder="Paste Google Drive file link here..." />
                 <button type="button" id="add-gallery-url-btn" class="btn btn-outline">+ Add Photo</button>
@@ -1117,20 +1070,15 @@
           </div>
         </div>
 
-        <!-- TAB 4: Colors & Music -->
+        <!-- TAB 4: Colors & Cover -->
         <div class="tab-pane" id="tab-theme">
           <div class="grid-2">
             <div class="form-group">
               <label>Show Envelope Seal Intro Cover</label>
               <select id="ed-show-envelope" class="form-control">
-                <option value="true">Enabled</option>
+                <option value="true">Enabled (Recommended for Music Auto-Start)</option>
                 <option value="false">Disabled</option>
               </select>
-            </div>
-            <div class="form-group">
-              <label>Google Drive Music Link (Audio MP3)</label>
-              <input type="text" id="ed-audio-url" class="form-control" placeholder="Paste Google Drive audio link..." />
-              <small style="color: var(--text-muted); font-size: 0.78rem;">Ensure the audio file in Drive is shared as "Anyone with the link can view".</small>
             </div>
             <div class="form-group"><label>Primary Rose Color</label><input type="color" id="ed-color-primary" class="form-control" style="height: 44px;" /></div>
             <div class="form-group"><label>Secondary Pink Color</label><input type="color" id="ed-color-secondary" class="form-control" style="height: 44px;" /></div>
@@ -1164,7 +1112,8 @@
     const auth = getAuth(app);
     const db = getFirestore(app);
 
-    const SHARED_DRIVE_FOLDER_ID = "10Hb5jiAtJyi0m5tQCAWlFvED7_geUzd0";
+    // Save The Date Google Drive Folder ID
+    const SAVE_THE_DATE_FOLDER_ID = "1LwSa8BOPsoxPmEth-YOGvU9qq9HcaVWm";
 
     // Helper: Convert any Google Drive share link into a direct fast-loading image URL
     function normalizeDriveUrl(url) {
@@ -1177,21 +1126,6 @@
       const idParamMatch = clean.match(/[?&]id=([a-zA-Z0-9_-]+)/);
       if (idParamMatch && idParamMatch[1]) {
         return `https://lh3.googleusercontent.com/d/${idParamMatch[1]}`;
-      }
-      return clean;
-    }
-
-    // Helper: Convert Google Drive audio share link into embeddable /preview player URL
-    function normalizeDriveEmbedAudioUrl(url) {
-      if (!url) return "";
-      const clean = url.trim();
-      const fileMatch = clean.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
-      if (fileMatch && fileMatch[1]) {
-        return `https://drive.google.com/file/d/${fileMatch[1]}/preview`;
-      }
-      const idParamMatch = clean.match(/[?&]id=([a-zA-Z0-9_-]+)/);
-      if (idParamMatch && idParamMatch[1]) {
-        return `https://drive.google.com/file/d/${idParamMatch[1]}/preview`;
       }
       return clean;
     }
@@ -1250,7 +1184,6 @@
       rsvpDeadline: "Kindly Respond By November 18, 2026",
       thankyouMsg: "Your RSVP has been recorded. We cannot wait to celebrate this special day with you!",
       showEnvelope: "true",
-      audioUrl: "https://drive.google.com/file/d/1UxJAsd4NaLjXnI4st3sEbNkcFXa6Zmcm/view?usp=drive_link",
       colorPrimary: "#b56576",
       colorSecondary: "#e5989b",
       colorBeige: "#f5efe6",
@@ -1342,25 +1275,11 @@
       document.getElementById('footer-names').textContent = siteConfig.names;
       document.getElementById('footer-sub').textContent = siteConfig.dateText;
 
-      // Embedded Google Drive Music Player
-      const musicWidget = document.getElementById('music-widget');
-      const musicIframe = document.getElementById('music-iframe');
-      const activeAudio = siteConfig.audioUrl || defaultConfig.audioUrl;
-      if (activeAudio) {
-        const embedUrl = normalizeDriveEmbedAudioUrl(activeAudio);
-        if (musicIframe.src !== embedUrl) {
-          musicIframe.src = embedUrl;
-        }
-        musicWidget.style.display = 'block';
-      } else {
-        musicWidget.style.display = 'none';
-      }
-
       renderCarousel();
       startCarouselAutoplay();
     }
 
-    // Carousel Logic with Auto-Slideshow
+    // Carousel Logic with Continuous Auto-Slideshow
     function renderCarousel() {
       const imgs = (siteConfig.rouletteImages && siteConfig.rouletteImages.length) ? siteConfig.rouletteImages : defaultConfig.rouletteImages;
       if (slideIndex >= imgs.length) slideIndex = 0;
@@ -1420,19 +1339,40 @@
       document.getElementById('cd-secs').textContent = String(Math.floor((diff % 60000) / 1000)).padStart(2, '0');
     }, 1000);
 
-    // Envelope & Music Widget Toggle Controls
+    // Wax Seal Click -> Open Invitation + Auto-Play Hidden Looping Music
+    const bgMusic = document.getElementById('bg-music');
+    bgMusic.loop = true;
+
+    function startBackgroundMusic() {
+      if (!bgMusic.paused) return;
+      bgMusic.play().catch((err) => {
+        console.warn("Audio playback waiting for user gesture:", err);
+      });
+    }
+
     document.getElementById('open-envelope-btn').addEventListener('click', () => {
       document.getElementById('envelope-cover').classList.add('opened');
+      startBackgroundMusic();
     });
-    document.getElementById('music-widget-header').addEventListener('click', () => {
-      const widget = document.getElementById('music-widget');
-      const icon = document.getElementById('music-toggle-icon');
-      widget.classList.toggle('minimized');
-      icon.textContent = widget.classList.contains('minimized') ? '+' : '−';
-    });
+
     document.getElementById('nav-toggle').addEventListener('click', () => {
       document.getElementById('nav-links').classList.toggle('show');
     });
+
+    // Auto-fetch live images from Save The Date Google Drive folder if Apps Script URL is set
+    async function fetchLiveDriveFolderImages() {
+      if (!siteConfig.driveScriptUrl) return;
+      try {
+        const res = await fetch(`${siteConfig.driveScriptUrl}?folderId=${SAVE_THE_DATE_FOLDER_ID}`);
+        const data = await res.json();
+        if (Array.isArray(data.images) && data.images.length > 0) {
+          siteConfig.rouletteImages = data.images.map(normalizeDriveUrl);
+          renderCarousel();
+        }
+      } catch (err) {
+        console.warn("Live folder fetch skipped:", err);
+      }
+    }
 
     // Load Config from Firestore
     async function loadConfig() {
@@ -1440,12 +1380,12 @@
         const snap = await getDoc(doc(db, 'artifacts', appId, 'public', 'data', 'config', 'main'));
         if (snap.exists()) {
           siteConfig = { ...defaultConfig, ...snap.data() };
-          if (!siteConfig.audioUrl) siteConfig.audioUrl = defaultConfig.audioUrl;
         }
       } catch (err) {
         console.warn("Using default config:", err);
       }
       applySiteConfig();
+      await fetchLiveDriveFolderImages();
     }
     loadConfig();
 
@@ -1572,7 +1512,6 @@
       document.getElementById('ed-thankyou').value = siteConfig.thankyouMsg;
 
       document.getElementById('ed-show-envelope').value = siteConfig.showEnvelope;
-      document.getElementById('ed-audio-url').value = siteConfig.audioUrl;
       document.getElementById('ed-color-primary').value = siteConfig.colorPrimary;
       document.getElementById('ed-color-secondary').value = siteConfig.colorSecondary;
       document.getElementById('ed-color-beige').value = siteConfig.colorBeige;
@@ -1639,20 +1578,20 @@
       const scriptUrl = document.getElementById('ed-drive-script-url').value.trim();
       const statusEl = document.getElementById('save-status');
       if (!scriptUrl) {
-        alert("Paste your Google Apps Script Web App URL first (or use Option B below to paste individual Drive photo links).");
+        alert("Paste your Google Apps Script Web App URL first so the slideshow auto-loads from the Save The Date folder.");
         return;
       }
-      statusEl.textContent = "Syncing photos from Shared Google Drive Folder...";
+      statusEl.textContent = "Fetching photos from Save The Date Folder...";
       try {
-        const res = await fetch(`${scriptUrl}?folderId=${SHARED_DRIVE_FOLDER_ID}`);
+        const res = await fetch(`${scriptUrl}?folderId=${SAVE_THE_DATE_FOLDER_ID}`);
         const data = await res.json();
         if (Array.isArray(data.images) && data.images.length > 0) {
           siteConfig.rouletteImages = data.images.map(normalizeDriveUrl);
           renderAdminThumbs();
           renderCarousel();
-          statusEl.textContent = `Synced ${data.images.length} photos from Google Drive! Click "Save Changes" to publish.`;
+          statusEl.textContent = `Loaded ${data.images.length} photos from Save The Date Folder! Click "Save Changes" to publish.`;
         } else {
-          statusEl.textContent = "No images found in that Google Drive folder.";
+          statusEl.textContent = "No images found in that Google Drive folder yet.";
         }
       } catch (err) {
         console.error(err);
@@ -1703,7 +1642,6 @@
         rsvpDeadline: document.getElementById('ed-rsvp-deadline').value.trim(),
         thankyouMsg: document.getElementById('ed-thankyou').value.trim(),
         showEnvelope: document.getElementById('ed-show-envelope').value,
-        audioUrl: document.getElementById('ed-audio-url').value.trim(),
         colorPrimary: document.getElementById('ed-color-primary').value,
         colorSecondary: document.getElementById('ed-color-secondary').value,
         colorBeige: document.getElementById('ed-color-beige').value,
@@ -1719,6 +1657,7 @@
       try {
         await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'config', 'main'), siteConfig, { merge: true });
         applySiteConfig();
+        await fetchLiveDriveFolderImages();
         statusEl.textContent = '✓ All changes saved and published live!';
       } catch (err) {
         console.error(err);
