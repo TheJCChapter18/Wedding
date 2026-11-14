@@ -501,104 +501,205 @@
     }
     #edit-site-trigger:hover { background: var(--primary-rose); color: #fff; }
 
-    /* Admin Modal */
-    .modal-backdrop {
+    /* ============================================================
+       FULL-SCREEN WEBSITE-STYLE ADMIN WORKSPACE
+       ============================================================ */
+    #admin-workspace {
       position: fixed;
       inset: 0;
       z-index: 10000;
-      background: rgba(25, 16, 18, 0.75);
+      background: var(--bg-beige);
       display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 1rem;
-    }
-    .modal-backdrop.open { display: flex; }
-    .modal-panel {
-      background: var(--white);
-      width: 100%;
-      max-width: 920px;
-      max-height: 90vh;
+      flex-direction: column;
       overflow-y: auto;
-      border-radius: 10px;
-      padding: 2rem;
-      box-shadow: 0 25px 60px rgba(0,0,0,0.35);
     }
-    .admin-tabs {
+    #admin-workspace.open { display: flex; }
+
+    .admin-topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: var(--white);
+      border-bottom: 1px solid var(--border-soft);
+      padding: 1rem 2rem;
       display: flex;
-      gap: 0.6rem;
-      border-bottom: 1px solid #e5d8da;
-      padding-bottom: 0.8rem;
-      margin-bottom: 1.5rem;
+      align-items: center;
+      justify-content: space-between;
       flex-wrap: wrap;
+      gap: 1rem;
+      box-shadow: 0 4px 16px rgba(61, 44, 46, 0.06);
+    }
+    .admin-topbar-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+    }
+    .admin-badge {
+      background: var(--primary-rose);
+      color: #fff;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      padding: 0.25rem 0.65rem;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+
+    /* Centered Full-Page Login Card */
+    #admin-login-view {
+      max-width: 460px;
+      width: 92%;
+      margin: 5rem auto;
+      background: var(--white);
+      padding: 2.8rem 2.2rem;
+      border-radius: 10px;
+      border: 1px solid var(--champagne-gold);
+      box-shadow: var(--shadow-soft);
+    }
+
+    /* Full-Width Website Layout for Editor */
+    #admin-editor-view {
+      max-width: 1280px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 4rem;
+      display: none;
+    }
+    .admin-layout {
+      display: grid;
+      grid-template-columns: 250px 1fr;
+      gap: 2rem;
+      align-items: start;
+    }
+    .admin-sidebar {
+      position: sticky;
+      top: 88px;
+      background: var(--white);
+      border: 1px solid var(--border-soft);
+      border-radius: 10px;
+      padding: 1.2rem;
+      box-shadow: var(--shadow-soft);
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
     }
     .tab-btn {
-      padding: 0.55rem 1.1rem;
-      border: 1px solid #d9c8ca;
-      background: var(--bg-cream);
-      border-radius: 6px;
+      width: 100%;
+      text-align: left;
+      padding: 0.85rem 1.1rem;
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--text-dark);
+      border-radius: 8px;
       cursor: pointer;
       font-weight: 600;
-      font-size: 0.84rem;
+      font-size: 0.92rem;
+      transition: all 0.2s;
     }
-    .tab-btn.active { background: var(--primary-rose); color: #fff; border-color: var(--primary-rose); }
+    .tab-btn:hover { background: var(--bg-cream); color: var(--primary-rose); }
+    .tab-btn.active {
+      background: var(--primary-rose);
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(181, 101, 118, 0.25);
+    }
+
+    .admin-main-card {
+      background: var(--white);
+      border: 1px solid var(--border-soft);
+      border-radius: 10px;
+      padding: 2.2rem;
+      box-shadow: var(--shadow-soft);
+    }
+    .admin-section-block {
+      background: var(--bg-cream);
+      border: 1px solid var(--border-soft);
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-bottom: 1.8rem;
+    }
+    .admin-section-block h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      color: var(--primary-rose);
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border-soft);
+    }
+
     .tab-pane { display: none; }
     .tab-pane.active { display: block; }
 
     .stats-row {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      gap: 1rem;
-      margin-bottom: 1.2rem;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1.2rem;
+      margin-bottom: 1.8rem;
     }
     .stat-box {
       background: var(--bg-cream);
       border: 1px solid var(--border-soft);
-      padding: 1rem;
+      padding: 1.3rem;
       border-radius: 8px;
       text-align: center;
     }
-    .stat-box strong { display: block; font-size: 1.6rem; color: var(--primary-rose); }
+    .stat-box strong { display: block; font-size: 2rem; color: var(--primary-rose); }
 
-    table.rsvp-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
-    table.rsvp-table th, table.rsvp-table td {
-      padding: 0.65rem;
+    table.rsvp-table { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
+    table.rsvp-table th {
+      background: var(--bg-cream);
+      padding: 0.85rem;
+      border-bottom: 2px solid var(--border-soft);
+      text-align: left;
+    }
+    table.rsvp-table td {
+      padding: 0.85rem;
       border-bottom: 1px solid #eee;
       text-align: left;
     }
     .thumb-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
-      gap: 0.75rem;
-      margin-top: 1rem;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 1rem;
+      margin-top: 1.2rem;
     }
     .thumb-item {
       position: relative;
-      border-radius: 6px;
+      border-radius: 8px;
       overflow: hidden;
       border: 1px solid #ddd;
-      height: 95px;
+      height: 120px;
     }
     .thumb-item img { width: 100%; height: 100%; object-fit: cover; }
     .thumb-del {
       position: absolute;
-      top: 4px;
-      right: 4px;
-      background: rgba(180, 30, 50, 0.9);
+      top: 6px;
+      right: 6px;
+      background: rgba(180, 30, 50, 0.92);
       color: #fff;
       border: none;
-      width: 22px;
-      height: 22px;
+      width: 26px;
+      height: 26px;
       border-radius: 50%;
       cursor: pointer;
       font-weight: bold;
     }
     .preview-mini {
       width: 100%;
-      max-height: 140px;
+      max-height: 180px;
       object-fit: cover;
       border-radius: 6px;
-      margin-top: 0.45rem;
+      margin-top: 0.5rem;
       border: 1px solid #ddd;
+    }
+
+    @media (max-width: 900px) {
+      .admin-layout { grid-template-columns: 1fr; }
+      .admin-sidebar {
+        position: static;
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
+      .tab-btn { width: auto; flex: 1; text-align: center; }
     }
 
     @media (max-width: 768px) {
@@ -617,16 +718,14 @@
       .nav-toggle { display: block; }
       .carousel-slide { height: 300px; }
       .editorial-frame { padding: 2rem 1.2rem; }
+      .admin-main-card { padding: 1.3rem; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Hidden Looping Background Music (Triggered on Wax Seal Click) -->
-  <audio id="bg-music" loop preload="auto" style="display:none;">
-    <source src="https://drive.google.com/file/d/1BPs67J3M1KPgXVtitGAXPl_PwSDTyRc4/view?usp=drive_link" type="audio/mp3" />
-    <source src="https://drive.google.com/file/d/1BPs67J3M1KPgXVtitGAXPl_PwSDTyRc4/view?usp=drive_link" type="audio/mp3" />
-  </audio>
+  <!-- Hidden Native Background Audio (Plays music.mp3 in continuous loop on Wax Seal tap) -->
+  <audio id="bg-music" src="./music.mp3" loop preload="auto" style="display:none;"></audio>
 
   <!-- Envelope Seal Intro Cover -->
   <div id="envelope-cover">
@@ -891,202 +990,231 @@
     <button id="edit-site-trigger">🔒 Edit Site</button>
   </footer>
 
-  <!-- Admin Login & Dashboard Modal -->
-  <div class="modal-backdrop" id="admin-modal">
-    <div class="modal-panel">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.2rem;">
-        <h3 class="serif" style="font-size: 1.5rem; color: var(--primary-rose);">Website Admin Dashboard</h3>
-        <button id="close-admin-btn" class="btn btn-outline">Close ✕</button>
+  <!-- ============================================================
+       FULL-SCREEN WEBSITE-STYLE ADMIN WORKSPACE
+       ============================================================ -->
+  <div id="admin-workspace">
+    <!-- Top Sticky Website Navigation Bar -->
+    <div class="admin-topbar">
+      <div class="admin-topbar-brand">
+        <span class="script" style="font-size: 2rem; color: var(--primary-rose);">Jason & Camilla</span>
+        <span class="admin-badge">Site Editor & RSVP Manager</span>
       </div>
-
-      <!-- Login View -->
-      <div id="admin-login-view">
-        <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1rem;">Sign in with your organizer email and password to manage RSVPs and update website content.</p>
-        <div class="form-group">
-          <label>Admin Email</label>
-          <input type="email" id="admin-email" class="form-control" placeholder="admin@example.com" />
-        </div>
-        <div class="form-group">
-          <label>Password</label>
-          <input type="password" id="admin-password" class="form-control" placeholder="••••••••" />
-        </div>
-        <button id="admin-login-btn" class="btn btn-primary">Log In to Dashboard</button>
-        <p id="admin-login-err" style="color: #b02a37; font-size: 0.85rem; margin-top: 0.7rem;"></p>
+      <div style="display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;">
+        <span id="save-status" style="font-size: 0.88rem; color: #198754; font-weight: 600;"></span>
+        <button id="save-all-btn" class="btn btn-primary" style="padding: 0.65rem 1.5rem; display: none;">💾 Save & Publish Live</button>
+        <button id="admin-logout-btn" class="btn btn-outline" style="display: none;">Log Out</button>
+        <button id="close-admin-btn" class="btn btn-outline">← Back to Live Website</button>
       </div>
+    </div>
 
-      <!-- Authenticated Editor View -->
-      <div id="admin-editor-view" style="display: none;">
-        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 1rem;">
-          <div class="admin-tabs" style="margin-bottom: 0; border-bottom: none; padding-bottom: 0;">
-            <button class="tab-btn active" data-tab="tab-rsvps">Guest RSVPs</button>
-            <button class="tab-btn" data-tab="tab-photos">Save The Date & Photos</button>
-            <button class="tab-btn" data-tab="tab-content">Text, Venues & Verse</button>
-            <button class="tab-btn" data-tab="tab-theme">Colors & Cover</button>
-          </div>
-          <div style="display: flex; gap: 0.5rem;">
-            <button id="save-all-btn" class="btn btn-primary" style="padding: 0.6rem 1.3rem;">Save Changes</button>
-            <button id="admin-logout-btn" class="btn btn-outline">Log Out</button>
-          </div>
-        </div>
-        <p id="save-status" style="font-size: 0.85rem; color: #198754; font-weight: 600; margin-bottom: 1rem;"></p>
+    <!-- Login Screen -->
+    <div id="admin-login-view">
+      <div style="text-align: center; margin-bottom: 1.5rem;">
+        <span class="section-eyebrow">Organizer Access</span>
+        <h2 class="serif" style="font-size: 1.8rem;">Sign In to Edit Site</h2>
+      </div>
+      <div class="form-group">
+        <label>Admin Email</label>
+        <input type="email" id="admin-email" class="form-control" placeholder="admin@example.com" />
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" id="admin-password" class="form-control" placeholder="••••••••" />
+      </div>
+      <button id="admin-login-btn" class="btn btn-primary" style="width: 100%;">Log In to Workspace</button>
+      <p id="admin-login-err" style="color: #b02a37; font-size: 0.85rem; margin-top: 0.85rem; text-align: center;"></p>
+    </div>
 
-        <!-- TAB 1: RSVPs -->
-        <div class="tab-pane active" id="tab-rsvps">
-          <div class="stats-row">
-            <div class="stat-box"><strong id="stat-total">0</strong><span>Total Responses</span></div>
-            <div class="stat-box"><strong id="stat-attending">0</strong><span>Confirmed Pax</span></div>
-            <div class="stat-box"><strong id="stat-declined">0</strong><span>Declined</span></div>
-          </div>
-          <div style="margin-bottom: 1rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
-            <strong>Live Guest List</strong>
-            <button id="export-csv-btn" class="btn btn-outline">⬇ Download CSV (Excel)</button>
-          </div>
-          <div style="overflow-x: auto;">
-            <table class="rsvp-table">
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Status</th>
-                  <th>Pax</th>
-                  <th>Additional Guests</th>
-                  <th>Message</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody id="rsvp-tbody"></tbody>
-            </table>
-          </div>
-        </div>
+    <!-- Full-Page Editor Workspace -->
+    <div id="admin-editor-view">
+      <div class="admin-layout">
+        <!-- Left Website Sidebar Menu -->
+        <aside class="admin-sidebar">
+          <button class="tab-btn active" data-tab="tab-rsvps">📋 Guest RSVPs</button>
+          <button class="tab-btn" data-tab="tab-photos">🖼️ Save The Date & Photos</button>
+          <button class="tab-btn" data-tab="tab-content">✍️ Event Details & Text</button>
+          <button class="tab-btn" data-tab="tab-theme">🎨 Theme Colors & Cover</button>
+        </aside>
 
-        <!-- TAB 2: Google Drive Photos & Gallery -->
-        <div class="tab-pane" id="tab-photos">
-          <div style="background: var(--bg-cream); border: 1px solid var(--border-soft); padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem;">
-            <strong>Save The Date Auto-Slideshow Folder:</strong>
-            <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.3rem;">
-              The client can drop any new Save-the-Date photos directly into the <a href="https://drive.google.com/drive/folders/1LwSa8BOPsoxPmEth-YOGvU9qq9HcaVWm?usp=drive_link" target="_blank" rel="noopener" style="color: var(--primary-rose); font-weight: 600;">Save The Date Google Drive Folder ↗</a> (ensure sharing is set to <em>"Anyone with the link can view"</em>). Connect your Google Apps Script URL below once so the slideshow loads new folder photos automatically without manual uploads.
-            </p>
+        <!-- Right Spacious Content Area -->
+        <main class="admin-main-card">
+          <!-- TAB 1: RSVPs -->
+          <div class="tab-pane active" id="tab-rsvps">
+            <h3 class="serif" style="font-size: 1.65rem; margin-bottom: 1.2rem;">Guest RSVP Responses</h3>
+            <div class="stats-row">
+              <div class="stat-box"><strong id="stat-total">0</strong><span>Total Responses</span></div>
+              <div class="stat-box"><strong id="stat-attending">0</strong><span>Confirmed Guests (Pax)</span></div>
+              <div class="stat-box"><strong id="stat-declined">0</strong><span>Regretfully Declined</span></div>
+            </div>
+            <div style="margin-bottom: 1.2rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem;">
+              <strong style="font-size: 1.05rem;">Live Guest List</strong>
+              <button id="export-csv-btn" class="btn btn-outline">⬇ Download CSV (Excel)</button>
+            </div>
+            <div style="overflow-x: auto;">
+              <table class="rsvp-table">
+                <thead>
+                  <tr>
+                    <th>Guest Name</th>
+                    <th>Status</th>
+                    <th>Pax</th>
+                    <th>Additional Guests</th>
+                    <th>Message</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="rsvp-tbody"></tbody>
+              </table>
+            </div>
           </div>
 
-          <h4 class="serif" style="margin-bottom: 0.8rem;">1. Save The Date Photo Gallery Carousel (Auto-Slideshow)</h4>
-          <div style="background: var(--bg-cream); padding: 1rem; border-radius: 8px; border: 1px solid var(--border-soft); margin-bottom: 1.5rem;">
-            <div class="form-group">
-              <label>Google Apps Script Feed URL (Auto-loads all photos from the Save The Date Folder)</label>
-              <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-                <input type="url" id="ed-drive-script-url" class="form-control" style="flex: 1; min-width: 220px;" placeholder="https://script.google.com/macros/s/.../exec" />
-                <button type="button" id="sync-drive-folder-btn" class="btn btn-primary" style="padding: 0.65rem 1.2rem;">🔄 Refresh Folder Now</button>
+          <!-- TAB 2: Save The Date & Photos -->
+          <div class="tab-pane" id="tab-photos">
+            <h3 class="serif" style="font-size: 1.65rem; margin-bottom: 1.2rem;">Save The Date & Website Photos</h3>
+
+            <div class="admin-section-block">
+              <h4>1. Save The Date Auto-Slideshow Gallery</h4>
+              <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1rem;">
+                Drop new Save-the-Date photos anytime into the <a href="https://drive.google.com/drive/folders/1LwSa8BOPsoxPmEth-YOGvU9qq9HcaVWm?usp=drive_link" target="_blank" rel="noopener" style="color: var(--primary-rose); font-weight: 600;">Save The Date Google Drive Folder ↗</a> (ensure folder sharing is set to <em>"Anyone with the link can view"</em>). Connect your Google Apps Script Feed URL below so the slideshow automatically plays all photos stored inside that folder.
+              </p>
+
+              <div class="form-group">
+                <label>Google Apps Script Feed URL (Auto-loads all images from the Save The Date Folder)</label>
+                <div style="display: flex; gap: 0.6rem; flex-wrap: wrap;">
+                  <input type="url" id="ed-drive-script-url" class="form-control" style="flex: 1; min-width: 240px;" placeholder="https://script.google.com/macros/s/.../exec" />
+                  <button type="button" id="sync-drive-folder-btn" class="btn btn-primary" style="padding: 0.65rem 1.3rem;">🔄 Refresh Folder Now</button>
+                </div>
               </div>
-              <small style="color: var(--text-muted); font-size: 0.78rem;">Once saved, visitors automatically see all photos stored in the Save The Date folder.</small>
+
+              <div class="form-group" style="margin-bottom: 0;">
+                <label>Or Paste Individual Google Drive Photo Link(s) Manually</label>
+                <div style="display: flex; gap: 0.6rem; flex-wrap: wrap;">
+                  <input type="text" id="new-gallery-drive-url" class="form-control" style="flex: 1; min-width: 240px;" placeholder="Paste Google Drive file link here..." />
+                  <button type="button" id="add-gallery-url-btn" class="btn btn-outline">+ Add Photo to Slideshow</button>
+                </div>
+              </div>
+
+              <div class="thumb-grid" id="admin-gallery-thumbs"></div>
             </div>
 
-            <div class="form-group" style="margin-bottom: 0;">
-              <label>Or Paste Individual Google Drive Photo Link(s) Manually</label>
-              <div style="display: flex; gap: 0.5rem;">
-                <input type="text" id="new-gallery-drive-url" class="form-control" placeholder="Paste Google Drive file link here..." />
-                <button type="button" id="add-gallery-url-btn" class="btn btn-outline">+ Add Photo</button>
+            <div class="admin-section-block" style="margin-bottom: 0;">
+              <h4>2. Main Website Photos (Paste Google Drive Share Links)</h4>
+              <div class="grid-2">
+                <div class="form-group">
+                  <label>Hero Cover Background Photo</label>
+                  <input type="text" id="ed-hero-img" class="form-control drive-preview-input" data-preview="prev-hero-img" placeholder="Paste Google Drive link..." />
+                  <img id="prev-hero-img" class="preview-mini" alt="Hero Preview" />
+                </div>
+                <div class="form-group">
+                  <label>Our Story Portrait Photo</label>
+                  <input type="text" id="ed-story-img" class="form-control drive-preview-input" data-preview="prev-story-img" placeholder="Paste Google Drive link..." />
+                  <img id="prev-story-img" class="preview-mini" alt="Story Preview" />
+                </div>
+                <div class="form-group">
+                  <label>Ceremony Venue Photo</label>
+                  <input type="text" id="ed-ceremony-img" class="form-control drive-preview-input" data-preview="prev-ceremony-img" placeholder="Paste Google Drive link..." />
+                  <img id="prev-ceremony-img" class="preview-mini" alt="Ceremony Preview" />
+                </div>
+                <div class="form-group">
+                  <label>Reception Venue Photo</label>
+                  <input type="text" id="ed-reception-img" class="form-control drive-preview-input" data-preview="prev-reception-img" placeholder="Paste Google Drive link..." />
+                  <img id="prev-reception-img" class="preview-mini" alt="Reception Preview" />
+                </div>
+                <div class="form-group">
+                  <label>Gift Registry QR Code Image</label>
+                  <input type="text" id="ed-qr-img" class="form-control drive-preview-input" data-preview="prev-qr-img" placeholder="Paste Google Drive QR link..." />
+                  <img id="prev-qr-img" class="preview-mini" alt="QR Preview" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- TAB 3: Event Details & Text -->
+          <div class="tab-pane" id="tab-content">
+            <h3 class="serif" style="font-size: 1.65rem; margin-bottom: 1.2rem;">Event Details, Venues & Wording</h3>
+
+            <div class="admin-section-block">
+              <h4>Couple & Wedding Date</h4>
+              <div class="grid-2">
+                <div class="form-group"><label>Couple Names</label><input type="text" id="ed-names" class="form-control" /></div>
+                <div class="form-group"><label>Hero Tagline</label><input type="text" id="ed-tagline" class="form-control" /></div>
+                <div class="form-group"><label>Display Date & City</label><input type="text" id="ed-date-text" class="form-control" /></div>
+                <div class="form-group"><label>Countdown Target (YYYY-MM-DDTHH:MM:SS)</label><input type="text" id="ed-countdown" class="form-control" /></div>
+              </div>
+              <div class="form-group"><label>Our Story Heading</label><input type="text" id="ed-story-heading" class="form-control" /></div>
+              <div class="form-group" style="margin-bottom:0;"><label>Our Story Message</label><textarea id="ed-story-body" class="form-control" rows="4"></textarea></div>
+            </div>
+
+            <div class="admin-section-block">
+              <h4>Ceremony & Reception Venues</h4>
+              <div class="grid-2">
+                <div>
+                  <strong style="display:block; margin-bottom:0.6rem; color:var(--primary-rose);">Ceremony Venue</strong>
+                  <div class="form-group"><label>Church Name</label><input type="text" id="ed-ceremony-name" class="form-control" /></div>
+                  <div class="form-group"><label>Date & Time</label><input type="text" id="ed-ceremony-time" class="form-control" /></div>
+                  <div class="form-group"><label>Address</label><input type="text" id="ed-ceremony-address" class="form-control" /></div>
+                  <div class="form-group"><label>Google Maps URL</label><input type="url" id="ed-ceremony-gmaps" class="form-control" /></div>
+                  <div class="form-group"><label>Waze URL</label><input type="url" id="ed-ceremony-waze" class="form-control" /></div>
+                </div>
+                <div>
+                  <strong style="display:block; margin-bottom:0.6rem; color:var(--primary-rose);">Reception Venue</strong>
+                  <div class="form-group"><label>Venue Name</label><input type="text" id="ed-reception-name" class="form-control" /></div>
+                  <div class="form-group"><label>Date & Time</label><input type="text" id="ed-reception-time" class="form-control" /></div>
+                  <div class="form-group"><label>Address</label><input type="text" id="ed-reception-address" class="form-control" /></div>
+                  <div class="form-group"><label>Google Maps URL</label><input type="url" id="ed-reception-gmaps" class="form-control" /></div>
+                  <div class="form-group"><label>Waze URL</label><input type="url" id="ed-reception-waze" class="form-control" /></div>
+                </div>
               </div>
             </div>
 
-            <div class="thumb-grid" id="admin-gallery-thumbs"></div>
-          </div>
+            <div class="admin-section-block">
+              <h4>Wedding Entourage</h4>
+              <div class="grid-2">
+                <div class="form-group"><label>Parents of Groom</label><textarea id="ed-ent-groom" class="form-control" rows="3"></textarea></div>
+                <div class="form-group"><label>Parents of Bride</label><textarea id="ed-ent-bride" class="form-control" rows="3"></textarea></div>
+                <div class="form-group"><label>Principal Sponsors</label><textarea id="ed-ent-principal" class="form-control" rows="4"></textarea></div>
+                <div class="form-group"><label>Bridal Party</label><textarea id="ed-ent-party" class="form-control" rows="4"></textarea></div>
+              </div>
+            </div>
 
-          <h4 class="serif" style="margin-bottom: 0.8rem;">2. Main Page Photo Slots (Paste Google Drive File Links)</h4>
-          <div class="grid-2">
-            <div class="form-group">
-              <label>Hero Cover Background Photo</label>
-              <input type="text" id="ed-hero-img" class="form-control drive-preview-input" data-preview="prev-hero-img" placeholder="Paste Google Drive link..." />
-              <img id="prev-hero-img" class="preview-mini" alt="Hero Preview" />
-            </div>
-            <div class="form-group">
-              <label>Our Story Portrait Photo</label>
-              <input type="text" id="ed-story-img" class="form-control drive-preview-input" data-preview="prev-story-img" placeholder="Paste Google Drive link..." />
-              <img id="prev-story-img" class="preview-mini" alt="Story Preview" />
-            </div>
-            <div class="form-group">
-              <label>Ceremony Venue Photo</label>
-              <input type="text" id="ed-ceremony-img" class="form-control drive-preview-input" data-preview="prev-ceremony-img" placeholder="Paste Google Drive link..." />
-              <img id="prev-ceremony-img" class="preview-mini" alt="Ceremony Preview" />
-            </div>
-            <div class="form-group">
-              <label>Reception Venue Photo</label>
-              <input type="text" id="ed-reception-img" class="form-control drive-preview-input" data-preview="prev-reception-img" placeholder="Paste Google Drive link..." />
-              <img id="prev-reception-img" class="preview-mini" alt="Reception Preview" />
-            </div>
-            <div class="form-group">
-              <label>Gift Registry QR Code Image</label>
-              <input type="text" id="ed-qr-img" class="form-control drive-preview-input" data-preview="prev-qr-img" placeholder="Paste Google Drive QR link..." />
-              <img id="prev-qr-img" class="preview-mini" alt="QR Preview" />
-            </div>
-          </div>
-        </div>
-
-        <!-- TAB 3: Text, Venues & Verse -->
-        <div class="tab-pane" id="tab-content">
-          <div class="grid-2">
-            <div class="form-group"><label>Couple Names</label><input type="text" id="ed-names" class="form-control" /></div>
-            <div class="form-group"><label>Hero Tagline</label><input type="text" id="ed-tagline" class="form-control" /></div>
-            <div class="form-group"><label>Display Date & City</label><input type="text" id="ed-date-text" class="form-control" /></div>
-            <div class="form-group"><label>Countdown Target (YYYY-MM-DDTHH:MM:SS)</label><input type="text" id="ed-countdown" class="form-control" /></div>
-          </div>
-          <div class="form-group"><label>Our Story Heading</label><input type="text" id="ed-story-heading" class="form-control" /></div>
-          <div class="form-group"><label>Our Story Message</label><textarea id="ed-story-body" class="form-control" rows="3"></textarea></div>
-
-          <div class="grid-2">
-            <div>
-              <h4 class="serif" style="margin-bottom: 0.5rem;">Ceremony Details</h4>
-              <div class="form-group"><label>Church Name</label><input type="text" id="ed-ceremony-name" class="form-control" /></div>
-              <div class="form-group"><label>Date & Time</label><input type="text" id="ed-ceremony-time" class="form-control" /></div>
-              <div class="form-group"><label>Address</label><input type="text" id="ed-ceremony-address" class="form-control" /></div>
-              <div class="form-group"><label>Google Maps URL</label><input type="url" id="ed-ceremony-gmaps" class="form-control" /></div>
-              <div class="form-group"><label>Waze URL</label><input type="url" id="ed-ceremony-waze" class="form-control" /></div>
-            </div>
-            <div>
-              <h4 class="serif" style="margin-bottom: 0.5rem;">Reception Details</h4>
-              <div class="form-group"><label>Venue Name</label><input type="text" id="ed-reception-name" class="form-control" /></div>
-              <div class="form-group"><label>Date & Time</label><input type="text" id="ed-reception-time" class="form-control" /></div>
-              <div class="form-group"><label>Address</label><input type="text" id="ed-reception-address" class="form-control" /></div>
-              <div class="form-group"><label>Google Maps URL</label><input type="url" id="ed-reception-gmaps" class="form-control" /></div>
-              <div class="form-group"><label>Waze URL</label><input type="url" id="ed-reception-waze" class="form-control" /></div>
+            <div class="admin-section-block" style="margin-bottom:0;">
+              <h4>Invitation, Verse, Attire, Gift & RSVP Text</h4>
+              <div class="form-group"><label>Invitation Wording</label><textarea id="ed-inv-wording" class="form-control" rows="2"></textarea></div>
+              <div class="grid-2">
+                <div class="form-group"><label>Bible Verse / Quote</label><textarea id="ed-bible-verse" class="form-control" rows="2"></textarea></div>
+                <div class="form-group"><label>Bible Reference</label><input type="text" id="ed-bible-ref" class="form-control" /></div>
+              </div>
+              <div class="form-group"><label>Attire Guide Note</label><textarea id="ed-attire-note" class="form-control" rows="2"></textarea></div>
+              <div class="form-group"><label>Gift Guide Note</label><textarea id="ed-gift-note" class="form-control" rows="2"></textarea></div>
+              <div class="form-group"><label>Bank / GCash Details</label><textarea id="ed-gift-bank" class="form-control" rows="2"></textarea></div>
+              <div class="grid-2">
+                <div class="form-group"><label>RSVP Deadline Text</label><input type="text" id="ed-rsvp-deadline" class="form-control" /></div>
+                <div class="form-group"><label>RSVP Thank You Message</label><input type="text" id="ed-thankyou" class="form-control" /></div>
+              </div>
             </div>
           </div>
 
-          <div class="grid-2">
-            <div class="form-group"><label>Parents of Groom</label><textarea id="ed-ent-groom" class="form-control" rows="2"></textarea></div>
-            <div class="form-group"><label>Parents of Bride</label><textarea id="ed-ent-bride" class="form-control" rows="2"></textarea></div>
-            <div class="form-group"><label>Principal Sponsors</label><textarea id="ed-ent-principal" class="form-control" rows="3"></textarea></div>
-            <div class="form-group"><label>Bridal Party</label><textarea id="ed-ent-party" class="form-control" rows="3"></textarea></div>
-          </div>
-
-          <div class="form-group"><label>Invitation Wording</label><textarea id="ed-inv-wording" class="form-control" rows="2"></textarea></div>
-          <div class="grid-2">
-            <div class="form-group"><label>Bible Verse / Quote</label><textarea id="ed-bible-verse" class="form-control" rows="2"></textarea></div>
-            <div class="form-group"><label>Bible Reference</label><input type="text" id="ed-bible-ref" class="form-control" /></div>
-          </div>
-          <div class="form-group"><label>Attire Guide Note</label><textarea id="ed-attire-note" class="form-control" rows="2"></textarea></div>
-          <div class="form-group"><label>Gift Guide Note</label><textarea id="ed-gift-note" class="form-control" rows="2"></textarea></div>
-          <div class="form-group"><label>Bank / GCash Details</label><textarea id="ed-gift-bank" class="form-control" rows="2"></textarea></div>
-          <div class="grid-2">
-            <div class="form-group"><label>RSVP Deadline Text</label><input type="text" id="ed-rsvp-deadline" class="form-control" /></div>
-            <div class="form-group"><label>RSVP Thank You Message</label><input type="text" id="ed-thankyou" class="form-control" /></div>
-          </div>
-        </div>
-
-        <!-- TAB 4: Colors & Cover -->
-        <div class="tab-pane" id="tab-theme">
-          <div class="grid-2">
-            <div class="form-group">
-              <label>Show Envelope Seal Intro Cover</label>
-              <select id="ed-show-envelope" class="form-control">
-                <option value="true">Enabled (Recommended for Music Auto-Start)</option>
-                <option value="false">Disabled</option>
-              </select>
+          <!-- TAB 4: Theme Colors & Cover -->
+          <div class="tab-pane" id="tab-theme">
+            <h3 class="serif" style="font-size: 1.65rem; margin-bottom: 1.2rem;">Theme Colors & Intro Cover</h3>
+            <div class="admin-section-block" style="margin-bottom: 0;">
+              <div class="grid-2">
+                <div class="form-group">
+                  <label>Envelope Seal Intro Cover</label>
+                  <select id="ed-show-envelope" class="form-control">
+                    <option value="true">Enabled (Triggers Background Music on Tap)</option>
+                    <option value="false">Disabled</option>
+                  </select>
+                </div>
+                <div class="form-group"><label>Primary Rose Color</label><input type="color" id="ed-color-primary" class="form-control" style="height: 46px;" /></div>
+                <div class="form-group"><label>Secondary Pink Color</label><input type="color" id="ed-color-secondary" class="form-control" style="height: 46px;" /></div>
+                <div class="form-group"><label>Main Beige Backdrop</label><input type="color" id="ed-color-beige" class="form-control" style="height: 46px;" /></div>
+                <div class="form-group"><label>Editorial Cream Surface</label><input type="color" id="ed-color-cream" class="form-control" style="height: 46px;" /></div>
+              </div>
+              <button type="button" id="reset-colors-btn" class="btn btn-outline">Reset Default Colors</button>
             </div>
-            <div class="form-group"><label>Primary Rose Color</label><input type="color" id="ed-color-primary" class="form-control" style="height: 44px;" /></div>
-            <div class="form-group"><label>Secondary Pink Color</label><input type="color" id="ed-color-secondary" class="form-control" style="height: 44px;" /></div>
-            <div class="form-group"><label>Main Beige Backdrop</label><input type="color" id="ed-color-beige" class="form-control" style="height: 44px;" /></div>
-            <div class="form-group"><label>Editorial Cream Surface</label><input type="color" id="ed-color-cream" class="form-control" style="height: 44px;" /></div>
           </div>
-          <button type="button" id="reset-colors-btn" class="btn btn-outline">Reset Default Colors</button>
-        </div>
+        </main>
       </div>
     </div>
   </div>
@@ -1339,20 +1467,20 @@
       document.getElementById('cd-secs').textContent = String(Math.floor((diff % 60000) / 1000)).padStart(2, '0');
     }, 1000);
 
-    // Wax Seal Click -> Open Invitation + Auto-Play Hidden Looping Music
+    // Wax Seal Click -> Open Invitation + Auto-Play Hidden Looping music.mp3
     const bgMusic = document.getElementById('bg-music');
     bgMusic.loop = true;
 
-    function startBackgroundMusic() {
+    function playBackgroundMusic() {
       if (!bgMusic.paused) return;
       bgMusic.play().catch((err) => {
-        console.warn("Audio playback waiting for user gesture:", err);
+        console.warn("Audio waiting for user interaction:", err);
       });
     }
 
     document.getElementById('open-envelope-btn').addEventListener('click', () => {
       document.getElementById('envelope-cover').classList.add('opened');
-      startBackgroundMusic();
+      playBackgroundMusic();
     });
 
     document.getElementById('nav-toggle').addEventListener('click', () => {
@@ -1439,10 +1567,10 @@
       document.getElementById('rsvp-form').style.display = 'block';
     });
 
-    // Admin Modal & Tabs
-    const adminModal = document.getElementById('admin-modal');
-    document.getElementById('edit-site-trigger').addEventListener('click', () => adminModal.classList.add('open'));
-    document.getElementById('close-admin-btn').addEventListener('click', () => adminModal.classList.remove('open'));
+    // Full-Screen Admin Workspace Controls
+    const adminWorkspace = document.getElementById('admin-workspace');
+    document.getElementById('edit-site-trigger').addEventListener('click', () => adminWorkspace.classList.add('open'));
+    document.getElementById('close-admin-btn').addEventListener('click', () => adminWorkspace.classList.remove('open'));
 
     document.querySelectorAll('.tab-btn').forEach(btn => {
       btn.addEventListener('click', () => {
@@ -1471,6 +1599,8 @@
       const isAdmin = user && !user.isAnonymous;
       document.getElementById('admin-login-view').style.display = isAdmin ? 'none' : 'block';
       document.getElementById('admin-editor-view').style.display = isAdmin ? 'block' : 'none';
+      document.getElementById('save-all-btn').style.display = isAdmin ? 'inline-block' : 'none';
+      document.getElementById('admin-logout-btn').style.display = isAdmin ? 'inline-block' : 'none';
       if (isAdmin) {
         populateAdminFields();
         loadRsvps();
@@ -1589,7 +1719,7 @@
           siteConfig.rouletteImages = data.images.map(normalizeDriveUrl);
           renderAdminThumbs();
           renderCarousel();
-          statusEl.textContent = `Loaded ${data.images.length} photos from Save The Date Folder! Click "Save Changes" to publish.`;
+          statusEl.textContent = `Loaded ${data.images.length} photos! Click "Save & Publish Live".`;
         } else {
           statusEl.textContent = "No images found in that Google Drive folder yet.";
         }
@@ -1658,7 +1788,7 @@
         await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'config', 'main'), siteConfig, { merge: true });
         applySiteConfig();
         await fetchLiveDriveFolderImages();
-        statusEl.textContent = '✓ All changes saved and published live!';
+        statusEl.textContent = '✓ Saved & Published Live!';
       } catch (err) {
         console.error(err);
         statusEl.textContent = '✗ Error saving changes: ' + err.message;
@@ -1694,7 +1824,7 @@
             <td>${r.pax ?? 0}</td>
             <td>${r.companions || '-'}</td>
             <td>${r.message || '-'}</td>
-            <td><button type="button" class="btn-outline del-rsvp-btn" data-id="${r.id}" style="padding:0.25rem 0.6rem;">Delete</button></td>
+            <td><button type="button" class="btn-outline del-rsvp-btn" data-id="${r.id}" style="padding:0.3rem 0.75rem;">Delete</button></td>
           </tr>
         `).join('') || '<tr><td colspan="6">No RSVPs yet.</td></tr>';
 
