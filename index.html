@@ -990,7 +990,7 @@
                 <input type="url" id="ed-drive-script-url" class="form-control" style="flex: 1; min-width: 220px;" placeholder="https://script.google.com/macros/s/.../exec" />
                 <button type="button" id="sync-drive-folder-btn" class="btn btn-primary" style="padding: 0.65rem 1.2rem;">🔄 Sync Folder Now</button>
               </div>
-              <small style="color: var(--text-muted); font-size: 0.78rem;">Pre-targeted to Drive Folder ID: <code>10Hb5jiAtJyi0m5tQCAWlFvED7_geUzd0</code></small>
+              <small style="color: var(--text-muted); font-size: 0.78rem;">Pre-targeted to your Shared Drive Folder</small>
             </div>
 
             <div class="form-group" style="margin-bottom: 0;">
@@ -1116,14 +1116,15 @@
     import { getAuth, signInAnonymously, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
     import { getFirestore, doc, getDoc, setDoc, collection, addDoc, getDocs, deleteDoc, query, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-    // REPLACE WITH YOUR FIREBASE CONFIG
     const appId = 'jason-camilla-wedding';
     const firebaseConfig = {
-      apiKey: "YOUR_API_KEY",
-      authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-      projectId: "YOUR_PROJECT_ID",
-      messagingSenderId: "YOUR_SENDER_ID",
-      appId: "YOUR_APP_ID"
+      apiKey: "AIzaSyAqARMnJFqfFiC5txuA-dsF55rC8uf5wH8",
+      authDomain: "jason-camilla-wedding.firebaseapp.com",
+      projectId: "jason-camilla-wedding",
+      storageBucket: "jason-camilla-wedding.firebasestorage.app",
+      messagingSenderId: "761257760032",
+      appId: "1:761257760032:web:0933464b22a62a03dff345",
+      measurementId: "G-J3JDCS3DZ7"
     };
 
     const app = initializeApp(firebaseConfig);
