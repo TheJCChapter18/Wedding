@@ -283,7 +283,7 @@
     /* Grids */
     .grid-2 {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 2.2rem;
       align-items: center;
     }
@@ -464,18 +464,18 @@
     .form-group { margin-bottom: 1.2rem; }
     .form-group label {
       display: block;
-      font-size: 0.84rem;
+      font-size: 0.88rem;
       font-weight: 600;
-      margin-bottom: 0.35rem;
+      margin-bottom: 0.4rem;
       color: var(--text-dark);
     }
     .form-control {
       width: 100%;
-      padding: 0.75rem 0.95rem;
+      padding: 0.85rem 1rem;
       border: 1px solid #d9c8ca;
-      border-radius: 6px;
+      border-radius: 8px;
       font-family: inherit;
-      font-size: 0.95rem;
+      font-size: 16px; /* Prevents iOS auto-zoom on focus */
       background: var(--bg-cream);
     }
     .form-control:focus { outline: none; border-color: var(--primary-rose); background: var(--white); }
@@ -494,15 +494,15 @@
       background: rgba(255,255,255,0.1);
       color: #e8dcd9;
       border: 1px solid rgba(255,255,255,0.2);
-      padding: 0.4rem 0.85rem;
-      border-radius: 4px;
-      font-size: 0.78rem;
+      padding: 0.45rem 0.9rem;
+      border-radius: 6px;
+      font-size: 0.8rem;
       cursor: pointer;
     }
     #edit-site-trigger:hover { background: var(--primary-rose); color: #fff; }
 
     /* ============================================================
-       FULL-SCREEN WEBSITE-STYLE ADMIN WORKSPACE
+       MOBILE-FIRST FULL-SCREEN ADMIN EDITOR WORKSPACE
        ============================================================ */
     #admin-workspace {
       position: fixed;
@@ -512,81 +512,86 @@
       display: none;
       flex-direction: column;
       overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
     }
     #admin-workspace.open { display: flex; }
 
     .admin-topbar {
       position: sticky;
       top: 0;
-      z-index: 20;
+      z-index: 30;
       background: var(--white);
       border-bottom: 1px solid var(--border-soft);
-      padding: 1rem 2rem;
+      padding: 0.85rem 1.5rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
       flex-wrap: wrap;
-      gap: 1rem;
+      gap: 0.75rem;
       box-shadow: 0 4px 16px rgba(61, 44, 46, 0.06);
     }
     .admin-topbar-brand {
       display: flex;
       align-items: center;
-      gap: 0.85rem;
+      gap: 0.65rem;
     }
     .admin-badge {
       background: var(--primary-rose);
       color: #fff;
-      font-size: 0.72rem;
+      font-size: 0.7rem;
       text-transform: uppercase;
-      letter-spacing: 0.1em;
-      padding: 0.25rem 0.65rem;
+      letter-spacing: 0.08em;
+      padding: 0.25rem 0.6rem;
       border-radius: 4px;
       font-weight: 600;
     }
+    .admin-top-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
 
-    /* Centered Full-Page Login Card */
     #admin-login-view {
-      max-width: 460px;
+      max-width: 440px;
       width: 92%;
-      margin: 5rem auto;
+      margin: 4rem auto;
       background: var(--white);
-      padding: 2.8rem 2.2rem;
-      border-radius: 10px;
+      padding: 2.5rem 1.8rem;
+      border-radius: 12px;
       border: 1px solid var(--champagne-gold);
       box-shadow: var(--shadow-soft);
     }
 
-    /* Full-Width Website Layout for Editor */
     #admin-editor-view {
-      max-width: 1280px;
+      max-width: 1240px;
       width: 100%;
       margin: 0 auto;
-      padding: 2rem 1.5rem 4rem;
+      padding: 1.5rem 1.25rem 5rem;
       display: none;
     }
     .admin-layout {
       display: grid;
-      grid-template-columns: 250px 1fr;
-      gap: 2rem;
+      grid-template-columns: 240px 1fr;
+      gap: 1.75rem;
       align-items: start;
     }
     .admin-sidebar {
       position: sticky;
-      top: 88px;
+      top: 82px;
       background: var(--white);
       border: 1px solid var(--border-soft);
-      border-radius: 10px;
-      padding: 1.2rem;
+      border-radius: 12px;
+      padding: 1rem;
       box-shadow: var(--shadow-soft);
       display: flex;
       flex-direction: column;
-      gap: 0.5rem;
+      gap: 0.45rem;
     }
     .tab-btn {
       width: 100%;
       text-align: left;
-      padding: 0.85rem 1.1rem;
+      padding: 0.9rem 1rem;
       border: 1px solid transparent;
       background: transparent;
       color: var(--text-dark);
@@ -594,6 +599,7 @@
       cursor: pointer;
       font-weight: 600;
       font-size: 0.92rem;
+      min-height: 46px;
       transition: all 0.2s;
     }
     .tab-btn:hover { background: var(--bg-cream); color: var(--primary-rose); }
@@ -606,22 +612,22 @@
     .admin-main-card {
       background: var(--white);
       border: 1px solid var(--border-soft);
-      border-radius: 10px;
-      padding: 2.2rem;
+      border-radius: 12px;
+      padding: 2rem;
       box-shadow: var(--shadow-soft);
     }
     .admin-section-block {
       background: var(--bg-cream);
       border: 1px solid var(--border-soft);
-      border-radius: 8px;
-      padding: 1.5rem;
-      margin-bottom: 1.8rem;
+      border-radius: 10px;
+      padding: 1.4rem;
+      margin-bottom: 1.5rem;
     }
     .admin-section-block h4 {
       font-family: 'Playfair Display', serif;
-      font-size: 1.25rem;
+      font-size: 1.2rem;
       color: var(--primary-rose);
-      margin-bottom: 1rem;
+      margin-bottom: 0.9rem;
       padding-bottom: 0.5rem;
       border-bottom: 1px solid var(--border-soft);
     }
@@ -631,19 +637,21 @@
 
     .stats-row {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 1.2rem;
-      margin-bottom: 1.8rem;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.9rem;
+      margin-bottom: 1.5rem;
     }
     .stat-box {
       background: var(--bg-cream);
       border: 1px solid var(--border-soft);
-      padding: 1.3rem;
-      border-radius: 8px;
+      padding: 1.1rem 0.75rem;
+      border-radius: 10px;
       text-align: center;
     }
-    .stat-box strong { display: block; font-size: 2rem; color: var(--primary-rose); }
+    .stat-box strong { display: block; font-size: 1.75rem; color: var(--primary-rose); }
+    .stat-box span { font-size: 0.8rem; color: var(--text-muted); }
 
+    /* Desktop RSVP Table + Mobile RSVP Cards */
     table.rsvp-table { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
     table.rsvp-table th {
       background: var(--bg-cream);
@@ -656,10 +664,33 @@
       border-bottom: 1px solid #eee;
       text-align: left;
     }
+    .rsvp-mobile-cards { display: none; flex-direction: column; gap: 0.85rem; }
+    .rsvp-m-card {
+      background: var(--bg-cream);
+      border: 1px solid var(--border-soft);
+      border-radius: 10px;
+      padding: 1rem 1.1rem;
+    }
+    .rsvp-m-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.45rem;
+      gap: 0.5rem;
+    }
+    .status-pill {
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.2rem 0.65rem;
+      border-radius: 20px;
+      background: rgba(181, 101, 118, 0.14);
+      color: var(--primary-rose);
+    }
+
     .thumb-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-      gap: 1rem;
+      grid-template-columns: repeat(auto-fill, minmax(125px, 1fr));
+      gap: 0.85rem;
       margin-top: 1.2rem;
     }
     .thumb-item {
@@ -667,7 +698,8 @@
       border-radius: 8px;
       overflow: hidden;
       border: 1px solid #ddd;
-      height: 120px;
+      height: 115px;
+      background: #eee;
     }
     .thumb-item img { width: 100%; height: 100%; object-fit: cover; }
     .thumb-del {
@@ -677,29 +709,47 @@
       background: rgba(180, 30, 50, 0.92);
       color: #fff;
       border: none;
-      width: 26px;
-      height: 26px;
+      width: 30px;
+      height: 30px;
       border-radius: 50%;
       cursor: pointer;
       font-weight: bold;
+      font-size: 1rem;
     }
     .preview-mini {
       width: 100%;
       max-height: 180px;
       object-fit: cover;
-      border-radius: 6px;
-      margin-top: 0.5rem;
+      border-radius: 8px;
+      margin-top: 0.6rem;
       border: 1px solid #ddd;
     }
+    .code-hint {
+      background: #2f2123;
+      color: #f7e6d4;
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      font-family: monospace;
+      font-size: 0.84rem;
+      margin: 0.75rem 0;
+      overflow-x: auto;
+    }
 
+    /* Mobile Optimization for Admin & Main Site */
     @media (max-width: 900px) {
-      .admin-layout { grid-template-columns: 1fr; }
+      .admin-layout { grid-template-columns: 1fr; gap: 1rem; }
       .admin-sidebar {
         position: static;
-        flex-direction: row;
-        flex-wrap: wrap;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.5rem;
+        padding: 0.75rem;
       }
-      .tab-btn { width: auto; flex: 1; text-align: center; }
+      .tab-btn {
+        text-align: center;
+        padding: 0.75rem 0.5rem;
+        font-size: 0.84rem;
+      }
     }
 
     @media (max-width: 768px) {
@@ -718,7 +768,20 @@
       .nav-toggle { display: block; }
       .carousel-slide { height: 300px; }
       .editorial-frame { padding: 2rem 1.2rem; }
-      .admin-main-card { padding: 1.3rem; }
+
+      /* Mobile Admin Refinements */
+      .admin-topbar { padding: 0.75rem 1rem; }
+      .admin-topbar-brand .script { font-size: 1.65rem !important; }
+      .admin-top-actions { width: 100%; justify-content: space-between; }
+      .admin-top-actions .btn { padding: 0.6rem 0.95rem; font-size: 0.76rem; flex: 1; text-align: center; }
+      #admin-editor-view { padding: 1rem 0.75rem 4.5rem; }
+      .admin-main-card { padding: 1.15rem; }
+      .admin-section-block { padding: 1.1rem; }
+      .stats-row { grid-template-columns: 1fr; gap: 0.65rem; }
+      .stat-box { display: flex; justify-content: space-between; align-items: center; padding: 0.85rem 1.1rem; }
+      .stat-box strong { font-size: 1.45rem; }
+      .rsvp-table-wrap { display: none; }
+      .rsvp-mobile-cards { display: flex; }
     }
   </style>
 </head>
@@ -991,28 +1054,28 @@
   </footer>
 
   <!-- ============================================================
-       FULL-SCREEN WEBSITE-STYLE ADMIN WORKSPACE
+       MOBILE-FRIENDLY FULL-SCREEN ADMIN WORKSPACE
        ============================================================ -->
   <div id="admin-workspace">
     <!-- Top Sticky Website Navigation Bar -->
     <div class="admin-topbar">
       <div class="admin-topbar-brand">
-        <span class="script" style="font-size: 2rem; color: var(--primary-rose);">Jason & Camilla</span>
-        <span class="admin-badge">Site Editor & RSVP Manager</span>
+        <span class="script" style="font-size: 1.9rem; color: var(--primary-rose);">Jason & Camilla</span>
+        <span class="admin-badge">Editor</span>
       </div>
-      <div style="display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;">
-        <span id="save-status" style="font-size: 0.88rem; color: #198754; font-weight: 600;"></span>
-        <button id="save-all-btn" class="btn btn-primary" style="padding: 0.65rem 1.5rem; display: none;">💾 Save & Publish Live</button>
+      <div class="admin-top-actions">
+        <button id="save-all-btn" class="btn btn-primary" style="padding: 0.65rem 1.3rem; display: none;">💾 Save & Publish</button>
         <button id="admin-logout-btn" class="btn btn-outline" style="display: none;">Log Out</button>
-        <button id="close-admin-btn" class="btn btn-outline">← Back to Live Website</button>
+        <button id="close-admin-btn" class="btn btn-outline">← Live Site</button>
       </div>
     </div>
+    <div id="save-status-bar" style="display:none; background:#198754; color:#fff; text-align:center; padding:0.55rem 1rem; font-size:0.88rem; font-weight:600;"></div>
 
     <!-- Login Screen -->
     <div id="admin-login-view">
       <div style="text-align: center; margin-bottom: 1.5rem;">
         <span class="section-eyebrow">Organizer Access</span>
-        <h2 class="serif" style="font-size: 1.8rem;">Sign In to Edit Site</h2>
+        <h2 class="serif" style="font-size: 1.75rem;">Sign In to Edit Site</h2>
       </div>
       <div class="form-group">
         <label>Admin Email</label>
@@ -1029,29 +1092,31 @@
     <!-- Full-Page Editor Workspace -->
     <div id="admin-editor-view">
       <div class="admin-layout">
-        <!-- Left Website Sidebar Menu -->
+        <!-- Navigation Tabs (2x2 Grid on Mobile, Sidebar on Desktop) -->
         <aside class="admin-sidebar">
           <button class="tab-btn active" data-tab="tab-rsvps">📋 Guest RSVPs</button>
-          <button class="tab-btn" data-tab="tab-photos">🖼️ Save The Date & Photos</button>
-          <button class="tab-btn" data-tab="tab-content">✍️ Event Details & Text</button>
-          <button class="tab-btn" data-tab="tab-theme">🎨 Theme Colors & Cover</button>
+          <button class="tab-btn" data-tab="tab-photos">🖼️ Gallery & Photos</button>
+          <button class="tab-btn" data-tab="tab-content">✍️ Event Details</button>
+          <button class="tab-btn" data-tab="tab-theme">🎨 Theme & Cover</button>
         </aside>
 
-        <!-- Right Spacious Content Area -->
+        <!-- Main Content Area -->
         <main class="admin-main-card">
           <!-- TAB 1: RSVPs -->
           <div class="tab-pane active" id="tab-rsvps">
-            <h3 class="serif" style="font-size: 1.65rem; margin-bottom: 1.2rem;">Guest RSVP Responses</h3>
+            <h3 class="serif" style="font-size: 1.55rem; margin-bottom: 1rem;">Guest RSVP Responses</h3>
             <div class="stats-row">
-              <div class="stat-box"><strong id="stat-total">0</strong><span>Total Responses</span></div>
-              <div class="stat-box"><strong id="stat-attending">0</strong><span>Confirmed Guests (Pax)</span></div>
-              <div class="stat-box"><strong id="stat-declined">0</strong><span>Regretfully Declined</span></div>
+              <div class="stat-box"><span>Total Responses</span><strong id="stat-total">0</strong></div>
+              <div class="stat-box"><span>Confirmed Guests (Pax)</span><strong id="stat-attending">0</strong></div>
+              <div class="stat-box"><span>Regretfully Declined</span><strong id="stat-declined">0</strong></div>
             </div>
-            <div style="margin-bottom: 1.2rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem;">
-              <strong style="font-size: 1.05rem;">Live Guest List</strong>
-              <button id="export-csv-btn" class="btn btn-outline">⬇ Download CSV (Excel)</button>
+            <div style="margin-bottom: 1.1rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem;">
+              <strong style="font-size: 1rem;">Guest List</strong>
+              <button id="export-csv-btn" class="btn btn-outline">⬇ Download CSV</button>
             </div>
-            <div style="overflow-x: auto;">
+
+            <!-- Desktop Table -->
+            <div class="rsvp-table-wrap" style="overflow-x: auto;">
               <table class="rsvp-table">
                 <thead>
                   <tr>
@@ -1066,31 +1131,36 @@
                 <tbody id="rsvp-tbody"></tbody>
               </table>
             </div>
+
+            <!-- Mobile Card View (Zero Horizontal Scrolling) -->
+            <div class="rsvp-mobile-cards" id="rsvp-mobile-list"></div>
           </div>
 
-          <!-- TAB 2: Save The Date & Photos -->
+          <!-- TAB 2: Save The Date & Photos (GitHub Folder Auto-Loader + Manual Links) -->
           <div class="tab-pane" id="tab-photos">
-            <h3 class="serif" style="font-size: 1.65rem; margin-bottom: 1.2rem;">Save The Date & Website Photos</h3>
+            <h3 class="serif" style="font-size: 1.55rem; margin-bottom: 1rem;">Save The Date & Website Photos</h3>
 
             <div class="admin-section-block">
-              <h4>1. Save The Date Auto-Slideshow Gallery</h4>
-              <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1rem;">
-                Drop new Save-the-Date photos anytime into the <a href="https://drive.google.com/drive/folders/1LwSa8BOPsoxPmEth-YOGvU9qq9HcaVWm?usp=drive_link" target="_blank" rel="noopener" style="color: var(--primary-rose); font-weight: 600;">Save The Date Google Drive Folder ↗</a> (ensure folder sharing is set to <em>"Anyone with the link can view"</em>). Connect your Google Apps Script Feed URL below so the slideshow automatically plays all photos stored inside that folder.
+              <h4>1. GitHub Folder Auto-Slideshow (Recommended & Zero-Config!)</h4>
+              <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0.65rem;">
+                Just like <code>music.mp3</code>, create a folder named <strong><code>save-the-date</code></strong> in your GitHub repository and upload your photos there! This site automatically fetches every photo inside that GitHub folder whenever visitors open the page.
               </p>
+              <div class="code-hint">your-github-repo/<br>├── index.html<br>├── music.mp3<br>└── save-the-date/ &nbsp;&larr; Upload all Save The Date photos here!</div>
 
-              <div class="form-group">
-                <label>Google Apps Script Feed URL (Auto-loads all images from the Save The Date Folder)</label>
+              <div class="form-group" style="margin-top: 1rem;">
+                <label>GitHub Repository (<code>username/repo-name</code>) — Auto-Detected or Customize:</label>
                 <div style="display: flex; gap: 0.6rem; flex-wrap: wrap;">
-                  <input type="url" id="ed-drive-script-url" class="form-control" style="flex: 1; min-width: 240px;" placeholder="https://script.google.com/macros/s/.../exec" />
-                  <button type="button" id="sync-drive-folder-btn" class="btn btn-primary" style="padding: 0.65rem 1.3rem;">🔄 Refresh Folder Now</button>
+                  <input type="text" id="ed-github-repo" class="form-control" style="flex: 1; min-width: 200px;" placeholder="e.g. yourusername/jason-camilla-wedding" />
+                  <input type="text" id="ed-github-folder" class="form-control" style="width: 175px;" value="save-the-date" placeholder="Folder name" />
+                  <button type="button" id="sync-github-folder-btn" class="btn btn-primary" style="padding: 0.7rem 1.2rem;">🔄 Scan GitHub Folder</button>
                 </div>
               </div>
 
-              <div class="form-group" style="margin-bottom: 0;">
-                <label>Or Paste Individual Google Drive Photo Link(s) Manually</label>
+              <div class="form-group" style="margin-top: 1.2rem; margin-bottom: 0;">
+                <label>Or Add Extra Photo Link / Path Manually (e.g. <code>./save-the-date/photo1.jpg</code> or Google Drive link)</label>
                 <div style="display: flex; gap: 0.6rem; flex-wrap: wrap;">
-                  <input type="text" id="new-gallery-drive-url" class="form-control" style="flex: 1; min-width: 240px;" placeholder="Paste Google Drive file link here..." />
-                  <button type="button" id="add-gallery-url-btn" class="btn btn-outline">+ Add Photo to Slideshow</button>
+                  <input type="text" id="new-gallery-url" class="form-control" style="flex: 1; min-width: 220px;" placeholder="./save-the-date/photo1.jpg or Drive link..." />
+                  <button type="button" id="add-gallery-url-btn" class="btn btn-outline">+ Add Photo</button>
                 </div>
               </div>
 
@@ -1098,31 +1168,31 @@
             </div>
 
             <div class="admin-section-block" style="margin-bottom: 0;">
-              <h4>2. Main Website Photos (Paste Google Drive Share Links)</h4>
+              <h4>2. Main Website Photos (GitHub Path e.g. <code>./save-the-date/hero.jpg</code> or Drive Link)</h4>
               <div class="grid-2">
                 <div class="form-group">
                   <label>Hero Cover Background Photo</label>
-                  <input type="text" id="ed-hero-img" class="form-control drive-preview-input" data-preview="prev-hero-img" placeholder="Paste Google Drive link..." />
+                  <input type="text" id="ed-hero-img" class="form-control drive-preview-input" data-preview="prev-hero-img" />
                   <img id="prev-hero-img" class="preview-mini" alt="Hero Preview" />
                 </div>
                 <div class="form-group">
                   <label>Our Story Portrait Photo</label>
-                  <input type="text" id="ed-story-img" class="form-control drive-preview-input" data-preview="prev-story-img" placeholder="Paste Google Drive link..." />
+                  <input type="text" id="ed-story-img" class="form-control drive-preview-input" data-preview="prev-story-img" />
                   <img id="prev-story-img" class="preview-mini" alt="Story Preview" />
                 </div>
                 <div class="form-group">
                   <label>Ceremony Venue Photo</label>
-                  <input type="text" id="ed-ceremony-img" class="form-control drive-preview-input" data-preview="prev-ceremony-img" placeholder="Paste Google Drive link..." />
+                  <input type="text" id="ed-ceremony-img" class="form-control drive-preview-input" data-preview="prev-ceremony-img" />
                   <img id="prev-ceremony-img" class="preview-mini" alt="Ceremony Preview" />
                 </div>
                 <div class="form-group">
                   <label>Reception Venue Photo</label>
-                  <input type="text" id="ed-reception-img" class="form-control drive-preview-input" data-preview="prev-reception-img" placeholder="Paste Google Drive link..." />
+                  <input type="text" id="ed-reception-img" class="form-control drive-preview-input" data-preview="prev-reception-img" />
                   <img id="prev-reception-img" class="preview-mini" alt="Reception Preview" />
                 </div>
                 <div class="form-group">
                   <label>Gift Registry QR Code Image</label>
-                  <input type="text" id="ed-qr-img" class="form-control drive-preview-input" data-preview="prev-qr-img" placeholder="Paste Google Drive QR link..." />
+                  <input type="text" id="ed-qr-img" class="form-control drive-preview-input" data-preview="prev-qr-img" />
                   <img id="prev-qr-img" class="preview-mini" alt="QR Preview" />
                 </div>
               </div>
@@ -1131,7 +1201,7 @@
 
           <!-- TAB 3: Event Details & Text -->
           <div class="tab-pane" id="tab-content">
-            <h3 class="serif" style="font-size: 1.65rem; margin-bottom: 1.2rem;">Event Details, Venues & Wording</h3>
+            <h3 class="serif" style="font-size: 1.55rem; margin-bottom: 1rem;">Event Details, Venues & Wording</h3>
 
             <div class="admin-section-block">
               <h4>Couple & Wedding Date</h4>
@@ -1196,7 +1266,7 @@
 
           <!-- TAB 4: Theme Colors & Cover -->
           <div class="tab-pane" id="tab-theme">
-            <h3 class="serif" style="font-size: 1.65rem; margin-bottom: 1.2rem;">Theme Colors & Intro Cover</h3>
+            <h3 class="serif" style="font-size: 1.55rem; margin-bottom: 1rem;">Theme Colors & Intro Cover</h3>
             <div class="admin-section-block" style="margin-bottom: 0;">
               <div class="grid-2">
                 <div class="form-group">
@@ -1206,10 +1276,10 @@
                     <option value="false">Disabled</option>
                   </select>
                 </div>
-                <div class="form-group"><label>Primary Rose Color</label><input type="color" id="ed-color-primary" class="form-control" style="height: 46px;" /></div>
-                <div class="form-group"><label>Secondary Pink Color</label><input type="color" id="ed-color-secondary" class="form-control" style="height: 46px;" /></div>
-                <div class="form-group"><label>Main Beige Backdrop</label><input type="color" id="ed-color-beige" class="form-control" style="height: 46px;" /></div>
-                <div class="form-group"><label>Editorial Cream Surface</label><input type="color" id="ed-color-cream" class="form-control" style="height: 46px;" /></div>
+                <div class="form-group"><label>Primary Rose Color</label><input type="color" id="ed-color-primary" class="form-control" style="height: 48px;" /></div>
+                <div class="form-group"><label>Secondary Pink Color</label><input type="color" id="ed-color-secondary" class="form-control" style="height: 48px;" /></div>
+                <div class="form-group"><label>Main Beige Backdrop</label><input type="color" id="ed-color-beige" class="form-control" style="height: 48px;" /></div>
+                <div class="form-group"><label>Editorial Cream Surface</label><input type="color" id="ed-color-cream" class="form-control" style="height: 48px;" /></div>
               </div>
               <button type="button" id="reset-colors-btn" class="btn btn-outline">Reset Default Colors</button>
             </div>
@@ -1240,11 +1310,20 @@
     const auth = getAuth(app);
     const db = getFirestore(app);
 
-    // Save The Date Google Drive Folder ID
-    const SAVE_THE_DATE_FOLDER_ID = "1LwSa8BOPsoxPmEth-YOGvU9qq9HcaVWm";
+    // Auto-detect GitHub username/repo when hosted on username.github.io/repo-name
+    function detectGithubRepo() {
+      const host = window.location.hostname;
+      const pathParts = window.location.pathname.split('/').filter(Boolean);
+      if (host.endsWith('.github.io')) {
+        const owner = host.replace('.github.io', '');
+        const repo = pathParts.length > 0 ? pathParts[0] : `${owner}.github.io`;
+        return `${owner}/${repo}`;
+      }
+      return "";
+    }
 
-    // Helper: Convert any Google Drive share link into a direct fast-loading image URL
-    function normalizeDriveUrl(url) {
+    // Normalize Google Drive share links OR keep local GitHub relative paths intact
+    function normalizePhotoUrl(url) {
       if (!url) return "";
       const clean = url.trim();
       const fileMatch = clean.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
@@ -1291,12 +1370,13 @@
         { color: "#e6ccb2", label: "Warm Beige" },
         { color: "#c5a059", label: "Champagne" }
       ],
+      githubRepo: detectGithubRepo(),
+      githubFolder: "save-the-date",
       rouletteImages: [
         "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=80",
         "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=1200&q=80",
         "https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=1200&q=80"
       ],
-      driveScriptUrl: "",
       invWording: "Request the honor of your presence as we exchange vows and unite in marriage on Friday, the eighteenth of December, two thousand and twenty-six.",
       bibleVerse: "“Above all, clothe yourselves with love, which binds us all together in perfect harmony.”",
       bibleRef: "Colossians 3:14",
@@ -1324,6 +1404,39 @@
     let carouselPaused = false;
     let rsvpCache = [];
 
+    function showStatusBanner(msg, isError = false) {
+      const bar = document.getElementById('save-status-bar');
+      bar.textContent = msg;
+      bar.style.background = isError ? '#b02a37' : '#198754';
+      bar.style.display = 'block';
+      setTimeout(() => { bar.style.display = 'none'; }, 4500);
+    }
+
+    // Automatically fetch all image files inside the GitHub folder (e.g., /save-the-date)
+    async function fetchGithubFolderImages(repoOverride, folderOverride) {
+      const repo = (repoOverride || siteConfig.githubRepo || detectGithubRepo()).trim();
+      const folder = (folderOverride || siteConfig.githubFolder || "save-the-date").trim().replace(/^\/+|\/+$/g, '');
+      if (!repo || !folder) return [];
+
+      try {
+        const apiUrl = `https://api.github.com/repos/${repo}/contents/${folder}`;
+        const res = await fetch(apiUrl);
+        if (!res.ok) return [];
+        const files = await res.json();
+        if (!Array.isArray(files)) return [];
+
+        const imageExts = /\.(jpe?g|png|webp|gif|avif)$/i;
+        const foundUrls = files
+          .filter(f => f.type === 'file' && imageExts.test(f.name))
+          .map(f => `./${folder}/${encodeURIComponent(f.name)}`);
+
+        return foundUrls;
+      } catch (err) {
+        console.warn("GitHub folder scan skipped:", err);
+        return [];
+      }
+    }
+
     // Apply Config to DOM
     function applySiteConfig() {
       document.documentElement.style.setProperty('--primary-rose', siteConfig.colorPrimary);
@@ -1341,20 +1454,20 @@
       document.getElementById('hero-tagline').textContent = siteConfig.tagline;
       document.getElementById('hero-names').textContent = siteConfig.names;
       document.getElementById('hero-date-text').textContent = siteConfig.dateText;
-      document.getElementById('home').style.backgroundImage = `url('${normalizeDriveUrl(siteConfig.heroImg)}')`;
+      document.getElementById('home').style.backgroundImage = `url('${normalizePhotoUrl(siteConfig.heroImg)}')`;
 
-      document.getElementById('story-img').src = normalizeDriveUrl(siteConfig.storyImg);
+      document.getElementById('story-img').src = normalizePhotoUrl(siteConfig.storyImg);
       document.getElementById('story-heading').textContent = siteConfig.storyHeading;
       document.getElementById('story-body').textContent = siteConfig.storyBody;
 
-      document.getElementById('ceremony-img').src = normalizeDriveUrl(siteConfig.ceremonyImg);
+      document.getElementById('ceremony-img').src = normalizePhotoUrl(siteConfig.ceremonyImg);
       document.getElementById('ceremony-name').textContent = siteConfig.ceremonyName;
       document.getElementById('ceremony-time').textContent = siteConfig.ceremonyTime;
       document.getElementById('ceremony-address').textContent = siteConfig.ceremonyAddress;
       document.getElementById('ceremony-gmaps').href = siteConfig.ceremonyGmaps;
       document.getElementById('ceremony-waze').href = siteConfig.ceremonyWaze;
 
-      document.getElementById('reception-img').src = normalizeDriveUrl(siteConfig.receptionImg);
+      document.getElementById('reception-img').src = normalizePhotoUrl(siteConfig.receptionImg);
       document.getElementById('reception-name').textContent = siteConfig.receptionName;
       document.getElementById('reception-time').textContent = siteConfig.receptionTime;
       document.getElementById('reception-address').textContent = siteConfig.receptionAddress;
@@ -1385,7 +1498,7 @@
       const qrWrap = document.getElementById('qr-wrapper');
       if (siteConfig.qrImg) {
         qrWrap.style.display = 'block';
-        document.getElementById('gift-qr-img').src = normalizeDriveUrl(siteConfig.qrImg);
+        document.getElementById('gift-qr-img').src = normalizePhotoUrl(siteConfig.qrImg);
       } else {
         qrWrap.style.display = 'none';
       }
@@ -1414,7 +1527,7 @@
       if (slideIndex < 0) slideIndex = imgs.length - 1;
       const imgEl = document.getElementById('carousel-img');
       imgEl.style.opacity = '0.35';
-      imgEl.src = normalizeDriveUrl(imgs[slideIndex]);
+      imgEl.src = normalizePhotoUrl(imgs[slideIndex]);
       imgEl.onload = () => { imgEl.style.opacity = '1'; };
       setTimeout(() => { imgEl.style.opacity = '1'; }, 180);
 
@@ -1487,22 +1600,7 @@
       document.getElementById('nav-links').classList.toggle('show');
     });
 
-    // Auto-fetch live images from Save The Date Google Drive folder if Apps Script URL is set
-    async function fetchLiveDriveFolderImages() {
-      if (!siteConfig.driveScriptUrl) return;
-      try {
-        const res = await fetch(`${siteConfig.driveScriptUrl}?folderId=${SAVE_THE_DATE_FOLDER_ID}`);
-        const data = await res.json();
-        if (Array.isArray(data.images) && data.images.length > 0) {
-          siteConfig.rouletteImages = data.images.map(normalizeDriveUrl);
-          renderCarousel();
-        }
-      } catch (err) {
-        console.warn("Live folder fetch skipped:", err);
-      }
-    }
-
-    // Load Config from Firestore
+    // Load Config from Firestore + Auto-Scan GitHub Folder for Save The Date photos
     async function loadConfig() {
       try {
         const snap = await getDoc(doc(db, 'artifacts', appId, 'public', 'data', 'config', 'main'));
@@ -1512,8 +1610,18 @@
       } catch (err) {
         console.warn("Using default config:", err);
       }
+
+      if (!siteConfig.githubRepo) {
+        siteConfig.githubRepo = detectGithubRepo();
+      }
+
+      // Automatically load any images uploaded to the GitHub save-the-date folder
+      const ghImages = await fetchGithubFolderImages(siteConfig.githubRepo, siteConfig.githubFolder);
+      if (ghImages.length > 0) {
+        siteConfig.rouletteImages = ghImages;
+      }
+
       applySiteConfig();
-      await fetchLiveDriveFolderImages();
     }
     loadConfig();
 
@@ -1567,7 +1675,7 @@
       document.getElementById('rsvp-form').style.display = 'block';
     });
 
-    // Full-Screen Admin Workspace Controls
+    // Mobile-Friendly Full-Screen Admin Workspace Controls
     const adminWorkspace = document.getElementById('admin-workspace');
     document.getElementById('edit-site-trigger').addEventListener('click', () => adminWorkspace.classList.add('open'));
     document.getElementById('close-admin-btn').addEventListener('click', () => adminWorkspace.classList.remove('open'));
@@ -1647,7 +1755,8 @@
       document.getElementById('ed-color-beige').value = siteConfig.colorBeige;
       document.getElementById('ed-color-cream').value = siteConfig.colorCream;
 
-      document.getElementById('ed-drive-script-url').value = siteConfig.driveScriptUrl || "";
+      document.getElementById('ed-github-repo').value = siteConfig.githubRepo || detectGithubRepo();
+      document.getElementById('ed-github-folder').value = siteConfig.githubFolder || "save-the-date";
       document.getElementById('ed-hero-img').value = siteConfig.heroImg;
       document.getElementById('ed-story-img').value = siteConfig.storyImg;
       document.getElementById('ed-ceremony-img').value = siteConfig.ceremonyImg;
@@ -1656,7 +1765,7 @@
 
       document.querySelectorAll('.drive-preview-input').forEach(inp => {
         const prev = document.getElementById(inp.dataset.preview);
-        const norm = normalizeDriveUrl(inp.value);
+        const norm = normalizePhotoUrl(inp.value);
         prev.src = norm;
         prev.style.display = norm ? 'block' : 'none';
       });
@@ -1664,23 +1773,21 @@
       renderAdminThumbs();
     }
 
-    // Live Preview on Google Drive Link Paste
     document.querySelectorAll('.drive-preview-input').forEach(inp => {
       inp.addEventListener('input', () => {
         const prev = document.getElementById(inp.dataset.preview);
-        const norm = normalizeDriveUrl(inp.value);
+        const norm = normalizePhotoUrl(inp.value);
         prev.src = norm;
         prev.style.display = norm ? 'block' : 'none';
       });
     });
 
-    // Gallery Management (Google Drive Links & Folder Sync)
     function renderAdminThumbs() {
       const container = document.getElementById('admin-gallery-thumbs');
       const list = siteConfig.rouletteImages || [];
       container.innerHTML = list.map((url, i) => `
         <div class="thumb-item">
-          <img src="${normalizeDriveUrl(url)}" alt="Gallery ${i + 1}" />
+          <img src="${normalizePhotoUrl(url)}" alt="Gallery ${i + 1}" />
           <button type="button" class="thumb-del" data-idx="${i}" title="Remove">×</button>
         </div>
       `).join('');
@@ -1694,38 +1801,34 @@
     }
 
     document.getElementById('add-gallery-url-btn').addEventListener('click', () => {
-      const inp = document.getElementById('new-gallery-drive-url');
+      const inp = document.getElementById('new-gallery-url');
       const raw = inp.value.trim();
       if (!raw) return;
       if (!Array.isArray(siteConfig.rouletteImages)) siteConfig.rouletteImages = [];
-      siteConfig.rouletteImages.push(normalizeDriveUrl(raw));
+      siteConfig.rouletteImages.push(normalizePhotoUrl(raw));
       inp.value = '';
       renderAdminThumbs();
       renderCarousel();
     });
 
-    document.getElementById('sync-drive-folder-btn').addEventListener('click', async () => {
-      const scriptUrl = document.getElementById('ed-drive-script-url').value.trim();
-      const statusEl = document.getElementById('save-status');
-      if (!scriptUrl) {
-        alert("Paste your Google Apps Script Web App URL first so the slideshow auto-loads from the Save The Date folder.");
+    document.getElementById('sync-github-folder-btn').addEventListener('click', async () => {
+      const repoVal = document.getElementById('ed-github-repo').value.trim();
+      const folderVal = document.getElementById('ed-github-folder').value.trim() || "save-the-date";
+      if (!repoVal) {
+        showStatusBanner("Enter your GitHub repository (e.g. username/repo-name) first.", true);
         return;
       }
-      statusEl.textContent = "Fetching photos from Save The Date Folder...";
-      try {
-        const res = await fetch(`${scriptUrl}?folderId=${SAVE_THE_DATE_FOLDER_ID}`);
-        const data = await res.json();
-        if (Array.isArray(data.images) && data.images.length > 0) {
-          siteConfig.rouletteImages = data.images.map(normalizeDriveUrl);
-          renderAdminThumbs();
-          renderCarousel();
-          statusEl.textContent = `Loaded ${data.images.length} photos! Click "Save & Publish Live".`;
-        } else {
-          statusEl.textContent = "No images found in that Google Drive folder yet.";
-        }
-      } catch (err) {
-        console.error(err);
-        statusEl.textContent = "Sync failed. Ensure your Apps Script is deployed as Web App with 'Anyone' access.";
+      showStatusBanner("Scanning GitHub folder...");
+      const imgs = await fetchGithubFolderImages(repoVal, folderVal);
+      if (imgs.length > 0) {
+        siteConfig.githubRepo = repoVal;
+        siteConfig.githubFolder = folderVal;
+        siteConfig.rouletteImages = imgs;
+        renderAdminThumbs();
+        renderCarousel();
+        showStatusBanner(`Found ${imgs.length} photos in /${folderVal}! Tap "Save & Publish".`);
+      } else {
+        showStatusBanner(`No images found in ${repoVal}/${folderVal} yet. Make sure the folder exists on GitHub.`, true);
       }
     });
 
@@ -1738,8 +1841,7 @@
 
     // Save All Changes to Firestore
     document.getElementById('save-all-btn').addEventListener('click', async () => {
-      const statusEl = document.getElementById('save-status');
-      statusEl.textContent = 'Saving changes...';
+      showStatusBanner('Saving changes...');
 
       siteConfig = {
         ...siteConfig,
@@ -1776,29 +1878,32 @@
         colorSecondary: document.getElementById('ed-color-secondary').value,
         colorBeige: document.getElementById('ed-color-beige').value,
         colorCream: document.getElementById('ed-color-cream').value,
-        driveScriptUrl: document.getElementById('ed-drive-script-url').value.trim(),
-        heroImg: normalizeDriveUrl(document.getElementById('ed-hero-img').value),
-        storyImg: normalizeDriveUrl(document.getElementById('ed-story-img').value),
-        ceremonyImg: normalizeDriveUrl(document.getElementById('ed-ceremony-img').value),
-        receptionImg: normalizeDriveUrl(document.getElementById('ed-reception-img').value),
-        qrImg: normalizeDriveUrl(document.getElementById('ed-qr-img').value)
+        githubRepo: document.getElementById('ed-github-repo').value.trim(),
+        githubFolder: document.getElementById('ed-github-folder').value.trim() || "save-the-date",
+        heroImg: normalizePhotoUrl(document.getElementById('ed-hero-img').value),
+        storyImg: normalizePhotoUrl(document.getElementById('ed-story-img').value),
+        ceremonyImg: normalizePhotoUrl(document.getElementById('ed-ceremony-img').value),
+        receptionImg: normalizePhotoUrl(document.getElementById('ed-reception-img').value),
+        qrImg: normalizePhotoUrl(document.getElementById('ed-qr-img').value)
       };
 
       try {
         await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'config', 'main'), siteConfig, { merge: true });
         applySiteConfig();
-        await fetchLiveDriveFolderImages();
-        statusEl.textContent = '✓ Saved & Published Live!';
+        showStatusBanner('✓ Saved & Published Live!');
       } catch (err) {
         console.error(err);
-        statusEl.textContent = '✗ Error saving changes: ' + err.message;
+        showStatusBanner('✗ Error saving changes: ' + err.message, true);
       }
     });
 
-    // Load & Export RSVPs
+    // Load & Export RSVPs (Desktop Table + Mobile Cards)
     async function loadRsvps() {
       const tbody = document.getElementById('rsvp-tbody');
+      const mobileList = document.getElementById('rsvp-mobile-list');
       tbody.innerHTML = '<tr><td colspan="6">Loading RSVPs...</td></tr>';
+      mobileList.innerHTML = '<p>Loading RSVPs...</p>';
+
       try {
         const q = query(collection(db, 'artifacts', appId, 'public', 'data', 'rsvps'), orderBy('createdAt', 'desc'));
         const snap = await getDocs(q);
@@ -1824,11 +1929,23 @@
             <td>${r.pax ?? 0}</td>
             <td>${r.companions || '-'}</td>
             <td>${r.message || '-'}</td>
-            <td><button type="button" class="btn-outline del-rsvp-btn" data-id="${r.id}" style="padding:0.3rem 0.75rem;">Delete</button></td>
+            <td><button type="button" class="btn-outline del-rsvp-btn" data-id="${r.id}" style="padding:0.35rem 0.75rem;">Delete</button></td>
           </tr>
         `).join('') || '<tr><td colspan="6">No RSVPs yet.</td></tr>';
 
-        tbody.querySelectorAll('.del-rsvp-btn').forEach(btn => {
+        mobileList.innerHTML = rsvpCache.map(r => `
+          <div class="rsvp-m-card">
+            <div class="rsvp-m-header">
+              <strong style="font-size:1.05rem;">${r.name || ''}</strong>
+              <span class="status-pill">${r.status || ''} (${r.pax ?? 0} Pax)</span>
+            </div>
+            ${r.companions ? `<p style="font-size:0.86rem; color:var(--text-dark); margin-bottom:0.3rem;"><strong>Guests:</strong> ${r.companions}</p>` : ''}
+            ${r.message ? `<p style="font-size:0.86rem; color:var(--text-muted); font-style:italic; margin-bottom:0.6rem;">"${r.message}"</p>` : ''}
+            <button type="button" class="btn-outline del-rsvp-btn" data-id="${r.id}" style="padding:0.4rem 0.9rem; width:100%;">Delete Entry</button>
+          </div>
+        `).join('') || '<p>No RSVPs yet.</p>';
+
+        document.querySelectorAll('.del-rsvp-btn').forEach(btn => {
           btn.addEventListener('click', async () => {
             if (!confirm('Delete this RSVP entry?')) return;
             await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'rsvps', btn.dataset.id));
@@ -1837,6 +1954,7 @@
         });
       } catch (err) {
         tbody.innerHTML = `<tr><td colspan="6">Error loading RSVPs: ${err.message}</td></tr>`;
+        mobileList.innerHTML = `<p>Error loading RSVPs: ${err.message}</p>`;
       }
     }
 
@@ -1849,7 +1967,8 @@
         `"${(r.companions || '').replace(/"/g, '""')}"`,
         `"${(r.message || '').replace(/"/g, '""')}"`
       ].join(','));
-      const csv = [headers.join(','), ...rows].join('\n');
+      const csv = [headers.join(','), ...rows].join('
+');
       const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
       const link = document.createElement('a');
       link.href = URL.createObjectURL(blob);
