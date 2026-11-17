@@ -351,7 +351,7 @@
     }
     .swatch-label { font-size: 0.78rem; color: var(--text-muted); }
 
-    /* Gallery Carousel — Cinema 3-Clip Rolling Filmstrip */
+    /* Gallery Carousel — Cinema 3-Clip Rolling Filmstrip (Centered & Mobile-First) */
     .cinema-stage-wrap {
       position: relative;
       max-width: 1080px;
@@ -376,12 +376,11 @@
       height: 440px;
       width: 100%;
       overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      touch-action: pan-y;
     }
     .cinema-clip {
       position: absolute;
+      left: 50%;
       top: 50%;
       width: 44%;
       height: 360px;
@@ -401,18 +400,20 @@
       height: 100%;
       object-fit: cover;
       display: block;
+      user-select: none;
+      -webkit-user-drag: none;
     }
     /* Slot 0: Exiting left (slides out completely after 4s) */
     .cinema-clip.pos-exit {
-      transform: translate(-185%, -50%) scale(0.76);
+      transform: translate(-220%, -50%) scale(0.75);
       opacity: 0;
       filter: blur(4px);
       z-index: 1;
       pointer-events: none;
     }
-    /* Slot 1 (First Clip): Semi-transparent left preview */
+    /* Slot 1 (First Clip): Semi-transparent left preview symmetrically flanking center */
     .cinema-clip.pos-first {
-      transform: translate(-122%, -50%) scale(0.84);
+      transform: translate(-128%, -50%) scale(0.84);
       opacity: 0.48;
       filter: none;
       z-index: 2;
@@ -421,7 +422,7 @@
     .cinema-clip.pos-first:hover {
       opacity: 0.72;
     }
-    /* Slot 2 (Second Clip): Center full vivid hero picture */
+    /* Slot 2 (Second Clip): Dead-center full vivid hero picture */
     .cinema-clip.pos-second {
       transform: translate(-50%, -50%) scale(1.04);
       opacity: 1;
@@ -430,9 +431,9 @@
       box-shadow: 0 22px 55px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(255, 255, 255, 0.15);
       z-index: 4;
     }
-    /* Slot 3 (Third Clip): Semi-transparent blurred right upcoming preview */
+    /* Slot 3 (Third Clip): Semi-transparent blurred right upcoming preview symmetrically flanking center */
     .cinema-clip.pos-third {
-      transform: translate(22%, -50%) scale(0.84);
+      transform: translate(28%, -50%) scale(0.84);
       opacity: 0.52;
       filter: blur(5px);
       z-index: 2;
@@ -443,7 +444,7 @@
     }
     /* Slot 4: Off-screen right queue (slides into 3rd slot when rolling forward) */
     .cinema-clip.pos-enter {
-      transform: translate(95%, -50%) scale(0.76);
+      transform: translate(120%, -50%) scale(0.75);
       opacity: 0;
       filter: blur(8px);
       z-index: 1;
@@ -474,28 +475,28 @@
     .carousel-btn.next { right: 14px; }
     .carousel-counter {
       position: absolute;
-      top: 28px;
-      right: 16px;
+      top: 26px;
+      right: 14px;
       background: rgba(0,0,0,0.68);
       border: 1px solid rgba(197, 160, 89, 0.45);
       color: #fff;
-      padding: 0.25rem 0.8rem;
+      padding: 0.25rem 0.75rem;
       border-radius: 20px;
-      font-size: 0.78rem;
+      font-size: 0.76rem;
       letter-spacing: 0.06em;
       z-index: 10;
     }
     .carousel-dots {
       display: flex;
       justify-content: center;
-      gap: 0.45rem;
-      padding: 0.9rem;
+      gap: 0.42rem;
+      padding: 0.85rem 0.75rem;
       background: var(--bg-cream);
       flex-wrap: wrap;
     }
     .dot {
-      width: 9px;
-      height: 9px;
+      width: 8px;
+      height: 8px;
       border-radius: 50%;
       background: #d8c7c9;
       cursor: pointer;
@@ -856,10 +857,17 @@
       }
       .nav-links.show { display: flex; }
       .nav-toggle { display: block; }
-      .cinema-viewport { height: 295px; }
-      .cinema-clip { width: 64%; height: 245px; }
-      .cinema-clip.pos-first { transform: translate(-114%, -50%) scale(0.8); }
-      .cinema-clip.pos-third { transform: translate(14%, -50%) scale(0.8); }
+      .cinema-viewport { height: 270px; }
+      .cinema-clip { width: 62%; height: 215px; border-radius: 8px; }
+      .cinema-clip.pos-exit { transform: translate(-205%, -50%) scale(0.72); }
+      .cinema-clip.pos-first { transform: translate(-118%, -50%) scale(0.82); opacity: 0.45; }
+      .cinema-clip.pos-second { transform: translate(-50%, -50%) scale(1.02); }
+      .cinema-clip.pos-third { transform: translate(18%, -50%) scale(0.82); opacity: 0.48; filter: blur(4px); }
+      .cinema-clip.pos-enter { transform: translate(105%, -50%) scale(0.72); }
+      .carousel-btn { width: 36px; height: 36px; font-size: 1.15rem; }
+      .carousel-btn.prev { left: 8px; }
+      .carousel-btn.next { right: 8px; }
+      .carousel-counter { top: 24px; right: 10px; font-size: 0.7rem; padding: 0.2rem 0.6rem; }
       .editorial-frame { padding: 2rem 1.2rem; }
 
       /* Mobile Admin Refinements */
@@ -1772,6 +1780,21 @@
     const carouselWrap = document.getElementById('carousel-wrap');
     carouselWrap.addEventListener('mouseenter', () => { carouselPaused = true; });
     carouselWrap.addEventListener('mouseleave', () => { carouselPaused = false; });
+
+    // Mobile Touch Swipe Support
+    let touchStartX = 0;
+    carouselWrap.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].clientX;
+      carouselPaused = true;
+    }, { passive: true });
+    carouselWrap.addEventListener('touchend', (e) => {
+      const dx = e.changedTouches[0].clientX - touchStartX;
+      if (Math.abs(dx) > 40) {
+        stepCinema(dx < 0 ? 1 : -1);
+      }
+      carouselPaused = false;
+      startCarouselAutoplay();
+    }, { passive: true });
 
     document.getElementById('prev-slide').addEventListener('click', () => {
       stepCinema(-1);
