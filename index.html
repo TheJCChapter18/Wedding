@@ -1455,64 +1455,64 @@
       imgEl.src = normalizePhotoUrl(primaryUrl);
     }
 
-    async function fetchGoogleSheetTab(sheetName) {
-      const url = `https://docs.google.com/spreadsheets/d/${GOOGLE_SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(sheetName)}&_=${Date.now()}`;
-      const res = await fetch(url);
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const text = await res.text();
-      const jsonStart = text.indexOf('{');
-      const jsonEnd = text.lastIndexOf('}');
-      if (jsonStart === -1 || jsonEnd === -1) throw new Error('Invalid gviz response');
-      const parsed = JSON.parse(text.slice(jsonStart, jsonEnd + 1));
-      const table = parsed.table;
-      if (!table || !table.rows) return [];
-
-      const knownHeaderNames = new Set(['field', 'value', 'role', 'leftname', 'rightname', 'order', 'question', 'answer', 'colorhex', 'colorname']);
-      let headers = (table.cols || []).map(c => (c.label || '').trim());
-      let startRowIdx = 0;
-
-      const hasKnownInCols = headers.some(h => knownHeaderNames.has(h.toLowerCase()));
-      if (!hasKnownInCols && table.rows.length > 0) {
-        let foundHeaderRow = -1;
-        for (let r = 0; r < Math.min(table.rows.length, 10); r++) {
-          const rowVals = (table.rows[r].c || []).map(cell => (cell && cell.v != null ? String(cell.v).trim() : ''));
-          if (rowVals.some(v => knownHeaderNames.has(v.toLowerCase()))) {
-            foundHeaderRow = r;
-            headers = rowVals;
-            startRowIdx = r + 1;
-            break;
-          }
-        }
-        if (foundHeaderRow === -1) {
-          headers = (table.rows[0].c || []).map(cell => (cell && cell.v != null ? String(cell.v).trim() : ''));
-          startRowIdx = 1;
-        }
+    const PUBLISHED_SHEET_ID = '2PACX-1vR-mIBQHqFwCSqoVfHHMjBGlkSADyyczGQ8V1YEQTYNsE0u2Z6zLl46d9VsGTCFHYG8tKQxDDMcC-HK';
+    // Optional: enter published tab gids if automatic discovery is unavailable.
+    const PUBLISHED_GIDS = { SiteDetails: '', Entourage: '', FAQs: '', AttirePalette: '' };
+    const canonicalHeader = value => ({field:'Field',value:'Value',role:'Role',leftname:'LeftName',rightname:'RightName',order:'Order',question:'Question',answer:'Answer',colorhex:'ColorHex',colorname:'ColorName'})[String(value || '').toLowerCase().replace(/[^a-z0-9]/g,'')] || '';
+    const requiredHeaders = { SiteDetails: ['Field','Value'], Entourage: ['Role','LeftName','RightName'], FAQs: ['Question','Answer'], AttirePalette: ['ColorHex','ColorName'] };
+    function rowsFromMatrix(matrix, sheetName) {
+      const headerIndex = matrix.findIndex(row => requiredHeaders[sheetName].every(h => row.map(canonicalHeader).includes(h)));
+      if (headerIndex < 0) throw new Error('Missing required headers in ' + sheetName);
+      const headers = matrix[headerIndex].map(canonicalHeader);
+      return matrix.slice(headerIndex + 1).map(row => Object.fromEntries(headers.map((h,i) => [h,String(row[i] ?? '').trim()]).filter(([h]) => h))).filter(row => Object.values(row).some(Boolean));
+    }
+    function parseCSV(text) {
+      const rows = []; let row = [], value = '', quoted = false;
+      text = text.replace(/^\uFEFF/, '');
+      for (let i=0;i<text.length;i++) {
+        const c=text[i];
+        if(c==='"') { if(quoted && text[i+1]==='"') { value+='"'; i++; } else quoted=!quoted; }
+        else if(c===',' && !quoted) { row.push(value); value=''; }
+        else if((c==='\n'||c==='\r')&&!quoted) { if(c==='\r'&&text[i+1]==='\n')i++; row.push(value); rows.push(row); row=[]; value=''; }
+        else value+=c;
       }
-
-      const rows = [];
-      for (let r = startRowIdx; r < table.rows.length; r++) {
-        const cells = table.rows[r].c || [];
-        const obj = {};
-        let hasValue = false;
-        headers.forEach((h, idx) => {
-          if (!h) return;
-          const cell = cells[idx];
-          const val = cell && cell.v != null ? String(cell.v).trim() : '';
-          if (val) hasValue = true;
-          obj[h] = val;
-        });
-        if (hasValue) rows.push(obj);
-      }
+      if(quoted) throw new Error('Unclosed CSV quotation');
+      if(value || row.length) { row.push(value); rows.push(row); }
       return rows;
+    }
+    async function fetchText(url) {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 12000);
+      try { const res = await fetch(url, {cache:'no-store',signal:controller.signal}); if(!res.ok) throw new Error(`HTTP ${res.status}`); return await res.text(); }
+      finally { clearTimeout(timeout); }
+    }
+    async function fetchGoogleSheetTab(sheetName) {
+      const errors=[];
+      // Published CSV with explicit gid avoids relying on name selection.
+      if (PUBLISHED_GIDS[sheetName] !== '') {
+        try { return rowsFromMatrix(parseCSV(await fetchText(`https://docs.google.com/spreadsheets/d/e/${PUBLISHED_SHEET_ID}/pub?gid=${encodeURIComponent(PUBLISHED_GIDS[sheetName])}&single=true&output=csv&_=${Date.now()}`)),sheetName); }
+        catch(err) { errors.push(err); }
+      }
+      try {
+        const text=await fetchText(`https://docs.google.com/spreadsheets/d/${GOOGLE_SHEET_ID}/gviz/tq?tqx=out:json&headers=1&sheet=${encodeURIComponent(sheetName)}&_=${Date.now()}`);
+        const parsed=JSON.parse(text.slice(text.indexOf('{'),text.lastIndexOf('}')+1));
+        if(parsed.status==='error'||!parsed.table) throw new Error('Invalid GViz response');
+        const table=parsed.table;
+        return rowsFromMatrix([(table.cols||[]).map(c=>c.label||''),...(table.rows||[]).map(r=>(r.c||[]).map(c=>c?.v ?? ''))],sheetName);
+      } catch(err) { errors.push(err); }
+      // Name-based published endpoint: validate the returned schema before using it.
+      try { return rowsFromMatrix(parseCSV(await fetchText(`https://docs.google.com/spreadsheets/d/e/${PUBLISHED_SHEET_ID}/pub?output=csv&sheet=${encodeURIComponent(sheetName)}&single=true&_=${Date.now()}`)),sheetName); }
+      catch(err) { errors.push(err); }
+      throw new Error(`${sheetName}: ${errors.map(e=>e.message).join(' | ')}`);
     }
 
     async function loadGoogleSheetCMS() {
       try {
         const [detailsRows, entourageRows, faqRows, paletteRows] = await Promise.all([
-          fetchGoogleSheetTab('SiteDetails').catch(() => []),
-          fetchGoogleSheetTab('Entourage').catch(() => []),
-          fetchGoogleSheetTab('FAQs').catch(() => []),
-          fetchGoogleSheetTab('AttirePalette').catch(() => [])
+          fetchGoogleSheetTab('SiteDetails').catch(err => { console.error("Wedding CMS:", err); return []; }),
+          fetchGoogleSheetTab('Entourage').catch(err => { console.error("Wedding CMS:", err); return []; }),
+          fetchGoogleSheetTab('FAQs').catch(err => { console.error("Wedding CMS:", err); return []; }),
+          fetchGoogleSheetTab('AttirePalette').catch(err => { console.error("Wedding CMS:", err); return []; })
         ]);
 
         if (detailsRows.length > 0) {
@@ -1532,12 +1532,13 @@
             'showEnvelope', 'colorPrimary', 'colorSecondary', 'colorBeige', 'colorCream'
           ];
           allowedKeys.forEach(k => {
-            if (map[k] !== undefined) siteConfig[k] = map[k];
+            const actualKey = Object.keys(map).find(key => key.toLowerCase().replace(/[^a-z0-9]/g, "") === k.toLowerCase());
+            if (actualKey !== undefined) siteConfig[k] = map[actualKey];
           });
         }
 
         if (entourageRows.length > 0) {
-          siteConfig.entourageRows = entourageRows.sort((a, b) => Number(a.Order || 999) - Number(b.Order || 999));
+          siteConfig.entourageRows = entourageRows.filter(r => r.Role && (r.LeftName || r.RightName)).sort((a, b) => Number(a.Order || 999) - Number(b.Order || 999));
         }
 
         if (faqRows.length > 0) {
@@ -1951,7 +1952,22 @@
 
       applySiteConfig();
     }
-    bootWebsite();
+    bootWebsite().then(() => {
+      let syncing = false;
+      setInterval(async () => {
+        if (syncing || document.hidden) return;
+        syncing = true;
+        try {
+          const before = JSON.stringify([siteConfig.storyHeading, siteConfig.storyBody, siteConfig.entourageRows, siteConfig.nuptialsTitle, siteConfig.names]);
+          await loadGoogleSheetCMS();
+          if (before !== JSON.stringify([siteConfig.storyHeading, siteConfig.storyBody, siteConfig.entourageRows, siteConfig.nuptialsTitle, siteConfig.names])) {
+            document.getElementById('story-heading').textContent = siteConfig.storyHeading;
+            document.getElementById('story-body').textContent = siteConfig.storyBody;
+            renderEntourage();
+          }
+        } finally { syncing = false; }
+      }, 30000);
+    });
 
     const statusSel = document.getElementById('guest-status');
     statusSel.addEventListener('change', () => {
