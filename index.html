@@ -1271,7 +1271,14 @@
             </div>
 
             <div class="admin-section-block" style="margin-bottom: 0;">
-              <h4>2. Main Website Photos (GitHub Path e.g. <code>./save-the-date/hero.jpg</code> or Drive Link)</h4>
+              <h4>2. Main Website Photos — GitHub <code>/site-photos/</code> Folder (Permanent & Free)</h4>
+              <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0.65rem;">
+                Create a folder named <strong><code>site-photos</code></strong> in your GitHub repository and upload your 4 main photos using these exact filenames (<code>.jpg</code>, <code>.png</code>, or <code>.webp</code>):
+              </p>
+              <div class="code-hint">your-github-repo/<br>├── index.html<br>├── music.mp3<br>├── save-the-date/<br>└── site-photos/<br> &nbsp;&nbsp;&nbsp;├── background.jpg &nbsp;&larr; Hero Cover Background Photo<br> &nbsp;&nbsp;&nbsp;├── our-story.jpg &nbsp;&nbsp;&larr; Our Story Portrait Photo<br> &nbsp;&nbsp;&nbsp;├── ceremony.jpg &nbsp;&nbsp;&nbsp;&larr; Ceremony Venue Photo<br> &nbsp;&nbsp;&nbsp;└── reception.jpg &nbsp;&nbsp;&larr; Reception Venue Photo</div>
+              <div style="margin-bottom: 1rem;">
+                <button type="button" id="sync-site-photos-btn" class="btn btn-outline">🔄 Scan /site-photos/ Folder</button>
+              </div>
               <div class="grid-2">
                 <div class="form-group">
                   <label>Hero Cover Background Photo</label>
@@ -1445,8 +1452,8 @@
       tagline: "Together With Their Families",
       dateText: "December 18, 2026 • Baguio City",
       countdownTarget: "2026-12-18T10:00:00",
-      heroImg: "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1600&q=80",
-      storyImg: "https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=900&q=80",
+      heroImg: "./site-photos/background.jpg",
+      storyImg: "./site-photos/our-story.jpg",
       storyHeading: "From Best Friends to Forever",
       storyBody: "Every love story is beautiful, but ours is our favorite. Surrounded by the cool pine breeze of Baguio City and the people who mean the world to us, we invite you to witness and celebrate the beginning of our forever as husband and wife.",
       ceremonyName: "St. Vincent Ferrer Parish",
@@ -1454,13 +1461,13 @@
       ceremonyAddress: "Naguilian Road, Baguio City",
       ceremonyGmaps: "https://maps.google.com/?q=St.+Vincent+Ferrer+Parish+Baguio+City",
       ceremonyWaze: "https://waze.com/ul?q=St.+Vincent+Ferrer+Parish+Baguio+City",
-      ceremonyImg: "https://images.unsplash.com/photo-1548625149-fc4a29cf7092?auto=format&fit=crop&w=900&q=80",
+      ceremonyImg: "./site-photos/ceremony.jpg",
       receptionName: "Gestdan Centrum",
       receptionTime: "December 18, 2026 • 12:30 PM",
       receptionAddress: "Bokawkan Road, Baguio City",
       receptionGmaps: "https://maps.google.com/?q=Gestdan+Centrum+Baguio+City",
       receptionWaze: "https://waze.com/ul?q=Gestdan+Centrum+Baguio+City",
-      receptionImg: "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=900&q=80",
+      receptionImg: "./site-photos/reception.jpg",
       entGroom: "Mr. & Mrs. Groom Parents",
       entBride: "Mr. & Mrs. Bride Parents",
       entPrincipal: "To be announced",
@@ -1515,7 +1522,25 @@
       setTimeout(() => { bar.style.display = 'none'; }, 4500);
     }
 
-    // Automatically fetch all image files inside the GitHub folder (e.g., /save-the-date)
+    const fallbackStockPhotos = {
+      heroImg: "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1600&q=80",
+      storyImg: "https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=900&q=80",
+      ceremonyImg: "https://images.unsplash.com/photo-1548625149-fc4a29cf7092?auto=format&fit=crop&w=900&q=80",
+      receptionImg: "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=900&q=80"
+    };
+
+    function bindImgWithFallback(imgEl, primaryUrl, fallbackUrl) {
+      if (!imgEl) return;
+      imgEl.onerror = () => {
+        if (fallbackUrl && imgEl.src !== fallbackUrl) {
+          imgEl.onerror = null;
+          imgEl.src = fallbackUrl;
+        }
+      };
+      imgEl.src = normalizePhotoUrl(primaryUrl);
+    }
+
+    // Automatically fetch all image files inside a GitHub folder (e.g., /save-the-date or /site-photos)
     async function fetchGithubFolderImages(repoOverride, folderOverride) {
       const repo = (repoOverride || siteConfig.githubRepo || detectGithubRepo()).trim();
       const folder = (folderOverride || siteConfig.githubFolder || "save-the-date").trim().replace(/^\/+|\/+$/g, '');
@@ -1540,6 +1565,22 @@
       }
     }
 
+    // Auto-detect main site photos inside /site-photos/ regardless of file extension (.jpg, .png, .webp)
+    async function syncSitePhotosFolder(repoOverride) {
+      const files = await fetchGithubFolderImages(repoOverride, "site-photos");
+      if (!files.length) return {};
+      const matched = {};
+      for (const path of files) {
+        const lower = decodeURIComponent(path).toLowerCase();
+        if (/\/(background|hero)\.[a-z0-9]+$/.test(lower)) matched.heroImg = path;
+        else if (/\/(our-story|story)\.[a-z0-9]+$/.test(lower)) matched.storyImg = path;
+        else if (/\/ceremony\.[a-z0-9]+$/.test(lower)) matched.ceremonyImg = path;
+        else if (/\/reception\.[a-z0-9]+$/.test(lower)) matched.receptionImg = path;
+        else if (/\/qr\.[a-z0-9]+$/.test(lower)) matched.qrImg = path;
+      }
+      return matched;
+    }
+
     // Apply Config to DOM
     function applySiteConfig() {
       document.documentElement.style.setProperty('--primary-rose', siteConfig.colorPrimary);
@@ -1557,20 +1598,21 @@
       document.getElementById('hero-tagline').textContent = siteConfig.tagline;
       document.getElementById('hero-names').textContent = siteConfig.names;
       document.getElementById('hero-date-text').textContent = siteConfig.dateText;
-      document.getElementById('home').style.backgroundImage = `url('${normalizePhotoUrl(siteConfig.heroImg)}')`;
+      const heroNorm = normalizePhotoUrl(siteConfig.heroImg);
+      document.getElementById('home').style.backgroundImage = `url('${heroNorm}'), url('${fallbackStockPhotos.heroImg}')`;
 
-      document.getElementById('story-img').src = normalizePhotoUrl(siteConfig.storyImg);
+      bindImgWithFallback(document.getElementById('story-img'), siteConfig.storyImg, fallbackStockPhotos.storyImg);
       document.getElementById('story-heading').textContent = siteConfig.storyHeading;
       document.getElementById('story-body').textContent = siteConfig.storyBody;
 
-      document.getElementById('ceremony-img').src = normalizePhotoUrl(siteConfig.ceremonyImg);
+      bindImgWithFallback(document.getElementById('ceremony-img'), siteConfig.ceremonyImg, fallbackStockPhotos.ceremonyImg);
       document.getElementById('ceremony-name').textContent = siteConfig.ceremonyName;
       document.getElementById('ceremony-time').textContent = siteConfig.ceremonyTime;
       document.getElementById('ceremony-address').textContent = siteConfig.ceremonyAddress;
       document.getElementById('ceremony-gmaps').href = siteConfig.ceremonyGmaps;
       document.getElementById('ceremony-waze').href = siteConfig.ceremonyWaze;
 
-      document.getElementById('reception-img').src = normalizePhotoUrl(siteConfig.receptionImg);
+      bindImgWithFallback(document.getElementById('reception-img'), siteConfig.receptionImg, fallbackStockPhotos.receptionImg);
       document.getElementById('reception-name').textContent = siteConfig.receptionName;
       document.getElementById('reception-time').textContent = siteConfig.receptionTime;
       document.getElementById('reception-address').textContent = siteConfig.receptionAddress;
@@ -1836,12 +1878,19 @@
       document.getElementById('nav-links').classList.toggle('show');
     });
 
-    // Load Config from Firestore + Auto-Scan GitHub Folder for Save The Date photos
+    // Load Config from Firestore + Auto-Scan GitHub Folders (/save-the-date and /site-photos)
     async function loadConfig() {
       try {
         const snap = await getDoc(doc(db, 'artifacts', appId, 'public', 'data', 'config', 'main'));
         if (snap.exists()) {
-          siteConfig = { ...defaultConfig, ...snap.data() };
+          const saved = snap.data();
+          // Upgrade legacy Unsplash placeholder entries in Firestore to ./site-photos/ paths automatically
+          ['heroImg', 'storyImg', 'ceremonyImg', 'receptionImg'].forEach(key => {
+            if (typeof saved[key] === 'string' && saved[key].includes('images.unsplash.com')) {
+              saved[key] = defaultConfig[key];
+            }
+          });
+          siteConfig = { ...defaultConfig, ...saved };
         }
       } catch (err) {
         console.warn("Using default config:", err);
@@ -1851,10 +1900,17 @@
         siteConfig.githubRepo = detectGithubRepo();
       }
 
-      // Automatically load any images uploaded to the GitHub save-the-date folder
-      const ghImages = await fetchGithubFolderImages(siteConfig.githubRepo, siteConfig.githubFolder);
+      // Automatically load any images uploaded to /save-the-date and /site-photos on GitHub
+      const [ghImages, sitePhotoMatches] = await Promise.all([
+        fetchGithubFolderImages(siteConfig.githubRepo, siteConfig.githubFolder),
+        syncSitePhotosFolder(siteConfig.githubRepo)
+      ]);
+
       if (ghImages.length > 0) {
         siteConfig.rouletteImages = ghImages;
+      }
+      if (Object.keys(sitePhotoMatches).length > 0) {
+        siteConfig = { ...siteConfig, ...sitePhotoMatches };
       }
 
       applySiteConfig();
@@ -2045,6 +2101,25 @@
       inp.value = '';
       renderAdminThumbs();
       renderCarousel();
+    });
+
+    document.getElementById('sync-site-photos-btn').addEventListener('click', async () => {
+      const repoVal = document.getElementById('ed-github-repo').value.trim();
+      if (!repoVal) {
+        showStatusBanner("Enter your GitHub repository (e.g. username/repo-name) first.", true);
+        return;
+      }
+      showStatusBanner("Scanning /site-photos/ folder...");
+      const matched = await syncSitePhotosFolder(repoVal);
+      const count = Object.keys(matched).length;
+      if (count > 0) {
+        siteConfig = { ...siteConfig, githubRepo: repoVal, ...matched };
+        populateAdminFields();
+        applySiteConfig();
+        showStatusBanner(`Matched ${count} photo(s) from /site-photos/! Tap "Save & Publish".`);
+      } else {
+        showStatusBanner("No matching files found in /site-photos/ yet (use background.jpg, our-story.jpg, ceremony.jpg, reception.jpg).", true);
+      }
     });
 
     document.getElementById('sync-github-folder-btn').addEventListener('click', async () => {
