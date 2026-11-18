@@ -311,26 +311,135 @@
       flex-wrap: wrap;
     }
 
-    /* Entourage */
-    .entourage-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 1.5rem;
-      text-align: center;
-    }
-    .ent-card {
+    /* Entourage — Classic Formal Nuptials Layout with Bride & Groom Silhouette Backdrop */
+    .nuptials-entourage-card {
+      position: relative;
+      max-width: 820px;
+      margin: 0 auto;
       background: var(--white);
-      padding: 1.5rem;
-      border-radius: 6px;
-      border: 1px solid var(--border-soft);
+      border: 1px solid var(--champagne-gold);
+      outline: 1px solid rgba(197, 160, 89, 0.45);
+      outline-offset: -10px;
+      padding: 3.5rem 2.2rem 3.8rem;
+      box-shadow: var(--shadow-soft);
+      text-align: center;
+      overflow: hidden;
     }
-    .ent-card h4 {
-      color: var(--primary-rose);
+    .nuptials-watermark {
+      position: absolute;
+      inset: 55px 0 20px 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.24;
+    }
+    .nuptials-watermark svg {
+      width: 100%;
+      max-width: 560px;
+      height: auto;
+    }
+    .nuptials-content {
+      position: relative;
+      z-index: 1;
+    }
+    .nuptials-couple-script {
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(2.5rem, 5vw, 3.6rem);
+      color: var(--text-dark);
+      line-height: 1.1;
+    }
+    .nuptials-sub {
       font-family: 'Playfair Display', serif;
-      margin-bottom: 0.5rem;
-      font-size: 1.1rem;
+      font-size: 1.35rem;
+      letter-spacing: 0.08em;
+      color: var(--text-dark);
+      margin-top: -0.2rem;
     }
-    .ent-card p { font-size: 0.92rem; white-space: pre-line; }
+    .nuptials-title-script {
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(3rem, 6vw, 4.3rem);
+      color: var(--primary-rose);
+      line-height: 1.05;
+      margin-bottom: 1.8rem;
+    }
+    .ent-pair-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      max-width: 640px;
+      margin: 0 auto 2rem;
+    }
+    .ent-block-heading {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-dark);
+      margin-bottom: 0.45rem;
+    }
+    .ent-sub-heading {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--primary-rose);
+      margin-bottom: 0.35rem;
+    }
+    .ent-name-line {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      color: var(--text-dark);
+      line-height: 1.65;
+    }
+    .principal-sponsors-section {
+      max-width: 660px;
+      margin: 0 auto 2.2rem;
+    }
+    .principal-sponsors-list {
+      margin-top: 0.65rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+    .ps-row {
+      display: grid;
+      grid-template-columns: 1fr 28px 1fr;
+      align-items: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.03rem;
+      color: var(--text-dark);
+    }
+    .ps-left { text-align: right; padding-right: 0.5rem; }
+    .ps-dash { text-align: center; color: var(--primary-rose); font-weight: 600; }
+    .ps-right { text-align: left; padding-left: 0.5rem; }
+    .secondary-sponsors-title {
+      margin-top: 0.5rem;
+      margin-bottom: 1.25rem;
+    }
+    .secondary-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.6rem 2rem;
+      max-width: 620px;
+      margin: 0 auto 1.5rem;
+    }
+    .extra-entourage-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.6rem 2rem;
+      max-width: 620px;
+      margin: 1.5rem auto 0;
+    }
+    @media (max-width: 640px) {
+      .nuptials-entourage-card { padding: 2.4rem 1.1rem 2.8rem; outline-offset: -6px; }
+      .ent-pair-row { grid-template-columns: 1fr; gap: 1.25rem; }
+      .ps-row { font-size: 0.92rem; grid-template-columns: 1fr 18px 1fr; }
+      .secondary-grid, .extra-entourage-grid { grid-template-columns: 1fr; gap: 1.2rem; }
+    }
 
     /* Attire Swatches */
     .swatches {
@@ -993,29 +1102,82 @@
   <!-- Entourage -->
   <section id="entourage" class="cream-bg">
     <div class="container">
-      <div class="editorial-frame">
-        <div class="section-header">
-          <span class="section-eyebrow">With Blessings & Love</span>
-          <h2 class="section-title">The Wedding Entourage</h2>
-          <div class="divider-ornament"></div>
+      <div class="nuptials-entourage-card">
+        <!-- Romantic Pink Bride & Groom Silhouette + Ornamental Flourish Watermark -->
+        <div class="nuptials-watermark" aria-hidden="true">
+          <svg viewBox="0 0 600 760" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Ornamental Scrollwork Frame -->
+            <path d="M300 35 C170 35 75 135 75 265 C75 360 118 425 90 505 C68 565 110 645 185 675 C235 695 270 725 300 735 C330 725 365 695 415 675 C490 645 532 565 510 505 C482 425 525 360 525 265 C525 135 430 35 300 35 Z" stroke="#e5989b" stroke-width="5" stroke-dasharray="18 8"/>
+            <path d="M135 120 C95 165 90 230 120 275 M465 120 C505 165 510 230 480 275 M95 430 C60 475 68 545 115 585 M505 430 C540 475 532 545 485 585" stroke="#e5989b" stroke-width="6" stroke-linecap="round"/>
+            <circle cx="135" cy="120" r="8" fill="#e5989b"/>
+            <circle cx="465" cy="120" r="8" fill="#e5989b"/>
+            <circle cx="115" cy="585" r="8" fill="#e5989b"/>
+            <circle cx="485" cy="585" r="8" fill="#e5989b"/>
+            <!-- Groom Silhouette (Left) -->
+            <path d="M242 92 C266 92 284 110 284 134 C284 155 268 172 248 175 L252 192 L292 212 L305 335 L278 445 L254 715 L224 715 L210 475 L186 355 C172 300 176 232 204 202 L226 190 L226 173 C210 166 200 150 200 132 C200 108 218 92 242 92 Z" fill="#e5989b"/>
+            <!-- Bride Silhouette & Flowing Gown (Right) -->
+            <path d="M352 126 C374 126 392 142 394 162 C406 166 414 178 410 192 C406 204 394 210 382 208 L374 224 C405 248 424 295 434 365 C450 470 488 605 524 705 L276 705 C292 595 312 465 320 355 L286 312 L302 292 L326 316 C328 276 334 244 344 224 L338 206 C324 200 314 184 314 166 C314 144 330 126 352 126 Z" fill="#e5989b"/>
+          </svg>
         </div>
-        <div class="entourage-grid">
-          <div class="ent-card">
-            <h4>Parents of the Groom</h4>
-            <p id="ent-groom-parents">Mr. & Mrs. Groom Parents</p>
+
+        <div class="nuptials-content" id="entourage-render-target">
+          <div class="nuptials-couple-script" id="ent-nuptials-names">Jason - Camilla</div>
+          <div class="nuptials-sub">Nuptials</div>
+          <div class="nuptials-title-script">Entourage</div>
+
+          <!-- Parents of the Groom & Bride -->
+          <div class="ent-pair-row">
+            <div>
+              <div class="ent-block-heading">PARENTS OF THE GROOM</div>
+              <div class="ent-name-line" id="ent-groom-parents">Mrs. Name<br>Mr. Name</div>
+            </div>
+            <div>
+              <div class="ent-block-heading">PARENTS OF THE BRIDE</div>
+              <div class="ent-name-line" id="ent-bride-parents">Mr. Name<br>Mrs. Name</div>
+            </div>
           </div>
-          <div class="ent-card">
-            <h4>Parents of the Bride</h4>
-            <p id="ent-bride-parents">Mr. & Mrs. Bride Parents</p>
+
+          <!-- Principal Sponsors -->
+          <div class="principal-sponsors-section">
+            <div class="ent-block-heading">PRINCIPAL SPONSORS</div>
+            <div class="principal-sponsors-list" id="ent-principal-list"></div>
           </div>
-          <div class="ent-card">
-            <h4>Principal Sponsors</h4>
-            <p id="ent-principal">Ninong & Ninang Names</p>
+
+          <!-- Best Man & Maid of Honor -->
+          <div class="ent-pair-row" style="margin-bottom: 2.2rem;">
+            <div>
+              <div class="ent-block-heading">BEST MAN</div>
+              <div class="ent-name-line" id="ent-best-man">Mr. Name</div>
+            </div>
+            <div>
+              <div class="ent-block-heading">MAID OF HONOR</div>
+              <div class="ent-name-line" id="ent-maid-of-honor">Ms. Name</div>
+            </div>
           </div>
-          <div class="ent-card">
-            <h4>Bridal Party</h4>
-            <p id="ent-party">Best Man, Maid of Honor, Bridesmaids & Groomsmen</p>
+
+          <!-- Secondary Sponsors -->
+          <div class="ent-block-heading secondary-sponsors-title">SECONDARY SPONSORS</div>
+          <div class="secondary-grid">
+            <div>
+              <div class="ent-sub-heading">CANDLE</div>
+              <div class="ent-name-line" id="ent-candle">Mr. Name<br>Ms. Name</div>
+            </div>
+            <div>
+              <div class="ent-sub-heading">VEIL</div>
+              <div class="ent-name-line" id="ent-veil">Mr. Name<br>Ms. Name</div>
+            </div>
+            <div>
+              <div class="ent-sub-heading">CORD</div>
+              <div class="ent-name-line" id="ent-cord">Mr. Name<br>Ms. Name</div>
+            </div>
+            <div>
+              <div class="ent-sub-heading">RIBBON</div>
+              <div class="ent-name-line" id="ent-ribbon">Mr. Name<br>Ms. Name</div>
+            </div>
           </div>
+
+          <!-- Optional Bridesmaids & Groomsmen (auto-shown if populated in Google Sheet) -->
+          <div class="extra-entourage-grid" id="ent-extra-party" style="display:none;"></div>
         </div>
       </div>
     </div>
@@ -1164,10 +1326,10 @@
     <div class="admin-topbar">
       <div class="admin-topbar-brand">
         <span class="script" style="font-size: 1.9rem; color: var(--primary-rose);">Jason & Camilla</span>
-        <span class="admin-badge">Editor</span>
+        <span class="admin-badge">RSVP Dashboard</span>
       </div>
       <div class="admin-top-actions">
-        <button id="save-all-btn" class="btn btn-primary" style="padding: 0.65rem 1.3rem; display: none;">💾 Save & Publish</button>
+        
         <button id="admin-logout-btn" class="btn btn-outline" style="display: none;">Log Out</button>
         <button id="close-admin-btn" class="btn btn-outline">← Live Site</button>
       </div>
@@ -1192,220 +1354,61 @@
       <p id="admin-login-err" style="color: #b02a37; font-size: 0.85rem; margin-top: 0.85rem; text-align: center;"></p>
     </div>
 
-    <!-- Full-Page Editor Workspace -->
+    <!-- RSVP-Only Dashboard Workspace (Content & Entourage Managed via Google Sheets) -->
     <div id="admin-editor-view">
-      <div class="admin-layout">
-        <!-- Navigation Tabs (2x2 Grid on Mobile, Sidebar on Desktop) -->
-        <aside class="admin-sidebar">
-          <button class="tab-btn active" data-tab="tab-rsvps">📋 Guest RSVPs</button>
-          <button class="tab-btn" data-tab="tab-photos">🖼️ Gallery & Photos</button>
-          <button class="tab-btn" data-tab="tab-content">✍️ Event Details</button>
-          <button class="tab-btn" data-tab="tab-theme">🎨 Theme & Cover</button>
-        </aside>
-
-        <!-- Main Content Area -->
-        <main class="admin-main-card">
-          <!-- TAB 1: RSVPs -->
-          <div class="tab-pane active" id="tab-rsvps">
-            <h3 class="serif" style="font-size: 1.55rem; margin-bottom: 1rem;">Guest RSVP Responses</h3>
-            <div class="stats-row">
-              <div class="stat-box"><span>Total Responses</span><strong id="stat-total">0</strong></div>
-              <div class="stat-box"><span>Confirmed Guests (Pax)</span><strong id="stat-attending">0</strong></div>
-              <div class="stat-box"><span>Regretfully Declined</span><strong id="stat-declined">0</strong></div>
+      <div style="max-width: 1080px; margin: 0 auto;">
+        <div class="admin-main-card">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.25rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border-soft);">
+            <div>
+              <span class="section-eyebrow" style="margin-bottom: 0.15rem;">Live Guest Attendance</span>
+              <h3 class="serif" style="font-size: 1.65rem;">RSVP Dashboard</h3>
             </div>
-            <div style="margin-bottom: 1.1rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem;">
-              <strong style="font-size: 1rem;">Guest List</strong>
-              <button id="export-csv-btn" class="btn btn-outline">⬇ Download CSV</button>
-            </div>
-
-            <!-- Desktop Table -->
-            <div class="rsvp-table-wrap" style="overflow-x: auto;">
-              <table class="rsvp-table">
-                <thead>
-                  <tr>
-                    <th>Guest Name</th>
-                    <th>Status</th>
-                    <th>Pax</th>
-                    <th>Additional Guests</th>
-                    <th>Message</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody id="rsvp-tbody"></tbody>
-              </table>
-            </div>
-
-            <!-- Mobile Card View (Zero Horizontal Scrolling) -->
-            <div class="rsvp-mobile-cards" id="rsvp-mobile-list"></div>
-          </div>
-
-          <!-- TAB 2: Save The Date & Photos (GitHub Folder Auto-Loader + Manual Links) -->
-          <div class="tab-pane" id="tab-photos">
-            <h3 class="serif" style="font-size: 1.55rem; margin-bottom: 1rem;">Save The Date & Website Photos</h3>
-
-            <div class="admin-section-block">
-              <h4>1. GitHub Folder Auto-Slideshow (Recommended & Zero-Config!)</h4>
-              <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0.65rem;">
-                Just like <code>music.mp3</code>, create a folder named <strong><code>save-the-date</code></strong> in your GitHub repository and upload your photos there! This site automatically fetches every photo inside that GitHub folder whenever visitors open the page.
-              </p>
-              <div class="code-hint">your-github-repo/<br>├── index.html<br>├── music.mp3<br>└── save-the-date/ &nbsp;&larr; Upload all Save The Date photos here!</div>
-
-              <div class="form-group" style="margin-top: 1rem;">
-                <label>GitHub Repository (<code>username/repo-name</code>) — Auto-Detected or Customize:</label>
-                <div style="display: flex; gap: 0.6rem; flex-wrap: wrap;">
-                  <input type="text" id="ed-github-repo" class="form-control" style="flex: 1; min-width: 200px;" placeholder="e.g. yourusername/jason-camilla-wedding" />
-                  <input type="text" id="ed-github-folder" class="form-control" style="width: 175px;" value="save-the-date" placeholder="Folder name" />
-                  <button type="button" id="sync-github-folder-btn" class="btn btn-primary" style="padding: 0.7rem 1.2rem;">🔄 Scan GitHub Folder</button>
-                </div>
-              </div>
-
-              <div class="form-group" style="margin-top: 1.2rem; margin-bottom: 0;">
-                <label>Or Add Extra Photo Link / Path Manually (e.g. <code>./save-the-date/photo1.jpg</code> or Google Drive link)</label>
-                <div style="display: flex; gap: 0.6rem; flex-wrap: wrap;">
-                  <input type="text" id="new-gallery-url" class="form-control" style="flex: 1; min-width: 220px;" placeholder="./save-the-date/photo1.jpg or Drive link..." />
-                  <button type="button" id="add-gallery-url-btn" class="btn btn-outline">+ Add Photo</button>
-                </div>
-              </div>
-
-              <div class="thumb-grid" id="admin-gallery-thumbs"></div>
-            </div>
-
-            <div class="admin-section-block" style="margin-bottom: 0;">
-              <h4>2. Main Website Photos — GitHub <code>/site-photos/</code> Folder (Permanent & Free)</h4>
-              <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0.65rem;">
-                Create a folder named <strong><code>site-photos</code></strong> in your GitHub repository and upload your 4 main photos using these exact filenames (<code>.jpg</code>, <code>.png</code>, or <code>.webp</code>):
-              </p>
-              <div class="code-hint">your-github-repo/<br>├── index.html<br>├── music.mp3<br>├── save-the-date/<br>└── site-photos/<br> &nbsp;&nbsp;&nbsp;├── background.jpg &nbsp;&larr; Hero Cover Background Photo<br> &nbsp;&nbsp;&nbsp;├── our-story.jpg &nbsp;&nbsp;&larr; Our Story Portrait Photo<br> &nbsp;&nbsp;&nbsp;├── ceremony.jpg &nbsp;&nbsp;&nbsp;&larr; Ceremony Venue Photo<br> &nbsp;&nbsp;&nbsp;└── reception.jpg &nbsp;&nbsp;&larr; Reception Venue Photo</div>
-              <div style="margin-bottom: 1rem;">
-                <button type="button" id="sync-site-photos-btn" class="btn btn-outline">🔄 Scan /site-photos/ Folder</button>
-              </div>
-              <div class="grid-2">
-                <div class="form-group">
-                  <label>Hero Cover Background Photo</label>
-                  <input type="text" id="ed-hero-img" class="form-control drive-preview-input" data-preview="prev-hero-img" />
-                  <img id="prev-hero-img" class="preview-mini" alt="Hero Preview" />
-                </div>
-                <div class="form-group">
-                  <label>Our Story Portrait Photo</label>
-                  <input type="text" id="ed-story-img" class="form-control drive-preview-input" data-preview="prev-story-img" />
-                  <img id="prev-story-img" class="preview-mini" alt="Story Preview" />
-                </div>
-                <div class="form-group">
-                  <label>Ceremony Venue Photo</label>
-                  <input type="text" id="ed-ceremony-img" class="form-control drive-preview-input" data-preview="prev-ceremony-img" />
-                  <img id="prev-ceremony-img" class="preview-mini" alt="Ceremony Preview" />
-                </div>
-                <div class="form-group">
-                  <label>Reception Venue Photo</label>
-                  <input type="text" id="ed-reception-img" class="form-control drive-preview-input" data-preview="prev-reception-img" />
-                  <img id="prev-reception-img" class="preview-mini" alt="Reception Preview" />
-                </div>
-                <div class="form-group">
-                  <label>Gift Registry QR Code Image</label>
-                  <input type="text" id="ed-qr-img" class="form-control drive-preview-input" data-preview="prev-qr-img" />
-                  <img id="prev-qr-img" class="preview-mini" alt="QR Preview" />
-                </div>
-              </div>
+            <div style="display: flex; gap: 0.65rem; flex-wrap: wrap;">
+              <a href="https://docs.google.com/spreadsheets/d/1oI3w9dPLqRp5g_caRdMu2pttcfOoiMtzD7mprYDuEMI/edit" target="_blank" rel="noopener" class="btn btn-outline">📊 Edit Details & Entourage in Google Sheets</a>
+              <button id="refresh-rsvps-btn" class="btn btn-outline">🔄 Refresh</button>
+              <button id="export-csv-btn" class="btn btn-primary" style="padding: 0.65rem 1.3rem;">⬇ Export CSV</button>
             </div>
           </div>
 
-          <!-- TAB 3: Event Details & Text -->
-          <div class="tab-pane" id="tab-content">
-            <h3 class="serif" style="font-size: 1.55rem; margin-bottom: 1rem;">Event Details, Venues & Wording</h3>
-
-            <div class="admin-section-block">
-              <h4>Couple & Wedding Date</h4>
-              <div class="grid-2">
-                <div class="form-group"><label>Couple Names</label><input type="text" id="ed-names" class="form-control" /></div>
-                <div class="form-group"><label>Hero Tagline</label><input type="text" id="ed-tagline" class="form-control" /></div>
-                <div class="form-group"><label>Display Date & City</label><input type="text" id="ed-date-text" class="form-control" /></div>
-                <div class="form-group"><label>Countdown Target (YYYY-MM-DDTHH:MM:SS)</label><input type="text" id="ed-countdown" class="form-control" /></div>
-              </div>
-              <div class="form-group"><label>Our Story Heading</label><input type="text" id="ed-story-heading" class="form-control" /></div>
-              <div class="form-group" style="margin-bottom:0;"><label>Our Story Message</label><textarea id="ed-story-body" class="form-control" rows="4"></textarea></div>
-            </div>
-
-            <div class="admin-section-block">
-              <h4>Ceremony & Reception Venues</h4>
-              <div class="grid-2">
-                <div>
-                  <strong style="display:block; margin-bottom:0.6rem; color:var(--primary-rose);">Ceremony Venue</strong>
-                  <div class="form-group"><label>Church Name</label><input type="text" id="ed-ceremony-name" class="form-control" /></div>
-                  <div class="form-group"><label>Date & Time</label><input type="text" id="ed-ceremony-time" class="form-control" /></div>
-                  <div class="form-group"><label>Address</label><input type="text" id="ed-ceremony-address" class="form-control" /></div>
-                  <div class="form-group"><label>Google Maps URL</label><input type="url" id="ed-ceremony-gmaps" class="form-control" /></div>
-                  <div class="form-group"><label>Waze URL</label><input type="url" id="ed-ceremony-waze" class="form-control" /></div>
-                </div>
-                <div>
-                  <strong style="display:block; margin-bottom:0.6rem; color:var(--primary-rose);">Reception Venue</strong>
-                  <div class="form-group"><label>Venue Name</label><input type="text" id="ed-reception-name" class="form-control" /></div>
-                  <div class="form-group"><label>Date & Time</label><input type="text" id="ed-reception-time" class="form-control" /></div>
-                  <div class="form-group"><label>Address</label><input type="text" id="ed-reception-address" class="form-control" /></div>
-                  <div class="form-group"><label>Google Maps URL</label><input type="url" id="ed-reception-gmaps" class="form-control" /></div>
-                  <div class="form-group"><label>Waze URL</label><input type="url" id="ed-reception-waze" class="form-control" /></div>
-                </div>
-              </div>
-            </div>
-
-            <div class="admin-section-block">
-              <h4>Wedding Entourage</h4>
-              <div class="grid-2">
-                <div class="form-group"><label>Parents of Groom</label><textarea id="ed-ent-groom" class="form-control" rows="3"></textarea></div>
-                <div class="form-group"><label>Parents of Bride</label><textarea id="ed-ent-bride" class="form-control" rows="3"></textarea></div>
-                <div class="form-group"><label>Principal Sponsors</label><textarea id="ed-ent-principal" class="form-control" rows="4"></textarea></div>
-                <div class="form-group"><label>Bridal Party</label><textarea id="ed-ent-party" class="form-control" rows="4"></textarea></div>
-              </div>
-            </div>
-
-            <div class="admin-section-block" style="margin-bottom:0;">
-              <h4>Invitation, Verse, Attire, Gift & RSVP Text</h4>
-              <div class="form-group"><label>Invitation Wording</label><textarea id="ed-inv-wording" class="form-control" rows="2"></textarea></div>
-              <div class="grid-2">
-                <div class="form-group"><label>Bible Verse / Quote</label><textarea id="ed-bible-verse" class="form-control" rows="2"></textarea></div>
-                <div class="form-group"><label>Bible Reference</label><input type="text" id="ed-bible-ref" class="form-control" /></div>
-              </div>
-              <div class="form-group"><label>Attire Guide Note</label><textarea id="ed-attire-note" class="form-control" rows="2"></textarea></div>
-              <div class="form-group"><label>Gift Guide Note</label><textarea id="ed-gift-note" class="form-control" rows="2"></textarea></div>
-              <div class="form-group"><label>Bank / GCash Details</label><textarea id="ed-gift-bank" class="form-control" rows="2"></textarea></div>
-              <div class="grid-2">
-                <div class="form-group"><label>RSVP Deadline Text</label><input type="text" id="ed-rsvp-deadline" class="form-control" /></div>
-                <div class="form-group"><label>RSVP Thank You Message</label><input type="text" id="ed-thankyou" class="form-control" /></div>
-              </div>
-            </div>
+          <div class="stats-row">
+            <div class="stat-box"><span>Total Responses</span><strong id="stat-total">0</strong></div>
+            <div class="stat-box"><span>Confirmed Guests (Pax)</span><strong id="stat-attending">0</strong></div>
+            <div class="stat-box"><span>Regretfully Declined</span><strong id="stat-declined">0</strong></div>
           </div>
 
-          <!-- TAB 4: Theme Colors & Cover -->
-          <div class="tab-pane" id="tab-theme">
-            <h3 class="serif" style="font-size: 1.55rem; margin-bottom: 1rem;">Theme Colors & Intro Cover</h3>
-            <div class="admin-section-block" style="margin-bottom: 0;">
-              <div class="grid-2">
-                <div class="form-group">
-                  <label>Envelope Seal Intro Cover</label>
-                  <select id="ed-show-envelope" class="form-control">
-                    <option value="true">Enabled (Triggers Background Music on Tap)</option>
-                    <option value="false">Disabled</option>
-                  </select>
-                </div>
-                <div class="form-group"><label>Primary Rose Color</label><input type="color" id="ed-color-primary" class="form-control" style="height: 48px;" /></div>
-                <div class="form-group"><label>Secondary Pink Color</label><input type="color" id="ed-color-secondary" class="form-control" style="height: 48px;" /></div>
-                <div class="form-group"><label>Main Beige Backdrop</label><input type="color" id="ed-color-beige" class="form-control" style="height: 48px;" /></div>
-                <div class="form-group"><label>Editorial Cream Surface</label><input type="color" id="ed-color-cream" class="form-control" style="height: 48px;" /></div>
-              </div>
-              <button type="button" id="reset-colors-btn" class="btn btn-outline">Reset Default Colors</button>
-            </div>
+          <!-- Desktop Table -->
+          <div class="rsvp-table-wrap" style="overflow-x: auto;">
+            <table class="rsvp-table">
+              <thead>
+                <tr>
+                  <th>Guest Name</th>
+                  <th>Status</th>
+                  <th>Pax</th>
+                  <th>Additional Guests</th>
+                  <th>Message</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="rsvp-tbody"></tbody>
+            </table>
           </div>
-        </main>
+
+          <!-- Mobile Card View (Zero Horizontal Scrolling) -->
+          <div class="rsvp-mobile-cards" id="rsvp-mobile-list"></div>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- Firebase SDKs (Spark Free Plan: App, Auth, Firestore ONLY — No Paid Storage) -->
+  <!-- Firebase SDKs (RSVP Submission & Admin RSVP Viewer) -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
     import { getAuth, signInAnonymously, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-    import { getFirestore, doc, getDoc, setDoc, collection, addDoc, getDocs, deleteDoc, query, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+    import { getFirestore, collection, addDoc, getDocs, deleteDoc, query, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
     const appId = 'jason-camilla-wedding';
+    const GOOGLE_SHEET_ID = '1oI3w9dPLqRp5g_caRdMu2pttcfOoiMtzD7mprYDuEMI';
+
     const firebaseConfig = {
       apiKey: "AIzaSyAqARMnJFqfFiC5txuA-dsF55rC8uf5wH8",
       authDomain: "jason-camilla-wedding.firebaseapp.com",
@@ -1420,7 +1423,6 @@
     const auth = getAuth(app);
     const db = getFirestore(app);
 
-    // Auto-detect GitHub username/repo when hosted on username.github.io/repo-name
     function detectGithubRepo() {
       const host = window.location.hostname;
       const pathParts = window.location.pathname.split('/').filter(Boolean);
@@ -1432,23 +1434,48 @@
       return "";
     }
 
-    // Normalize Google Drive share links OR keep local GitHub relative paths intact
     function normalizePhotoUrl(url) {
       if (!url) return "";
-      const clean = url.trim();
+      const clean = String(url).trim();
       const fileMatch = clean.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
-      if (fileMatch && fileMatch[1]) {
-        return `https://lh3.googleusercontent.com/d/${fileMatch[1]}`;
-      }
+      if (fileMatch && fileMatch[1]) return `https://lh3.googleusercontent.com/d/${fileMatch[1]}`;
       const idParamMatch = clean.match(/[?&]id=([a-zA-Z0-9_-]+)/);
-      if (idParamMatch && idParamMatch[1]) {
-        return `https://lh3.googleusercontent.com/d/${idParamMatch[1]}`;
-      }
+      if (idParamMatch && idParamMatch[1]) return `https://lh3.googleusercontent.com/d/${idParamMatch[1]}`;
       return clean;
     }
 
+    function escapeHtml(str) {
+      return String(str || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    const defaultEntourageRows = [
+      { Role: 'Parents of the Groom', LeftName: 'Mrs. Name', RightName: 'Mr. Name', Order: 1 },
+      { Role: 'Parents of the Bride', LeftName: 'Mr. Name', RightName: 'Mrs. Name', Order: 2 },
+      { Role: 'Principal Sponsors', LeftName: 'Mrs. Name', RightName: 'Mr. Name', Order: 3 },
+      { Role: 'Principal Sponsors', LeftName: 'Mrs. Name', RightName: 'Mr. Name', Order: 4 },
+      { Role: 'Principal Sponsors', LeftName: 'Mrs. Name', RightName: 'Mr. Name', Order: 5 },
+      { Role: 'Principal Sponsors', LeftName: 'Mrs. Name', RightName: 'Mr. Name', Order: 6 },
+      { Role: 'Principal Sponsors', LeftName: 'Mrs. Name', RightName: 'Mr. Name', Order: 7 },
+      { Role: 'Principal Sponsors', LeftName: 'Mrs. Name', RightName: 'Mr. Name', Order: 8 },
+      { Role: 'Principal Sponsors', LeftName: 'Mrs. Name', RightName: 'Mr. Name', Order: 9 },
+      { Role: 'Principal Sponsors', LeftName: 'Mrs. Name', RightName: 'Mr. Name', Order: 10 },
+      { Role: 'Principal Sponsors', LeftName: 'Mrs. Name', RightName: 'Mr. Name', Order: 11 },
+      { Role: 'Principal Sponsors', LeftName: 'Mrs. Name', RightName: 'Mr. Name', Order: 12 },
+      { Role: 'Best Man', LeftName: 'Mr. Name', RightName: '', Order: 13 },
+      { Role: 'Maid of Honor', LeftName: '', RightName: 'Ms. Name', Order: 14 },
+      { Role: 'Candle', LeftName: 'Mr. Name', RightName: 'Ms. Name', Order: 15 },
+      { Role: 'Veil', LeftName: 'Mr. Name', RightName: 'Ms. Name', Order: 16 },
+      { Role: 'Cord', LeftName: 'Mr. Name', RightName: 'Ms. Name', Order: 17 },
+      { Role: 'Ribbon', LeftName: 'Mr. Name', RightName: 'Ms. Name', Order: 18 }
+    ];
+
     const defaultConfig = {
       names: "Jason & Camilla",
+      nuptialsTitle: "Jason - Camilla",
       tagline: "Together With Their Families",
       dateText: "December 18, 2026 • Baguio City",
       countdownTarget: "2026-12-18T10:00:00",
@@ -1468,10 +1495,6 @@
       receptionGmaps: "https://maps.google.com/?q=Gestdan+Centrum+Baguio+City",
       receptionWaze: "https://waze.com/ul?q=Gestdan+Centrum+Baguio+City",
       receptionImg: "./site-photos/reception.jpg",
-      entGroom: "Mr. & Mrs. Groom Parents",
-      entBride: "Mr. & Mrs. Bride Parents",
-      entPrincipal: "To be announced",
-      entParty: "Best Man & Maid of Honor",
       attireNote: "We kindly encourage our guests to wear formal or semi-formal attire in shades of old rose, dusty pink, champagne, and warm beige.",
       swatches: [
         { color: "#b56576", label: "Old Rose" },
@@ -1505,7 +1528,8 @@
       colorPrimary: "#b56576",
       colorSecondary: "#e5989b",
       colorBeige: "#f5efe6",
-      colorCream: "#fcf9f5"
+      colorCream: "#fcf9f5",
+      entourageRows: defaultEntourageRows
     };
 
     let siteConfig = { ...defaultConfig };
@@ -1513,14 +1537,6 @@
     let carouselTimer = null;
     let carouselPaused = false;
     let rsvpCache = [];
-
-    function showStatusBanner(msg, isError = false) {
-      const bar = document.getElementById('save-status-bar');
-      bar.textContent = msg;
-      bar.style.background = isError ? '#b02a37' : '#198754';
-      bar.style.display = 'block';
-      setTimeout(() => { bar.style.display = 'none'; }, 4500);
-    }
 
     const fallbackStockPhotos = {
       heroImg: "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1600&q=80",
@@ -1540,7 +1556,186 @@
       imgEl.src = normalizePhotoUrl(primaryUrl);
     }
 
-    // Automatically fetch all image files inside a GitHub folder (e.g., /save-the-date or /site-photos)
+    // Fetch a Google Sheet tab via Google Visualization API (works seamlessly once Sheet is "Published to web")
+    async function fetchGoogleSheetTab(sheetName) {
+      const url = `https://docs.google.com/spreadsheets/d/${GOOGLE_SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(sheetName)}&_=${Date.now()}`;
+      const res = await fetch(url);
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const text = await res.text();
+      const jsonStart = text.indexOf('{');
+      const jsonEnd = text.lastIndexOf('}');
+      if (jsonStart === -1 || jsonEnd === -1) throw new Error('Invalid gviz response');
+      const parsed = JSON.parse(text.slice(jsonStart, jsonEnd + 1));
+      const table = parsed.table;
+      if (!table || !table.rows) return [];
+
+      // Determine column headers (from cols labels or first non-empty row)
+      let headers = (table.cols || []).map(c => (c.label || '').trim());
+      let startRowIdx = 0;
+      if (headers.every(h => !h) && table.rows.length > 0) {
+        headers = (table.rows[0].c || []).map(cell => (cell && cell.v != null ? String(cell.v).trim() : ''));
+        startRowIdx = 1;
+      }
+
+      const rows = [];
+      for (let r = startRowIdx; r < table.rows.length; r++) {
+        const cells = table.rows[r].c || [];
+        const obj = {};
+        let hasValue = false;
+        headers.forEach((h, idx) => {
+          if (!h) return;
+          const cell = cells[idx];
+          const val = cell && cell.v != null ? String(cell.v).trim() : '';
+          if (val) hasValue = true;
+          obj[h] = val;
+        });
+        if (hasValue) rows.push(obj);
+      }
+      return rows;
+    }
+
+    async function loadGoogleSheetCMS() {
+      try {
+        const [detailsRows, entourageRows, faqRows, paletteRows] = await Promise.all([
+          fetchGoogleSheetTab('SiteDetails').catch(() => []),
+          fetchGoogleSheetTab('Entourage').catch(() => []),
+          fetchGoogleSheetTab('FAQs').catch(() => []),
+          fetchGoogleSheetTab('AttirePalette').catch(() => [])
+        ]);
+
+        // 1. Parse SiteDetails (Field -> Value)
+        if (detailsRows.length > 0) {
+          const map = {};
+          detailsRows.forEach(row => {
+            const key = (row.Field || '').trim();
+            const val = row.Value != null ? String(row.Value).trim() : '';
+            if (key && val !== '') map[key] = val;
+          });
+
+          const allowedKeys = [
+            'names', 'nuptialsTitle', 'tagline', 'dateText', 'countdownTarget',
+            'storyHeading', 'storyBody', 'ceremonyName', 'ceremonyTime', 'ceremonyAddress',
+            'ceremonyGmaps', 'ceremonyWaze', 'receptionName', 'receptionTime', 'receptionAddress',
+            'receptionGmaps', 'receptionWaze', 'attireNote', 'invWording', 'bibleVerse',
+            'bibleRef', 'giftNote', 'giftBank', 'rsvpDeadline', 'thankyouMsg',
+            'showEnvelope', 'colorPrimary', 'colorSecondary', 'colorBeige', 'colorCream'
+          ];
+          allowedKeys.forEach(k => {
+            if (map[k] !== undefined) siteConfig[k] = map[k];
+          });
+        }
+
+        // 2. Parse Entourage
+        if (entourageRows.length > 0) {
+          siteConfig.entourageRows = entourageRows.sort((a, b) => Number(a.Order || 999) - Number(b.Order || 999));
+        }
+
+        // 3. Parse FAQs
+        if (faqRows.length > 0) {
+          const sortedFaqs = faqRows
+            .filter(r => r.Question && r.Answer)
+            .sort((a, b) => Number(a.Order || 999) - Number(b.Order || 999))
+            .map(r => ({ q: r.Question, a: r.Answer }));
+          if (sortedFaqs.length > 0) siteConfig.faqs = sortedFaqs;
+        }
+
+        // 4. Parse AttirePalette
+        if (paletteRows.length > 0) {
+          const swatches = paletteRows
+            .filter(r => r.ColorHex && r.ColorName && /^#[0-9A-Fa-f]{3,8}$/.test(r.ColorHex.trim()))
+            .map(r => ({ color: r.ColorHex.trim(), label: r.ColorName.trim() }));
+          if (swatches.length > 0) siteConfig.swatches = swatches;
+        }
+      } catch (err) {
+        console.warn("Google Sheet sync fallback to defaults:", err);
+      }
+    }
+
+    // Render Formal Nuptials Entourage (Matching Reference Card Design)
+    function renderEntourage() {
+      const rows = siteConfig.entourageRows || defaultEntourageRows;
+      const coupleHeader = (siteConfig.nuptialsTitle || siteConfig.names || 'Jason - Camilla')
+        .replace(/\s*nuptials\s*/i, '')
+        .replace('&', '-')
+        .trim();
+      document.getElementById('ent-nuptials-names').textContent = coupleHeader;
+
+      const byRole = (pattern) => rows.filter(r => pattern.test((r.Role || '').trim()));
+
+      // Parents of the Groom
+      const groomParents = byRole(/parents\s*of\s*the\s*groom/i);
+      if (groomParents.length) {
+        const lines = groomParents.flatMap(r => [r.LeftName, r.RightName].filter(Boolean));
+        document.getElementById('ent-groom-parents').innerHTML = lines.map(escapeHtml).join('<br>');
+      }
+
+      // Parents of the Bride
+      const brideParents = byRole(/parents\s*of\s*the\s*bride/i);
+      if (brideParents.length) {
+        const lines = brideParents.flatMap(r => [r.LeftName, r.RightName].filter(Boolean));
+        document.getElementById('ent-bride-parents').innerHTML = lines.map(escapeHtml).join('<br>');
+      }
+
+      // Principal Sponsors (Paired Female - Male with center dash)
+      const principals = byRole(/principal\s*sponsor/i);
+      const psContainer = document.getElementById('ent-principal-list');
+      psContainer.innerHTML = principals.map(r => `
+        <div class="ps-row">
+          <span class="ps-left">${escapeHtml(r.LeftName || '')}</span>
+          <span class="ps-dash">-</span>
+          <span class="ps-right">${escapeHtml(r.RightName || '')}</span>
+        </div>
+      `).join('');
+
+      // Best Man & Maid of Honor
+      const bestMan = byRole(/best\s*man/i);
+      if (bestMan.length) {
+        const names = bestMan.flatMap(r => [r.LeftName, r.RightName].filter(Boolean));
+        document.getElementById('ent-best-man').innerHTML = names.map(escapeHtml).join('<br>');
+      }
+      const maidOfHonor = byRole(/maid\s*of\s*honor/i);
+      if (maidOfHonor.length) {
+        const names = maidOfHonor.flatMap(r => [r.RightName, r.LeftName].filter(Boolean));
+        document.getElementById('ent-maid-of-honor').innerHTML = names.map(escapeHtml).join('<br>');
+      }
+
+      // Secondary Sponsors: Candle, Veil, Cord, Ribbon
+      const renderPairBlock = (regex, elId) => {
+        const list = byRole(regex);
+        if (!list.length) return;
+        const names = list.flatMap(r => [r.LeftName, r.RightName].filter(Boolean));
+        document.getElementById(elId).innerHTML = names.map(escapeHtml).join('<br>');
+      };
+      renderPairBlock(/candle/i, 'ent-candle');
+      renderPairBlock(/veil/i, 'ent-veil');
+      renderPairBlock(/cord/i, 'ent-cord');
+      renderPairBlock(/ribbon/i, 'ent-ribbon');
+
+      // Any additional roles added in Google Sheets (e.g. Groomsmen, Bridesmaids, Ring Bearer, Flower Girls)
+      const knownPattern = /(parents\s*of\s*the\s*groom|parents\s*of\s*the\s*bride|principal\s*sponsor|best\s*man|maid\s*of\s*honor|candle|veil|cord|ribbon)/i;
+      const extraRows = rows.filter(r => r.Role && !knownPattern.test(r.Role.trim()) && (r.LeftName || r.RightName));
+      const extraContainer = document.getElementById('ent-extra-party');
+      if (extraRows.length > 0) {
+        const grouped = {};
+        extraRows.forEach(r => {
+          const role = r.Role.trim();
+          if (!grouped[role]) grouped[role] = [];
+          if (r.LeftName) grouped[role].push(r.LeftName);
+          if (r.RightName) grouped[role].push(r.RightName);
+        });
+        extraContainer.style.display = 'grid';
+        extraContainer.innerHTML = Object.entries(grouped).map(([role, names]) => `
+          <div>
+            <div class="ent-sub-heading">${escapeHtml(role)}</div>
+            <div class="ent-name-line">${names.map(escapeHtml).join('<br>')}</div>
+          </div>
+        `).join('');
+      } else {
+        extraContainer.style.display = 'none';
+      }
+    }
+
+    // Automatically fetch image files inside GitHub folders (/save-the-date and /site-photos)
     async function fetchGithubFolderImages(repoOverride, folderOverride) {
       const repo = (repoOverride || siteConfig.githubRepo || detectGithubRepo()).trim();
       const folder = (folderOverride || siteConfig.githubFolder || "save-the-date").trim().replace(/^\/+|\/+$/g, '');
@@ -1554,18 +1749,15 @@
         if (!Array.isArray(files)) return [];
 
         const imageExts = /\.(jpe?g|png|webp|gif|avif)$/i;
-        const foundUrls = files
+        return files
           .filter(f => f.type === 'file' && imageExts.test(f.name))
           .map(f => `./${folder}/${encodeURIComponent(f.name)}`);
-
-        return foundUrls;
       } catch (err) {
         console.warn("GitHub folder scan skipped:", err);
         return [];
       }
     }
 
-    // Auto-detect main site photos inside /site-photos/ regardless of file extension (.jpg, .png, .webp)
     async function syncSitePhotosFolder(repoOverride) {
       const files = await fetchGithubFolderImages(repoOverride, "site-photos");
       if (!files.length) return {};
@@ -1590,7 +1782,7 @@
 
       document.getElementById('cov-names').textContent = siteConfig.names;
       document.getElementById('cov-date').textContent = siteConfig.dateText.toUpperCase();
-      if (siteConfig.showEnvelope === "false") {
+      if (String(siteConfig.showEnvelope).toLowerCase() === "false") {
         document.getElementById('envelope-cover').style.display = 'none';
       }
 
@@ -1619,17 +1811,14 @@
       document.getElementById('reception-gmaps').href = siteConfig.receptionGmaps;
       document.getElementById('reception-waze').href = siteConfig.receptionWaze;
 
-      document.getElementById('ent-groom-parents').textContent = siteConfig.entGroom;
-      document.getElementById('ent-bride-parents').textContent = siteConfig.entBride;
-      document.getElementById('ent-principal').textContent = siteConfig.entPrincipal;
-      document.getElementById('ent-party').textContent = siteConfig.entParty;
+      renderEntourage();
 
       document.getElementById('attire-note').textContent = siteConfig.attireNote;
       const swatchEl = document.getElementById('swatch-container');
       swatchEl.innerHTML = (siteConfig.swatches || []).map(s => `
         <div class="swatch-item">
-          <div class="swatch-circle" style="background:${s.color};"></div>
-          <span class="swatch-label">${s.label}</span>
+          <div class="swatch-circle" style="background:${escapeHtml(s.color)};"></div>
+          <span class="swatch-label">${escapeHtml(s.label)}</span>
         </div>
       `).join('');
 
@@ -1651,8 +1840,8 @@
       const faqEl = document.getElementById('faq-container');
       faqEl.innerHTML = (siteConfig.faqs || []).map(f => `
         <details class="faq-item">
-          <summary>${f.q} <span>+</span></summary>
-          <p>${f.a}</p>
+          <summary>${escapeHtml(f.q)} <span>+</span></summary>
+          <p>${escapeHtml(f.a)}</p>
         </details>
       `).join('');
 
@@ -1661,17 +1850,11 @@
       document.getElementById('footer-names').textContent = siteConfig.names;
       document.getElementById('footer-sub').textContent = siteConfig.dateText;
 
-      renderCarousel();
+      buildCinemaStage();
       startCarouselAutoplay();
     }
 
     // Cinema 3-Clip Rolling Filmstrip Logic
-    // Slot 1 (pos-first): Semi-transparent left clip
-    // Slot 2 (pos-second): Center full vivid picture
-    // Slot 3 (pos-third): Semi-transparent blurred right clip
-    // Every 4 seconds: 1st moves out, 2nd -> 1st, 3rd -> 2nd, new photo enters 3rd
-    let cinemaTrackEl = null;
-
     function getGalleryList() {
       return (siteConfig.rouletteImages && siteConfig.rouletteImages.length)
         ? siteConfig.rouletteImages
@@ -1690,8 +1873,6 @@
       const viewport = document.getElementById('cinema-viewport');
       viewport.innerHTML = '';
 
-      // Create 5 persistent clip nodes representing offsets:
-      // -2 (exit left), -1 (1st semi-transparent), 0 (2nd full vivid), +1 (3rd semi-transparent blur), +2 (enter right)
       const offsets = [-2, -1, 0, 1, 2];
       const posClasses = ['pos-exit', 'pos-first', 'pos-second', 'pos-third', 'pos-enter'];
 
@@ -1748,12 +1929,6 @@
       slideIndex = wrapIdx(slideIndex + dir, len);
 
       if (dir === 1) {
-        // Advance forward:
-        // Old -2 (pos-exit) recycles instantaneously to +2 (pos-enter) with the new upcoming image
-        // Old -1 (1st) -> slides out to pos-exit
-        // Old  0 (2nd full vivid) -> becomes 1st (pos-first semi-transparent)
-        // Old +1 (3rd semi-transparent blur) -> becomes 2nd (pos-second full vivid)
-        // Old +2 (pos-enter) -> slides in as 3rd (pos-third semi-transparent blur)
         const outgoing = clips.find(c => Number(c.dataset.offset) === -2);
         const newIdx = wrapIdx(slideIndex + 2, len);
 
@@ -1761,23 +1936,16 @@
         outgoing.className = 'cinema-clip pos-enter';
         outgoing.dataset.offset = '3';
         outgoing.querySelector('img').src = normalizePhotoUrl(imgs[newIdx]);
-        void outgoing.offsetWidth; // Force reflow so instant jump doesn't animate across screen
+        void outgoing.offsetWidth;
         outgoing.style.transition = '';
 
         viewport.querySelectorAll('.cinema-clip').forEach(clip => {
           const nextOffset = Number(clip.dataset.offset) - 1;
           clip.dataset.offset = String(nextOffset);
-          const map = {
-            '-2': 'pos-exit',
-            '-1': 'pos-first',
-            '0': 'pos-second',
-            '1': 'pos-third',
-            '2': 'pos-enter'
-          };
+          const map = { '-2': 'pos-exit', '-1': 'pos-first', '0': 'pos-second', '1': 'pos-third', '2': 'pos-enter' };
           clip.className = `cinema-clip ${map[String(nextOffset)] || 'pos-enter'}`;
         });
       } else {
-        // Step backward (-1):
         const outgoing = clips.find(c => Number(c.dataset.offset) === 2);
         const newIdx = wrapIdx(slideIndex - 2, len);
 
@@ -1791,13 +1959,7 @@
         viewport.querySelectorAll('.cinema-clip').forEach(clip => {
           const nextOffset = Number(clip.dataset.offset) + 1;
           clip.dataset.offset = String(nextOffset);
-          const map = {
-            '-2': 'pos-exit',
-            '-1': 'pos-first',
-            '0': 'pos-second',
-            '1': 'pos-third',
-            '2': 'pos-enter'
-          };
+          const map = { '-2': 'pos-exit', '-1': 'pos-first', '0': 'pos-second', '1': 'pos-third', '2': 'pos-enter' };
           clip.className = `cinema-clip ${map[String(nextOffset)] || 'pos-exit'}`;
         });
       }
@@ -1805,17 +1967,11 @@
       updateCinemaHud(imgs);
     }
 
-    function renderCarousel() {
-      buildCinemaStage();
-    }
-
     function startCarouselAutoplay() {
       if (carouselTimer) clearInterval(carouselTimer);
       carouselTimer = setInterval(() => {
         const imgs = getGalleryList();
-        if (!carouselPaused && imgs.length > 1) {
-          stepCinema(1);
-        }
+        if (!carouselPaused && imgs.length > 1) stepCinema(1);
       }, 4000);
     }
 
@@ -1823,7 +1979,6 @@
     carouselWrap.addEventListener('mouseenter', () => { carouselPaused = true; });
     carouselWrap.addEventListener('mouseleave', () => { carouselPaused = false; });
 
-    // Mobile Touch Swipe Support
     let touchStartX = 0;
     carouselWrap.addEventListener('touchstart', (e) => {
       touchStartX = e.changedTouches[0].clientX;
@@ -1831,21 +1986,13 @@
     }, { passive: true });
     carouselWrap.addEventListener('touchend', (e) => {
       const dx = e.changedTouches[0].clientX - touchStartX;
-      if (Math.abs(dx) > 40) {
-        stepCinema(dx < 0 ? 1 : -1);
-      }
+      if (Math.abs(dx) > 40) stepCinema(dx < 0 ? 1 : -1);
       carouselPaused = false;
       startCarouselAutoplay();
     }, { passive: true });
 
-    document.getElementById('prev-slide').addEventListener('click', () => {
-      stepCinema(-1);
-      startCarouselAutoplay();
-    });
-    document.getElementById('next-slide').addEventListener('click', () => {
-      stepCinema(1);
-      startCarouselAutoplay();
-    });
+    document.getElementById('prev-slide').addEventListener('click', () => { stepCinema(-1); startCarouselAutoplay(); });
+    document.getElementById('next-slide').addEventListener('click', () => { stepCinema(1); startCarouselAutoplay(); });
 
     // Countdown Timer
     setInterval(() => {
@@ -1864,9 +2011,7 @@
 
     function playBackgroundMusic() {
       if (!bgMusic.paused) return;
-      bgMusic.play().catch((err) => {
-        console.warn("Audio waiting for user interaction:", err);
-      });
+      bgMusic.play().catch((err) => console.warn("Audio waiting for user interaction:", err));
     }
 
     document.getElementById('open-envelope-btn').addEventListener('click', () => {
@@ -1878,44 +2023,21 @@
       document.getElementById('nav-links').classList.toggle('show');
     });
 
-    // Load Config from Firestore + Auto-Scan GitHub Folders (/save-the-date and /site-photos)
-    async function loadConfig() {
-      try {
-        const snap = await getDoc(doc(db, 'artifacts', appId, 'public', 'data', 'config', 'main'));
-        if (snap.exists()) {
-          const saved = snap.data();
-          // Upgrade legacy Unsplash placeholder entries in Firestore to ./site-photos/ paths automatically
-          ['heroImg', 'storyImg', 'ceremonyImg', 'receptionImg'].forEach(key => {
-            if (typeof saved[key] === 'string' && saved[key].includes('images.unsplash.com')) {
-              saved[key] = defaultConfig[key];
-            }
-          });
-          siteConfig = { ...defaultConfig, ...saved };
-        }
-      } catch (err) {
-        console.warn("Using default config:", err);
-      }
-
-      if (!siteConfig.githubRepo) {
-        siteConfig.githubRepo = detectGithubRepo();
-      }
-
-      // Automatically load any images uploaded to /save-the-date and /site-photos on GitHub
-      const [ghImages, sitePhotoMatches] = await Promise.all([
-        fetchGithubFolderImages(siteConfig.githubRepo, siteConfig.githubFolder),
-        syncSitePhotosFolder(siteConfig.githubRepo)
+    // Boot Website: Load Google Sheet CMS + GitHub Folders (/save-the-date & /site-photos)
+    async function bootWebsite() {
+      const repo = siteConfig.githubRepo || detectGithubRepo();
+      const [_, ghImages, sitePhotoMatches] = await Promise.all([
+        loadGoogleSheetCMS(),
+        fetchGithubFolderImages(repo, siteConfig.githubFolder),
+        syncSitePhotosFolder(repo)
       ]);
 
-      if (ghImages.length > 0) {
-        siteConfig.rouletteImages = ghImages;
-      }
-      if (Object.keys(sitePhotoMatches).length > 0) {
-        siteConfig = { ...siteConfig, ...sitePhotoMatches };
-      }
+      if (ghImages.length > 0) siteConfig.rouletteImages = ghImages;
+      if (Object.keys(sitePhotoMatches).length > 0) siteConfig = { ...siteConfig, ...sitePhotoMatches };
 
       applySiteConfig();
     }
-    loadConfig();
+    bootWebsite();
 
     // RSVP Form Logic
     const statusSel = document.getElementById('guest-status');
@@ -1934,9 +2056,7 @@
       btn.textContent = 'Sending RSVP...';
 
       try {
-        if (!auth.currentUser) {
-          await signInAnonymously(auth);
-        }
+        if (!auth.currentUser) await signInAnonymously(auth);
         const status = statusSel.value;
         const pax = status === 'Regretfully Declines' ? 0 : Number(document.getElementById('guest-pax').value);
         await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'rsvps'), {
@@ -1967,19 +2087,11 @@
       document.getElementById('rsvp-form').style.display = 'block';
     });
 
-    // Mobile-Friendly Full-Screen Admin Workspace Controls
+    // RSVP-Only Dashboard Controls
     const adminWorkspace = document.getElementById('admin-workspace');
     document.getElementById('edit-site-trigger').addEventListener('click', () => adminWorkspace.classList.add('open'));
     document.getElementById('close-admin-btn').addEventListener('click', () => adminWorkspace.classList.remove('open'));
-
-    document.querySelectorAll('.tab-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-        document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
-        btn.classList.add('active');
-        document.getElementById(btn.dataset.tab).classList.add('active');
-      });
-    });
+    document.getElementById('refresh-rsvps-btn').addEventListener('click', () => loadRsvps());
 
     document.getElementById('admin-login-btn').addEventListener('click', async () => {
       const email = document.getElementById('admin-email').value.trim();
@@ -1999,213 +2111,8 @@
       const isAdmin = user && !user.isAnonymous;
       document.getElementById('admin-login-view').style.display = isAdmin ? 'none' : 'block';
       document.getElementById('admin-editor-view').style.display = isAdmin ? 'block' : 'none';
-      document.getElementById('save-all-btn').style.display = isAdmin ? 'inline-block' : 'none';
       document.getElementById('admin-logout-btn').style.display = isAdmin ? 'inline-block' : 'none';
-      if (isAdmin) {
-        populateAdminFields();
-        loadRsvps();
-      }
-    });
-
-    function populateAdminFields() {
-      document.getElementById('ed-names').value = siteConfig.names;
-      document.getElementById('ed-tagline').value = siteConfig.tagline;
-      document.getElementById('ed-date-text').value = siteConfig.dateText;
-      document.getElementById('ed-countdown').value = siteConfig.countdownTarget;
-      document.getElementById('ed-story-heading').value = siteConfig.storyHeading;
-      document.getElementById('ed-story-body').value = siteConfig.storyBody;
-
-      document.getElementById('ed-ceremony-name').value = siteConfig.ceremonyName;
-      document.getElementById('ed-ceremony-time').value = siteConfig.ceremonyTime;
-      document.getElementById('ed-ceremony-address').value = siteConfig.ceremonyAddress;
-      document.getElementById('ed-ceremony-gmaps').value = siteConfig.ceremonyGmaps;
-      document.getElementById('ed-ceremony-waze').value = siteConfig.ceremonyWaze;
-
-      document.getElementById('ed-reception-name').value = siteConfig.receptionName;
-      document.getElementById('ed-reception-time').value = siteConfig.receptionTime;
-      document.getElementById('ed-reception-address').value = siteConfig.receptionAddress;
-      document.getElementById('ed-reception-gmaps').value = siteConfig.receptionGmaps;
-      document.getElementById('ed-reception-waze').value = siteConfig.receptionWaze;
-
-      document.getElementById('ed-ent-groom').value = siteConfig.entGroom;
-      document.getElementById('ed-ent-bride').value = siteConfig.entBride;
-      document.getElementById('ed-ent-principal').value = siteConfig.entPrincipal;
-      document.getElementById('ed-ent-party').value = siteConfig.entParty;
-
-      document.getElementById('ed-inv-wording').value = siteConfig.invWording;
-      document.getElementById('ed-bible-verse').value = siteConfig.bibleVerse;
-      document.getElementById('ed-bible-ref').value = siteConfig.bibleRef;
-      document.getElementById('ed-attire-note').value = siteConfig.attireNote;
-      document.getElementById('ed-gift-note').value = siteConfig.giftNote;
-      document.getElementById('ed-gift-bank').value = siteConfig.giftBank;
-      document.getElementById('ed-rsvp-deadline').value = siteConfig.rsvpDeadline;
-      document.getElementById('ed-thankyou').value = siteConfig.thankyouMsg;
-
-      document.getElementById('ed-show-envelope').value = siteConfig.showEnvelope;
-      document.getElementById('ed-color-primary').value = siteConfig.colorPrimary;
-      document.getElementById('ed-color-secondary').value = siteConfig.colorSecondary;
-      document.getElementById('ed-color-beige').value = siteConfig.colorBeige;
-      document.getElementById('ed-color-cream').value = siteConfig.colorCream;
-
-      document.getElementById('ed-github-repo').value = siteConfig.githubRepo || detectGithubRepo();
-      document.getElementById('ed-github-folder').value = siteConfig.githubFolder || "save-the-date";
-      document.getElementById('ed-hero-img').value = siteConfig.heroImg;
-      document.getElementById('ed-story-img').value = siteConfig.storyImg;
-      document.getElementById('ed-ceremony-img').value = siteConfig.ceremonyImg;
-      document.getElementById('ed-reception-img').value = siteConfig.receptionImg;
-      document.getElementById('ed-qr-img').value = siteConfig.qrImg;
-
-      document.querySelectorAll('.drive-preview-input').forEach(inp => {
-        const prev = document.getElementById(inp.dataset.preview);
-        const norm = normalizePhotoUrl(inp.value);
-        prev.src = norm;
-        prev.style.display = norm ? 'block' : 'none';
-      });
-
-      renderAdminThumbs();
-    }
-
-    document.querySelectorAll('.drive-preview-input').forEach(inp => {
-      inp.addEventListener('input', () => {
-        const prev = document.getElementById(inp.dataset.preview);
-        const norm = normalizePhotoUrl(inp.value);
-        prev.src = norm;
-        prev.style.display = norm ? 'block' : 'none';
-      });
-    });
-
-    function renderAdminThumbs() {
-      const container = document.getElementById('admin-gallery-thumbs');
-      const list = siteConfig.rouletteImages || [];
-      container.innerHTML = list.map((url, i) => `
-        <div class="thumb-item">
-          <img src="${normalizePhotoUrl(url)}" alt="Gallery ${i + 1}" />
-          <button type="button" class="thumb-del" data-idx="${i}" title="Remove">×</button>
-        </div>
-      `).join('');
-      container.querySelectorAll('.thumb-del').forEach(btn => {
-        btn.addEventListener('click', () => {
-          siteConfig.rouletteImages.splice(Number(btn.dataset.idx), 1);
-          renderAdminThumbs();
-          renderCarousel();
-        });
-      });
-    }
-
-    document.getElementById('add-gallery-url-btn').addEventListener('click', () => {
-      const inp = document.getElementById('new-gallery-url');
-      const raw = inp.value.trim();
-      if (!raw) return;
-      if (!Array.isArray(siteConfig.rouletteImages)) siteConfig.rouletteImages = [];
-      siteConfig.rouletteImages.push(normalizePhotoUrl(raw));
-      inp.value = '';
-      renderAdminThumbs();
-      renderCarousel();
-    });
-
-    document.getElementById('sync-site-photos-btn').addEventListener('click', async () => {
-      const repoVal = document.getElementById('ed-github-repo').value.trim();
-      if (!repoVal) {
-        showStatusBanner("Enter your GitHub repository (e.g. username/repo-name) first.", true);
-        return;
-      }
-      showStatusBanner("Scanning /site-photos/ folder...");
-      const matched = await syncSitePhotosFolder(repoVal);
-      const count = Object.keys(matched).length;
-      if (count > 0) {
-        siteConfig = { ...siteConfig, githubRepo: repoVal, ...matched };
-        populateAdminFields();
-        applySiteConfig();
-        showStatusBanner(`Matched ${count} photo(s) from /site-photos/! Tap "Save & Publish".`);
-      } else {
-        showStatusBanner("No matching files found in /site-photos/ yet (use background.jpg, our-story.jpg, ceremony.jpg, reception.jpg).", true);
-      }
-    });
-
-    document.getElementById('sync-github-folder-btn').addEventListener('click', async () => {
-      const repoVal = document.getElementById('ed-github-repo').value.trim();
-      const folderVal = document.getElementById('ed-github-folder').value.trim() || "save-the-date";
-      if (!repoVal) {
-        showStatusBanner("Enter your GitHub repository (e.g. username/repo-name) first.", true);
-        return;
-      }
-      showStatusBanner("Scanning GitHub folder...");
-      const imgs = await fetchGithubFolderImages(repoVal, folderVal);
-      if (imgs.length > 0) {
-        siteConfig.githubRepo = repoVal;
-        siteConfig.githubFolder = folderVal;
-        siteConfig.rouletteImages = imgs;
-        renderAdminThumbs();
-        renderCarousel();
-        showStatusBanner(`Found ${imgs.length} photos in /${folderVal}! Tap "Save & Publish".`);
-      } else {
-        showStatusBanner(`No images found in ${repoVal}/${folderVal} yet. Make sure the folder exists on GitHub.`, true);
-      }
-    });
-
-    document.getElementById('reset-colors-btn').addEventListener('click', () => {
-      document.getElementById('ed-color-primary').value = defaultConfig.colorPrimary;
-      document.getElementById('ed-color-secondary').value = defaultConfig.colorSecondary;
-      document.getElementById('ed-color-beige').value = defaultConfig.colorBeige;
-      document.getElementById('ed-color-cream').value = defaultConfig.colorCream;
-    });
-
-    // Save All Changes to Firestore
-    document.getElementById('save-all-btn').addEventListener('click', async () => {
-      showStatusBanner('Saving changes...');
-
-      siteConfig = {
-        ...siteConfig,
-        names: document.getElementById('ed-names').value.trim(),
-        tagline: document.getElementById('ed-tagline').value.trim(),
-        dateText: document.getElementById('ed-date-text').value.trim(),
-        countdownTarget: document.getElementById('ed-countdown').value.trim(),
-        storyHeading: document.getElementById('ed-story-heading').value.trim(),
-        storyBody: document.getElementById('ed-story-body').value.trim(),
-        ceremonyName: document.getElementById('ed-ceremony-name').value.trim(),
-        ceremonyTime: document.getElementById('ed-ceremony-time').value.trim(),
-        ceremonyAddress: document.getElementById('ed-ceremony-address').value.trim(),
-        ceremonyGmaps: document.getElementById('ed-ceremony-gmaps').value.trim(),
-        ceremonyWaze: document.getElementById('ed-ceremony-waze').value.trim(),
-        receptionName: document.getElementById('ed-reception-name').value.trim(),
-        receptionTime: document.getElementById('ed-reception-time').value.trim(),
-        receptionAddress: document.getElementById('ed-reception-address').value.trim(),
-        receptionGmaps: document.getElementById('ed-reception-gmaps').value.trim(),
-        receptionWaze: document.getElementById('ed-reception-waze').value.trim(),
-        entGroom: document.getElementById('ed-ent-groom').value.trim(),
-        entBride: document.getElementById('ed-ent-bride').value.trim(),
-        entPrincipal: document.getElementById('ed-ent-principal').value.trim(),
-        entParty: document.getElementById('ed-ent-party').value.trim(),
-        invWording: document.getElementById('ed-inv-wording').value.trim(),
-        bibleVerse: document.getElementById('ed-bible-verse').value.trim(),
-        bibleRef: document.getElementById('ed-bible-ref').value.trim(),
-        attireNote: document.getElementById('ed-attire-note').value.trim(),
-        giftNote: document.getElementById('ed-gift-note').value.trim(),
-        giftBank: document.getElementById('ed-gift-bank').value.trim(),
-        rsvpDeadline: document.getElementById('ed-rsvp-deadline').value.trim(),
-        thankyouMsg: document.getElementById('ed-thankyou').value.trim(),
-        showEnvelope: document.getElementById('ed-show-envelope').value,
-        colorPrimary: document.getElementById('ed-color-primary').value,
-        colorSecondary: document.getElementById('ed-color-secondary').value,
-        colorBeige: document.getElementById('ed-color-beige').value,
-        colorCream: document.getElementById('ed-color-cream').value,
-        githubRepo: document.getElementById('ed-github-repo').value.trim(),
-        githubFolder: document.getElementById('ed-github-folder').value.trim() || "save-the-date",
-        heroImg: normalizePhotoUrl(document.getElementById('ed-hero-img').value),
-        storyImg: normalizePhotoUrl(document.getElementById('ed-story-img').value),
-        ceremonyImg: normalizePhotoUrl(document.getElementById('ed-ceremony-img').value),
-        receptionImg: normalizePhotoUrl(document.getElementById('ed-reception-img').value),
-        qrImg: normalizePhotoUrl(document.getElementById('ed-qr-img').value)
-      };
-
-      try {
-        await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'config', 'main'), siteConfig, { merge: true });
-        applySiteConfig();
-        showStatusBanner('✓ Saved & Published Live!');
-      } catch (err) {
-        console.error(err);
-        showStatusBanner('✗ Error saving changes: ' + err.message, true);
-      }
+      if (isAdmin) loadRsvps();
     });
 
     // Load & Export RSVPs (Desktop Table + Mobile Cards)
@@ -2235,11 +2142,11 @@
 
         tbody.innerHTML = rsvpCache.map(r => `
           <tr>
-            <td><strong>${r.name || ''}</strong></td>
-            <td>${r.status || ''}</td>
+            <td><strong>${escapeHtml(r.name || '')}</strong></td>
+            <td>${escapeHtml(r.status || '')}</td>
             <td>${r.pax ?? 0}</td>
-            <td>${r.companions || '-'}</td>
-            <td>${r.message || '-'}</td>
+            <td>${escapeHtml(r.companions || '-')}</td>
+            <td>${escapeHtml(r.message || '-')}</td>
             <td><button type="button" class="btn-outline del-rsvp-btn" data-id="${r.id}" style="padding:0.35rem 0.75rem;">Delete</button></td>
           </tr>
         `).join('') || '<tr><td colspan="6">No RSVPs yet.</td></tr>';
@@ -2247,11 +2154,11 @@
         mobileList.innerHTML = rsvpCache.map(r => `
           <div class="rsvp-m-card">
             <div class="rsvp-m-header">
-              <strong style="font-size:1.05rem;">${r.name || ''}</strong>
-              <span class="status-pill">${r.status || ''} (${r.pax ?? 0} Pax)</span>
+              <strong style="font-size:1.05rem;">${escapeHtml(r.name || '')}</strong>
+              <span class="status-pill">${escapeHtml(r.status || '')} (${r.pax ?? 0} Pax)</span>
             </div>
-            ${r.companions ? `<p style="font-size:0.86rem; color:var(--text-dark); margin-bottom:0.3rem;"><strong>Guests:</strong> ${r.companions}</p>` : ''}
-            ${r.message ? `<p style="font-size:0.86rem; color:var(--text-muted); font-style:italic; margin-bottom:0.6rem;">"${r.message}"</p>` : ''}
+            ${r.companions ? `<p style="font-size:0.86rem; color:var(--text-dark); margin-bottom:0.3rem;"><strong>Guests:</strong> ${escapeHtml(r.companions)}</p>` : ''}
+            ${r.message ? `<p style="font-size:0.86rem; color:var(--text-muted); font-style:italic; margin-bottom:0.6rem;">"${escapeHtml(r.message)}"</p>` : ''}
             <button type="button" class="btn-outline del-rsvp-btn" data-id="${r.id}" style="padding:0.4rem 0.9rem; width:100%;">Delete Entry</button>
           </div>
         `).join('') || '<p>No RSVPs yet.</p>';
@@ -2264,8 +2171,8 @@
           });
         });
       } catch (err) {
-        tbody.innerHTML = `<tr><td colspan="6">Error loading RSVPs: ${err.message}</td></tr>`;
-        mobileList.innerHTML = `<p>Error loading RSVPs: ${err.message}</p>`;
+        tbody.innerHTML = `<tr><td colspan="6">Error loading RSVPs: ${escapeHtml(err.message)}</td></tr>`;
+        mobileList.innerHTML = `<p>Error loading RSVPs: ${escapeHtml(err.message)}</p>`;
       }
     }
 
@@ -2278,7 +2185,8 @@
         `"${(r.companions || '').replace(/"/g, '""')}"`,
         `"${(r.message || '').replace(/"/g, '""')}"`
       ].join(','));
-      const csv = [headers.join(','), ...rows].join('\n');
+      const csv = [headers.join(','), ...rows].join('
+');
       const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
       const link = document.createElement('a');
       link.href = URL.createObjectURL(blob);
