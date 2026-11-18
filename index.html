@@ -37,7 +37,13 @@
     /* Envelope Seal Intro Cover */
     #envelope-cover {
       position: fixed;
-      inset: 0;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+      height: 100dvh;
+      min-height: 100vh;
       z-index: 9999;
       background: linear-gradient(145deg, #f7efe5 0%, #eddcd2 100%);
       display: flex;
@@ -45,12 +51,14 @@
       align-items: center;
       justify-content: center;
       text-align: center;
-      padding: 2rem;
-      transition: transform 0.9s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.8s ease;
+      padding: 1.25rem;
+      box-sizing: border-box;
+      transition: transform 0.9s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.8s ease, visibility 0.9s ease;
     }
     #envelope-cover.opened {
-      transform: translateY(-100%);
+      transform: translateY(-105%);
       opacity: 0;
+      visibility: hidden;
       pointer-events: none;
     }
     .envelope-card {
@@ -58,12 +66,29 @@
       border: 1px solid var(--champagne-gold);
       outline: 1px solid rgba(197, 160, 89, 0.45);
       outline-offset: -10px;
-      padding: 3.2rem 2.2rem;
+      padding: 2.8rem 1.75rem;
       max-width: 480px;
       width: 100%;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
       box-shadow: 0 24px 60px rgba(61, 44, 46, 0.14);
     }
+    #cov-names {
+      width: 100%;
+      text-align: center;
+      font-size: clamp(2.35rem, 8.8vw, 3.4rem) !important;
+      line-height: 1.18;
+      white-space: nowrap;
+      margin: 0.25rem auto;
+    }
     .wax-seal {
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
       width: 84px;
       height: 84px;
       margin: 1.6rem auto;
@@ -460,7 +485,7 @@
     }
     .swatch-label { font-size: 0.78rem; color: var(--text-muted); }
 
-    /* Gallery Carousel — Cinema 3-Clip Rolling Filmstrip (Centered & Mobile-First) */
+    /* Gallery Carousel — Cinema 3-Clip Rolling Filmstrip */
     .cinema-stage-wrap {
       position: relative;
       max-width: 1080px;
@@ -512,7 +537,6 @@
       user-select: none;
       -webkit-user-drag: none;
     }
-    /* Slot 0: Exiting left (slides out completely after 4s) */
     .cinema-clip.pos-exit {
       transform: translate(-220%, -50%) scale(0.75);
       opacity: 0;
@@ -520,7 +544,6 @@
       z-index: 1;
       pointer-events: none;
     }
-    /* Slot 1 (First Clip): Semi-transparent left preview symmetrically flanking center */
     .cinema-clip.pos-first {
       transform: translate(-128%, -50%) scale(0.84);
       opacity: 0.48;
@@ -528,10 +551,7 @@
       z-index: 2;
       cursor: pointer;
     }
-    .cinema-clip.pos-first:hover {
-      opacity: 0.72;
-    }
-    /* Slot 2 (Second Clip): Dead-center full vivid hero picture */
+    .cinema-clip.pos-first:hover { opacity: 0.72; }
     .cinema-clip.pos-second {
       transform: translate(-50%, -50%) scale(1.04);
       opacity: 1;
@@ -540,7 +560,6 @@
       box-shadow: 0 22px 55px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(255, 255, 255, 0.15);
       z-index: 4;
     }
-    /* Slot 3 (Third Clip): Semi-transparent blurred right upcoming preview symmetrically flanking center */
     .cinema-clip.pos-third {
       transform: translate(28%, -50%) scale(0.84);
       opacity: 0.52;
@@ -548,10 +567,7 @@
       z-index: 2;
       cursor: pointer;
     }
-    .cinema-clip.pos-third:hover {
-      opacity: 0.75;
-    }
-    /* Slot 4: Off-screen right queue (slides into 3rd slot when rolling forward) */
+    .cinema-clip.pos-third:hover { opacity: 0.75; }
     .cinema-clip.pos-enter {
       transform: translate(120%, -50%) scale(0.75);
       opacity: 0;
@@ -675,7 +691,7 @@
       border: 1px solid #d9c8ca;
       border-radius: 8px;
       font-family: inherit;
-      font-size: 16px; /* Prevents iOS auto-zoom on focus */
+      font-size: 16px;
       background: var(--bg-cream);
     }
     .form-control:focus { outline: none; border-color: var(--primary-rose); background: var(--white); }
@@ -701,9 +717,7 @@
     }
     #edit-site-trigger:hover { background: var(--primary-rose); color: #fff; }
 
-    /* ============================================================
-       MOBILE-FIRST FULL-SCREEN ADMIN EDITOR WORKSPACE
-       ============================================================ */
+    /* Admin Dashboard Workspace */
     #admin-workspace {
       position: fixed;
       inset: 0;
@@ -770,44 +784,6 @@
       padding: 1.5rem 1.25rem 5rem;
       display: none;
     }
-    .admin-layout {
-      display: grid;
-      grid-template-columns: 240px 1fr;
-      gap: 1.75rem;
-      align-items: start;
-    }
-    .admin-sidebar {
-      position: sticky;
-      top: 82px;
-      background: var(--white);
-      border: 1px solid var(--border-soft);
-      border-radius: 12px;
-      padding: 1rem;
-      box-shadow: var(--shadow-soft);
-      display: flex;
-      flex-direction: column;
-      gap: 0.45rem;
-    }
-    .tab-btn {
-      width: 100%;
-      text-align: left;
-      padding: 0.9rem 1rem;
-      border: 1px solid transparent;
-      background: transparent;
-      color: var(--text-dark);
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: 600;
-      font-size: 0.92rem;
-      min-height: 46px;
-      transition: all 0.2s;
-    }
-    .tab-btn:hover { background: var(--bg-cream); color: var(--primary-rose); }
-    .tab-btn.active {
-      background: var(--primary-rose);
-      color: #fff;
-      box-shadow: 0 4px 12px rgba(181, 101, 118, 0.25);
-    }
 
     .admin-main-card {
       background: var(--white);
@@ -816,24 +792,6 @@
       padding: 2rem;
       box-shadow: var(--shadow-soft);
     }
-    .admin-section-block {
-      background: var(--bg-cream);
-      border: 1px solid var(--border-soft);
-      border-radius: 10px;
-      padding: 1.4rem;
-      margin-bottom: 1.5rem;
-    }
-    .admin-section-block h4 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.2rem;
-      color: var(--primary-rose);
-      margin-bottom: 0.9rem;
-      padding-bottom: 0.5rem;
-      border-bottom: 1px solid var(--border-soft);
-    }
-
-    .tab-pane { display: none; }
-    .tab-pane.active { display: block; }
 
     .stats-row {
       display: grid;
@@ -851,7 +809,6 @@
     .stat-box strong { display: block; font-size: 1.75rem; color: var(--primary-rose); }
     .stat-box span { font-size: 0.8rem; color: var(--text-muted); }
 
-    /* Desktop RSVP Table + Mobile RSVP Cards */
     table.rsvp-table { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
     table.rsvp-table th {
       background: var(--bg-cream);
@@ -887,71 +844,6 @@
       color: var(--primary-rose);
     }
 
-    .thumb-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(125px, 1fr));
-      gap: 0.85rem;
-      margin-top: 1.2rem;
-    }
-    .thumb-item {
-      position: relative;
-      border-radius: 8px;
-      overflow: hidden;
-      border: 1px solid #ddd;
-      height: 115px;
-      background: #eee;
-    }
-    .thumb-item img { width: 100%; height: 100%; object-fit: cover; }
-    .thumb-del {
-      position: absolute;
-      top: 6px;
-      right: 6px;
-      background: rgba(180, 30, 50, 0.92);
-      color: #fff;
-      border: none;
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      cursor: pointer;
-      font-weight: bold;
-      font-size: 1rem;
-    }
-    .preview-mini {
-      width: 100%;
-      max-height: 180px;
-      object-fit: cover;
-      border-radius: 8px;
-      margin-top: 0.6rem;
-      border: 1px solid #ddd;
-    }
-    .code-hint {
-      background: #2f2123;
-      color: #f7e6d4;
-      padding: 0.75rem 1rem;
-      border-radius: 8px;
-      font-family: monospace;
-      font-size: 0.84rem;
-      margin: 0.75rem 0;
-      overflow-x: auto;
-    }
-
-    /* Mobile Optimization for Admin & Main Site */
-    @media (max-width: 900px) {
-      .admin-layout { grid-template-columns: 1fr; gap: 1rem; }
-      .admin-sidebar {
-        position: static;
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 0.5rem;
-        padding: 0.75rem;
-      }
-      .tab-btn {
-        text-align: center;
-        padding: 0.75rem 0.5rem;
-        font-size: 0.84rem;
-      }
-    }
-
     @media (max-width: 768px) {
       .nav-links {
         display: none;
@@ -979,14 +871,12 @@
       .carousel-counter { top: 24px; right: 10px; font-size: 0.7rem; padding: 0.2rem 0.6rem; }
       .editorial-frame { padding: 2rem 1.2rem; }
 
-      /* Mobile Admin Refinements */
       .admin-topbar { padding: 0.75rem 1rem; }
       .admin-topbar-brand .script { font-size: 1.65rem !important; }
       .admin-top-actions { width: 100%; justify-content: space-between; }
       .admin-top-actions .btn { padding: 0.6rem 0.95rem; font-size: 0.76rem; flex: 1; text-align: center; }
       #admin-editor-view { padding: 1rem 0.75rem 4.5rem; }
       .admin-main-card { padding: 1.15rem; }
-      .admin-section-block { padding: 1.1rem; }
       .stats-row { grid-template-columns: 1fr; gap: 0.65rem; }
       .stat-box { display: flex; justify-content: space-between; align-items: center; padding: 0.85rem 1.1rem; }
       .stat-box strong { font-size: 1.45rem; }
@@ -997,7 +887,7 @@
 </head>
 <body>
 
-  <!-- Hidden Native Background Audio (Plays music.mp3 in continuous loop on Wax Seal tap) -->
+  <!-- Hidden Native Background Audio -->
   <audio id="bg-music" src="./music.mp3" loop preload="auto" style="display:none;"></audio>
 
   <!-- Envelope Seal Intro Cover -->
@@ -1103,19 +993,15 @@
   <section id="entourage" class="cream-bg">
     <div class="container">
       <div class="nuptials-entourage-card">
-        <!-- Romantic Pink Bride & Groom Silhouette + Ornamental Flourish Watermark -->
         <div class="nuptials-watermark" aria-hidden="true">
           <svg viewBox="0 0 600 760" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <!-- Ornamental Scrollwork Frame -->
             <path d="M300 35 C170 35 75 135 75 265 C75 360 118 425 90 505 C68 565 110 645 185 675 C235 695 270 725 300 735 C330 725 365 695 415 675 C490 645 532 565 510 505 C482 425 525 360 525 265 C525 135 430 35 300 35 Z" stroke="#e5989b" stroke-width="5" stroke-dasharray="18 8"/>
             <path d="M135 120 C95 165 90 230 120 275 M465 120 C505 165 510 230 480 275 M95 430 C60 475 68 545 115 585 M505 430 C540 475 532 545 485 585" stroke="#e5989b" stroke-width="6" stroke-linecap="round"/>
             <circle cx="135" cy="120" r="8" fill="#e5989b"/>
             <circle cx="465" cy="120" r="8" fill="#e5989b"/>
             <circle cx="115" cy="585" r="8" fill="#e5989b"/>
             <circle cx="485" cy="585" r="8" fill="#e5989b"/>
-            <!-- Groom Silhouette (Left) -->
             <path d="M242 92 C266 92 284 110 284 134 C284 155 268 172 248 175 L252 192 L292 212 L305 335 L278 445 L254 715 L224 715 L210 475 L186 355 C172 300 176 232 204 202 L226 190 L226 173 C210 166 200 150 200 132 C200 108 218 92 242 92 Z" fill="#e5989b"/>
-            <!-- Bride Silhouette & Flowing Gown (Right) -->
             <path d="M352 126 C374 126 392 142 394 162 C406 166 414 178 410 192 C406 204 394 210 382 208 L374 224 C405 248 424 295 434 365 C450 470 488 605 524 705 L276 705 C292 595 312 465 320 355 L286 312 L302 292 L326 316 C328 276 334 244 344 224 L338 206 C324 200 314 184 314 166 C314 144 330 126 352 126 Z" fill="#e5989b"/>
           </svg>
         </div>
@@ -1125,7 +1011,6 @@
           <div class="nuptials-sub">Nuptials</div>
           <div class="nuptials-title-script">Entourage</div>
 
-          <!-- Parents of the Groom & Bride -->
           <div class="ent-pair-row">
             <div>
               <div class="ent-block-heading">PARENTS OF THE GROOM</div>
@@ -1137,13 +1022,11 @@
             </div>
           </div>
 
-          <!-- Principal Sponsors -->
           <div class="principal-sponsors-section">
             <div class="ent-block-heading">PRINCIPAL SPONSORS</div>
             <div class="principal-sponsors-list" id="ent-principal-list"></div>
           </div>
 
-          <!-- Best Man & Maid of Honor -->
           <div class="ent-pair-row" style="margin-bottom: 2.2rem;">
             <div>
               <div class="ent-block-heading">BEST MAN</div>
@@ -1155,7 +1038,6 @@
             </div>
           </div>
 
-          <!-- Secondary Sponsors -->
           <div class="ent-block-heading secondary-sponsors-title">SECONDARY SPONSORS</div>
           <div class="secondary-grid">
             <div>
@@ -1176,7 +1058,6 @@
             </div>
           </div>
 
-          <!-- Optional Bridesmaids & Groomsmen (auto-shown if populated in Google Sheet) -->
           <div class="extra-entourage-grid" id="ent-extra-party" style="display:none;"></div>
         </div>
       </div>
@@ -1318,25 +1199,20 @@
     <button id="edit-site-trigger">🔒 Edit Site</button>
   </footer>
 
-  <!-- ============================================================
-       MOBILE-FRIENDLY FULL-SCREEN ADMIN WORKSPACE
-       ============================================================ -->
+  <!-- Admin RSVP Dashboard -->
   <div id="admin-workspace">
-    <!-- Top Sticky Website Navigation Bar -->
     <div class="admin-topbar">
       <div class="admin-topbar-brand">
         <span class="script" style="font-size: 1.9rem; color: var(--primary-rose);">Jason & Camilla</span>
         <span class="admin-badge">RSVP Dashboard</span>
       </div>
       <div class="admin-top-actions">
-        
         <button id="admin-logout-btn" class="btn btn-outline" style="display: none;">Log Out</button>
         <button id="close-admin-btn" class="btn btn-outline">← Live Site</button>
       </div>
     </div>
     <div id="save-status-bar" style="display:none; background:#198754; color:#fff; text-align:center; padding:0.55rem 1rem; font-size:0.88rem; font-weight:600;"></div>
 
-    <!-- Login Screen -->
     <div id="admin-login-view">
       <div style="text-align: center; margin-bottom: 1.5rem;">
         <span class="section-eyebrow">Organizer Access</span>
@@ -1354,7 +1230,6 @@
       <p id="admin-login-err" style="color: #b02a37; font-size: 0.85rem; margin-top: 0.85rem; text-align: center;"></p>
     </div>
 
-    <!-- RSVP-Only Dashboard Workspace (Content & Entourage Managed via Google Sheets) -->
     <div id="admin-editor-view">
       <div style="max-width: 1080px; margin: 0 auto;">
         <div class="admin-main-card">
@@ -1376,7 +1251,6 @@
             <div class="stat-box"><span>Regretfully Declined</span><strong id="stat-declined">0</strong></div>
           </div>
 
-          <!-- Desktop Table -->
           <div class="rsvp-table-wrap" style="overflow-x: auto;">
             <table class="rsvp-table">
               <thead>
@@ -1393,7 +1267,6 @@
             </table>
           </div>
 
-          <!-- Mobile Card View (Zero Horizontal Scrolling) -->
           <div class="rsvp-mobile-cards" id="rsvp-mobile-list"></div>
         </div>
       </div>
@@ -1401,23 +1274,36 @@
   </div>
 
   <script>
-    // Instant fail-safe handler so tapping the wax seal ALWAYS opens the invitation and plays music
-    document.getElementById('open-envelope-btn').addEventListener('click', function () {
+    // Instant fail-safe handler so tapping the wax seal ALWAYS opens the invitation and plays music on mobile & desktop
+    (function () {
+      var sealBtn = document.getElementById('open-envelope-btn');
       var cover = document.getElementById('envelope-cover');
-      if (cover) cover.classList.add('opened');
-      var music = document.getElementById('bg-music');
-      if (music && music.paused) {
-        music.loop = true;
-        music.play().catch(function () {});
+      function openInvite(e) {
+        if (e && e.type === 'touchend') e.preventDefault();
+        if (cover && !cover.classList.contains('opened')) {
+          cover.classList.add('opened');
+          setTimeout(function () {
+            if (cover.classList.contains('opened')) cover.style.display = 'none';
+          }, 950);
+        }
+        var music = document.getElementById('bg-music');
+        if (music && music.paused) {
+          music.loop = true;
+          music.play().catch(function () {});
+        }
       }
-    });
+      if (sealBtn) {
+        sealBtn.addEventListener('click', openInvite);
+        sealBtn.addEventListener('touchend', openInvite, { passive: false });
+      }
+    })();
   </script>
 
   <!-- Firebase SDKs (RSVP Submission & Admin RSVP Viewer) -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
     import { getAuth, signInAnonymously, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-    import { getFirestore, collection, addDoc, getDocs, deleteDoc, query, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+    import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, query, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
     const appId = 'jason-camilla-wedding';
     const GOOGLE_SHEET_ID = '1oI3w9dPLqRp5g_caRdMu2pttcfOoiMtzD7mprYDuEMI';
@@ -1569,7 +1455,6 @@
       imgEl.src = normalizePhotoUrl(primaryUrl);
     }
 
-    // Fetch a Google Sheet tab via Google Visualization API (works seamlessly once Sheet is "Published to web")
     async function fetchGoogleSheetTab(sheetName) {
       const url = `https://docs.google.com/spreadsheets/d/${GOOGLE_SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(sheetName)}&_=${Date.now()}`;
       const res = await fetch(url);
@@ -1582,12 +1467,26 @@
       const table = parsed.table;
       if (!table || !table.rows) return [];
 
-      // Determine column headers (from cols labels or first non-empty row)
+      const knownHeaderNames = new Set(['field', 'value', 'role', 'leftname', 'rightname', 'order', 'question', 'answer', 'colorhex', 'colorname']);
       let headers = (table.cols || []).map(c => (c.label || '').trim());
       let startRowIdx = 0;
-      if (headers.every(h => !h) && table.rows.length > 0) {
-        headers = (table.rows[0].c || []).map(cell => (cell && cell.v != null ? String(cell.v).trim() : ''));
-        startRowIdx = 1;
+
+      const hasKnownInCols = headers.some(h => knownHeaderNames.has(h.toLowerCase()));
+      if (!hasKnownInCols && table.rows.length > 0) {
+        let foundHeaderRow = -1;
+        for (let r = 0; r < Math.min(table.rows.length, 10); r++) {
+          const rowVals = (table.rows[r].c || []).map(cell => (cell && cell.v != null ? String(cell.v).trim() : ''));
+          if (rowVals.some(v => knownHeaderNames.has(v.toLowerCase()))) {
+            foundHeaderRow = r;
+            headers = rowVals;
+            startRowIdx = r + 1;
+            break;
+          }
+        }
+        if (foundHeaderRow === -1) {
+          headers = (table.rows[0].c || []).map(cell => (cell && cell.v != null ? String(cell.v).trim() : ''));
+          startRowIdx = 1;
+        }
       }
 
       const rows = [];
@@ -1616,7 +1515,6 @@
           fetchGoogleSheetTab('AttirePalette').catch(() => [])
         ]);
 
-        // 1. Parse SiteDetails (Field -> Value)
         if (detailsRows.length > 0) {
           const map = {};
           detailsRows.forEach(row => {
@@ -1638,12 +1536,10 @@
           });
         }
 
-        // 2. Parse Entourage
         if (entourageRows.length > 0) {
           siteConfig.entourageRows = entourageRows.sort((a, b) => Number(a.Order || 999) - Number(b.Order || 999));
         }
 
-        // 3. Parse FAQs
         if (faqRows.length > 0) {
           const sortedFaqs = faqRows
             .filter(r => r.Question && r.Answer)
@@ -1652,7 +1548,6 @@
           if (sortedFaqs.length > 0) siteConfig.faqs = sortedFaqs;
         }
 
-        // 4. Parse AttirePalette
         if (paletteRows.length > 0) {
           const swatches = paletteRows
             .filter(r => r.ColorHex && r.ColorName && /^#[0-9A-Fa-f]{3,8}$/.test(r.ColorHex.trim()))
@@ -1664,7 +1559,6 @@
       }
     }
 
-    // Render Formal Nuptials Entourage (Matching Reference Card Design)
     function renderEntourage() {
       const rows = siteConfig.entourageRows || defaultEntourageRows;
       const coupleHeader = (siteConfig.nuptialsTitle || siteConfig.names || 'Jason - Camilla')
@@ -1675,21 +1569,18 @@
 
       const byRole = (pattern) => rows.filter(r => pattern.test((r.Role || '').trim()));
 
-      // Parents of the Groom
       const groomParents = byRole(/parents\s*of\s*the\s*groom/i);
       if (groomParents.length) {
         const lines = groomParents.flatMap(r => [r.LeftName, r.RightName].filter(Boolean));
         document.getElementById('ent-groom-parents').innerHTML = lines.map(escapeHtml).join('<br>');
       }
 
-      // Parents of the Bride
       const brideParents = byRole(/parents\s*of\s*the\s*bride/i);
       if (brideParents.length) {
         const lines = brideParents.flatMap(r => [r.LeftName, r.RightName].filter(Boolean));
         document.getElementById('ent-bride-parents').innerHTML = lines.map(escapeHtml).join('<br>');
       }
 
-      // Principal Sponsors (Paired Female - Male with center dash)
       const principals = byRole(/principal\s*sponsor/i);
       const psContainer = document.getElementById('ent-principal-list');
       psContainer.innerHTML = principals.map(r => `
@@ -1700,47 +1591,63 @@
         </div>
       `).join('');
 
-      // Best Man & Maid of Honor
-      const bestMan = byRole(/best\s*man/i);
-      if (bestMan.length) {
-        const names = bestMan.flatMap(r => [r.LeftName, r.RightName].filter(Boolean));
-        document.getElementById('ent-best-man').innerHTML = names.map(escapeHtml).join('<br>');
-      }
-      const maidOfHonor = byRole(/maid\s*of\s*honor/i);
-      if (maidOfHonor.length) {
-        const names = maidOfHonor.flatMap(r => [r.RightName, r.LeftName].filter(Boolean));
-        document.getElementById('ent-maid-of-honor').innerHTML = names.map(escapeHtml).join('<br>');
+      const combinedMohBm = byRole(/maid\s*of\s*honor\s*&\s*best\s*man|best\s*man\s*&\s*maid\s*of\s*honor/i);
+      if (combinedMohBm.length) {
+        const bmNames = combinedMohBm.map(r => r.LeftName).filter(Boolean);
+        const mohNames = combinedMohBm.map(r => r.RightName).filter(Boolean);
+        if (bmNames.length) document.getElementById('ent-best-man').innerHTML = bmNames.map(escapeHtml).join('<br>');
+        if (mohNames.length) document.getElementById('ent-maid-of-honor').innerHTML = mohNames.map(escapeHtml).join('<br>');
+      } else {
+        const bestMan = byRole(/best\s*man/i);
+        if (bestMan.length) {
+          const names = bestMan.flatMap(r => [r.LeftName, r.RightName].filter(Boolean));
+          document.getElementById('ent-best-man').innerHTML = names.map(escapeHtml).join('<br>');
+        }
+        const maidOfHonor = byRole(/maid\s*of\s*honor/i);
+        if (maidOfHonor.length) {
+          const names = maidOfHonor.flatMap(r => [r.RightName, r.LeftName].filter(Boolean));
+          document.getElementById('ent-maid-of-honor').innerHTML = names.map(escapeHtml).join('<br>');
+        }
       }
 
-      // Secondary Sponsors: Candle, Veil, Cord, Ribbon
       const renderPairBlock = (regex, elId) => {
+        const el = document.getElementById(elId);
+        if (!el) return;
         const list = byRole(regex);
-        if (!list.length) return;
+        if (!list.length) {
+          if (rows !== defaultEntourageRows && el.parentElement) el.parentElement.style.display = 'none';
+          return;
+        }
+        if (el.parentElement) el.parentElement.style.display = '';
         const names = list.flatMap(r => [r.LeftName, r.RightName].filter(Boolean));
-        document.getElementById(elId).innerHTML = names.map(escapeHtml).join('<br>');
+        el.innerHTML = names.map(escapeHtml).join('<br>');
       };
       renderPairBlock(/candle/i, 'ent-candle');
       renderPairBlock(/veil/i, 'ent-veil');
       renderPairBlock(/cord/i, 'ent-cord');
       renderPairBlock(/ribbon/i, 'ent-ribbon');
 
-      // Any additional roles added in Google Sheets (e.g. Groomsmen, Bridesmaids, Ring Bearer, Flower Girls)
       const knownPattern = /(parents\s*of\s*the\s*groom|parents\s*of\s*the\s*bride|principal\s*sponsor|best\s*man|maid\s*of\s*honor|candle|veil|cord|ribbon)/i;
       const extraRows = rows.filter(r => r.Role && !knownPattern.test(r.Role.trim()) && (r.LeftName || r.RightName));
       const extraContainer = document.getElementById('ent-extra-party');
       if (extraRows.length > 0) {
         const grouped = {};
         extraRows.forEach(r => {
-          const role = r.Role.trim();
+          let role = r.Role.trim().replace(/\s+\d+$/, '');
+          if (/^bridesmaid\s*&\s*groomsman$/i.test(role)) role = 'Bridesmaids & Groomsmen';
           if (!grouped[role]) grouped[role] = [];
-          if (r.LeftName) grouped[role].push(r.LeftName);
-          if (r.RightName) grouped[role].push(r.RightName);
+          if (r.LeftName && r.RightName) {
+            grouped[role].push(`${escapeHtml(r.LeftName)} & ${escapeHtml(r.RightName)}`);
+          } else {
+            if (r.LeftName) grouped[role].push(escapeHtml(r.LeftName));
+            if (r.RightName) grouped[role].push(escapeHtml(r.RightName));
+          }
         });
         extraContainer.style.display = 'grid';
-        extraContainer.innerHTML = Object.entries(grouped).map(([role, names]) => `
+        extraContainer.innerHTML = Object.entries(grouped).map(([role, lines]) => `
           <div>
             <div class="ent-sub-heading">${escapeHtml(role)}</div>
-            <div class="ent-name-line">${names.map(escapeHtml).join('<br>')}</div>
+            <div class="ent-name-line">${lines.join('<br>')}</div>
           </div>
         `).join('');
       } else {
@@ -1748,7 +1655,6 @@
       }
     }
 
-    // Automatically fetch image files inside GitHub folders (/save-the-date and /site-photos)
     async function fetchGithubFolderImages(repoOverride, folderOverride) {
       const repo = (repoOverride || siteConfig.githubRepo || detectGithubRepo()).trim();
       const folder = (folderOverride || siteConfig.githubFolder || "save-the-date").trim().replace(/^\/+|\/+$/g, '');
@@ -1786,7 +1692,6 @@
       return matched;
     }
 
-    // Apply Config to DOM
     function applySiteConfig() {
       document.documentElement.style.setProperty('--primary-rose', siteConfig.colorPrimary);
       document.documentElement.style.setProperty('--secondary-pink', siteConfig.colorSecondary);
@@ -1867,7 +1772,6 @@
       startCarouselAutoplay();
     }
 
-    // Cinema 3-Clip Rolling Filmstrip Logic
     function getGalleryList() {
       return (siteConfig.rouletteImages && siteConfig.rouletteImages.length)
         ? siteConfig.rouletteImages
@@ -2007,7 +1911,6 @@
     document.getElementById('prev-slide').addEventListener('click', () => { stepCinema(-1); startCarouselAutoplay(); });
     document.getElementById('next-slide').addEventListener('click', () => { stepCinema(1); startCarouselAutoplay(); });
 
-    // Countdown Timer
     setInterval(() => {
       const target = new Date(siteConfig.countdownTarget).getTime();
       const diff = target - Date.now();
@@ -2018,7 +1921,6 @@
       document.getElementById('cd-secs').textContent = String(Math.floor((diff % 60000) / 1000)).padStart(2, '0');
     }, 1000);
 
-    // Wax Seal Click -> Open Invitation + Auto-Play Hidden Looping music.mp3
     const bgMusic = document.getElementById('bg-music');
     bgMusic.loop = true;
 
@@ -2036,7 +1938,6 @@
       document.getElementById('nav-links').classList.toggle('show');
     });
 
-    // Boot Website: Load Google Sheet CMS + GitHub Folders (/save-the-date & /site-photos)
     async function bootWebsite() {
       const repo = siteConfig.githubRepo || detectGithubRepo();
       const [_, ghImages, sitePhotoMatches] = await Promise.all([
@@ -2052,7 +1953,6 @@
     }
     bootWebsite();
 
-    // RSVP Form Logic
     const statusSel = document.getElementById('guest-status');
     statusSel.addEventListener('change', () => {
       const declined = statusSel.value === 'Regretfully Declines';
@@ -2100,7 +2000,6 @@
       document.getElementById('rsvp-form').style.display = 'block';
     });
 
-    // RSVP-Only Dashboard Controls
     const adminWorkspace = document.getElementById('admin-workspace');
     document.getElementById('edit-site-trigger').addEventListener('click', () => adminWorkspace.classList.add('open'));
     document.getElementById('close-admin-btn').addEventListener('click', () => adminWorkspace.classList.remove('open'));
@@ -2128,7 +2027,6 @@
       if (isAdmin) loadRsvps();
     });
 
-    // Load & Export RSVPs (Desktop Table + Mobile Cards)
     async function loadRsvps() {
       const tbody = document.getElementById('rsvp-tbody');
       const mobileList = document.getElementById('rsvp-mobile-list');
