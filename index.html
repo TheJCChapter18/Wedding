@@ -1400,6 +1400,19 @@
     </div>
   </div>
 
+  <script>
+    // Instant fail-safe handler so tapping the wax seal ALWAYS opens the invitation and plays music
+    document.getElementById('open-envelope-btn').addEventListener('click', function () {
+      var cover = document.getElementById('envelope-cover');
+      if (cover) cover.classList.add('opened');
+      var music = document.getElementById('bg-music');
+      if (music && music.paused) {
+        music.loop = true;
+        music.play().catch(function () {});
+      }
+    });
+  </script>
+
   <!-- Firebase SDKs (RSVP Submission & Admin RSVP Viewer) -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
@@ -2185,8 +2198,7 @@
         `"${(r.companions || '').replace(/"/g, '""')}"`,
         `"${(r.message || '').replace(/"/g, '""')}"`
       ].join(','));
-      const csv = [headers.join(','), ...rows].join('
-');
+      const csv = [headers.join(','), ...rows].join('\n');
       const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
       const link = document.createElement('a');
       link.href = URL.createObjectURL(blob);
